@@ -1,0 +1,23 @@
+AppBundle\Entity\Provider:
+  provider-{1..10}:
+        name: name
+        website: website
+        eMail_contact:
+        phoneNo: 000
+        tvaNo: 000
+        services:
+        galery:
+        logo:
+        stages:
+        promotions: '@promo-*'
+        eMail: '<email()>'
+        password: password
+        addressNo: '<buildingNumber()>'
+        streetName: '<streetName()>'
+        registrationDate: '<dateTimeBetween("-200 days", "now")>'
+        testNo: 0
+        banned: false
+        confirmed: true
+        postalCode: '@cp-*'
+        locality: '@locality-*'
+        city: '@city-*'

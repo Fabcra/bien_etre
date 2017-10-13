@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataSource name="bien_etre@localhost">
+  <database-model serializer="dbm" rdbms="MYSQL" format-version="4.0">
+    <root id="1"/>
+    <schema id="2" parent="1" name="bien_etre">
+      <Current>1</Current>
+      <Visible>1</Visible>
+    </schema>
+    <schema id="3" parent="1" name="2eme_sess"/>
+    <schema id="4" parent="1" name="agenda"/>
+    <schema id="5" parent="1" name="annonces"/>
+    <schema id="6" parent="1" name="annuaire"/>
+    <schema id="7" parent="1" name="architex"/>
+    <schema id="8" parent="1" name="bdd"/>
+    <schema id="9" parent="1" name="belle-jardiniere-v2"/>
+    <schema id="10" parent="1" name="belle_jardiniere"/>
+    <schema id="11" parent="1" name="database"/>
+    <schema id="12" parent="1" name="devuelta"/>
+    <schema id="13" parent="1" name="ex_poo"/>
+    <schema id="14" parent="1" name="fc_isl2016"/>
+    <schema id="15" parent="1" name="films"/>
+    <schema id="16" parent="1" name="information_schema"/>
+    <schema id="17" parent="1" name="isl_2015"/>
+    <schema id="18" parent="1" name="isl_2015_2"/>
+    <schema id="19" parent="1" name="isl_2015_crearchitex"/>
+    <schema id="20" parent="1" name="isl_2015_part2"/>
+    <schema id="21" parent="1" name="isl_2015_php_exam_1"/>
+    <schema id="22" parent="1" name="mysql"/>
+    <schema id="23" parent="1" name="performance_schema"/>
+    <schema id="24" parent="1" name="poo_php"/>
+    <schema id="25" parent="1" name="retour_fournisseur"/>
+    <schema id="26" parent="1" name="symfony"/>
+    <schema id="27" parent="1" name="test"/>
+    <schema id="28" parent="1" name="testdb"/>
+    <schema id="29" parent="1" name="testpoo"/>
+    <schema id="30" parent="1" name="testsymfony"/>
+    <schema id="31" parent="1" name="tppoo2"/>
+    <schema id="32" parent="1" name="videotheque"/>
+    <schema id="33" parent="1" name="villes"/>
+    <schema id="34" parent="1" name="website"/>
+    <schema id="35" parent="1" name="wp-cms"/>
+    <schema id="36" parent="1" name="wp_exam2016"/>
+  </database-model>
+</dataSource>

@@ -1,0 +1,20 @@
+AppBundle\Entity\Member:
+  member-{1..10}:
+        lastName: name
+        firstName: firstname
+        newsletter: false
+        avatar:
+        comments:
+        abuses:
+        eMail: '<email()>'
+        password: password
+        addressNo: '<buildingNumber()>'
+        streetName: '<streetName()>'
+        registrationDate: '<dateTimeBetween("-200 days", "now")>'
+        testNo: 0
+        banned: false
+        confirmed: true
+        postalCode: '@cp-*'
+        locality: '@locality-*'
+        city: '@city-*'
+

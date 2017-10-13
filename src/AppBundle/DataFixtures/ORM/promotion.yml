@@ -1,0 +1,9 @@
+AppBundle\Entity\Promotion:
+  promo-{1..10}:
+        name: name
+        description: desc
+        pdfDoc: pdf.url
+        fromDate: '<dateTimeBetween("-200 days", "now")>'
+        toDate: '<dateTimeBetween("-200 days", "now")>'
+        displayFrom: '<dateTimeBetween("-200 days", "now")>'
+        displayTo: '<dateTimeBetween("-200 days", "now")>'

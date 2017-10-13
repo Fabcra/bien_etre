@@ -1,0 +1,8 @@
+AppBundle\Entity\Comment:
+  com-{1..10}:
+        cote: 0
+        title: title
+        content: content
+        insertDate: '<dateTimeBetween("-200 days", "now")>'
+        member:
+        abuses:

@@ -1,0 +1,3 @@
+AppBundle\Entity\Image:
+  img-{1..10}:
+    url: '<imageUrl()>'

@@ -1,0 +1,3 @@
+AppBundle\Entity\City:
+  city-{1..10}:
+    city: '<city()>'

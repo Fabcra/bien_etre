@@ -1,0 +1,3 @@
+AppBundle\Entity\PostalCode:
+  cp-{1..10}:
+    postalCode: '<postcode()>'
