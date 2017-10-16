@@ -50,18 +50,20 @@ class Service
     private $valid;
 
     /**
-     * @var string
      *
-     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Provider", mappedBy="services")
+     *
+     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Provider", mappedBy="services",cascade={"persist"})
+     *
+     *
      */
     private $users;
 
     /**
      *
      *
-     * @ORM\OneToOne(targetEntity="AppBundle\Entity\Image", inversedBy="service")
+     * @ORM\OneToOne(targetEntity="AppBundle\Entity\Image", inversedBy="service", cascade={"persist"})
      *
-     * @ORM\JoinColumn(name="images", nullable=true, onDelete="SET NULL")
+     * @ORM\JoinColumn(name="images", nullable=true)
      *
      */
     private $image;

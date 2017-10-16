@@ -1,11 +1,9 @@
 AppBundle\Entity\Member:
   member-{1..10}:
-        lastName: name
-        firstName: firstname
+        lastName: '<lastName()>'
+        firstName: '<firstName()>'
         newsletter: false
-        avatar:
-        comments:
-        abuses:
+        avatar : '@img-*'
         eMail: '<email()>'
         password: password
         addressNo: '<buildingNumber()>'

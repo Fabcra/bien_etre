@@ -49,18 +49,10 @@ class Member extends User
      *
      * @ORM\OneToOne(targetEntity="AppBundle\Entity\Image")
      *
-     * @ORM\JoinColumn(name="avatars")
+     * @ORM\JoinColumn(name="avatars", onDelete = "SET NULL")
      */
     private $avatar;
 
-
-    /**
-     * @var
-     *
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Comment", mappedBy="member")
-     *
-     */
-    private $comments;
 
     /**
      *

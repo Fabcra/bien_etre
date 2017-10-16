@@ -1,6 +1,6 @@
 AppBundle\Entity\Abuse:
   abuse-{1..10}:
-        description: 0
+        description: '<sentence()>'
         insertDate: '<dateTimeBetween("-200 days", "now")>'
-        member:
-        comment:
+        member : '@member-*'
+

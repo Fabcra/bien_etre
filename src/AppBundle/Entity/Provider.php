@@ -65,8 +65,8 @@ class Provider extends User
     /**
      * @var string
      *
-     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Service", inversedBy="users")
-     * @ORM\JoinTable(name="users_services")
+     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Service", inversedBy="users", cascade={"persist"})
+     *
      */
     private $services;
 
@@ -87,7 +87,7 @@ class Provider extends User
      *
      * @ORM\OneToOne(targetEntity="AppBundle\Entity\Image")
      *
-     * @ORM\JoinColumn(name="logos")
+     * @ORM\JoinColumn(name="logos", onDelete="SET NULL")
      *
      */
     private $logo;
@@ -101,7 +101,6 @@ class Provider extends User
     private $stages;
 
     /**
-     * @var
      *
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\Promotion", mappedBy="user")
      */
@@ -115,7 +114,7 @@ class Provider extends User
     {
         $this->stages = new ArrayCollection();
         $this->promotions = new ArrayCollection();
-
+        $this->services = new ArrayCollection();
     }
 
     /**

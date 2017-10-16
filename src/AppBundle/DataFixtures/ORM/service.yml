@@ -1,56 +1,42 @@
 AppBundle\Entity\Service:
   service-1:
-       name: soins du corps
-       description: test
-       inFront: false
-       valid: true
-       image:
-
-  service-2:
-       name: therme
-       description: test
-       inFront: false
-       valid: true
-       image:
-
-  service-3:
        name: acupuncture
        description: test
        inFront: false
        valid: true
-       image:
+       image: '@img-*'
 
-  service-4:
+  service-2:
        name: relaxation
        description: test
        inFront: false
        valid: true
-       image:
+       image: '@img-*'
 
-  service-5:
+  service-3:
        name: bronzage
        description: test
        inFront: false
        valid: true
-       image:
+       image: '@img-*'
 
-  service-6:
+  service-4:
        name: gastronomie
        description: test
        inFront: false
        valid: true
-       image:
+       image: '@img-*'
 
-  service-7:
+  service-5:
        name: coiffure
        description: test
        inFront: false
        valid: true
-       image:
+       image: '@img-*'
 
-  service-8:
+  service-6:
        name: relooking
        description: test
        inFront: false
        valid: true
-       image:
+       image: '@img-*'

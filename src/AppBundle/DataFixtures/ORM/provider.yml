@@ -1,15 +1,13 @@
 AppBundle\Entity\Provider:
   provider-{1..10}:
-        name: name
-        website: website
-        eMail_contact:
-        phoneNo: 000
-        tvaNo: 000
-        services:
-        galery:
-        logo:
-        stages:
-        promotions: '@promo-*'
+        name: '<firstName()>'
+        website: '<domainName()>'
+        eMail_contact: '<email()>'
+        phoneNo: '<phoneNumber()>'
+        tvaNo: '<vat()>'
+        services (unique): '<numberBetween(0,5)>x @service-*'
+        galery: '<numberBetween(1,10)>x @img-*'
+        logo : '@img-*'
         eMail: '<email()>'
         password: password
         addressNo: '<buildingNumber()>'

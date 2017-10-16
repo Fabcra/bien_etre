@@ -1,7 +1,7 @@
 AppBundle\Entity\Promotion:
   promo-{1..10}:
-        name: name
-        description: desc
+        name: '<word()>'
+        description: '<sentence()>'
         pdfDoc: pdf.url
         fromDate: '<dateTimeBetween("-200 days", "now")>'
         toDate: '<dateTimeBetween("-200 days", "now")>'
