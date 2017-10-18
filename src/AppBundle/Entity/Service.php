@@ -61,21 +61,18 @@ class Service
     /**
      *
      *
-     * @ORM\OneToOne(targetEntity="AppBundle\Entity\Image", inversedBy="service", cascade={"persist"})
+     * @ORM\OneToOne(targetEntity="AppBundle\Entity\Image", mappedBy="service", cascade={"persist"})
      *
-     * @ORM\JoinColumn(name="images", nullable=true)
+     * @ORM\JoinColumn(name="images", nullable=true, onDelete = "SET NULL")
      *
      */
     private $image;
 
 
     /**
-     *
-     * @ORM\OneToMany(targetEntity="Appbundle\Entity\Promotion", mappedBy="service")
-     *
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Promotion", mappedBy="service")
      */
     private $promotions;
-
 
 
 
@@ -94,7 +91,7 @@ class Service
      *
      * @param string $name
      *
-     * @return Services
+     * @return $this
      */
     public function setName($name)
     {
