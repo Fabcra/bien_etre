@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\Provider;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -9,13 +10,20 @@ use Symfony\Component\HttpFoundation\Request;
 class DefaultController extends Controller
 {
     /**
+     * envoie les données à la homepage todo:3 prochains stages et 3 promotions en cours
      * @Route("/", name="homepage")
      */
-    public function indexAction(Request $request)
+    public function indexAction()
     {
-        // replace this example code with whatever you need
-        return $this->render('home/index.html.twig', [
-            'base_dir' => realpath($this->getParameter('kernel.project_dir')).DIRECTORY_SEPARATOR,
-        ]);
+
+        $doctrine = $this->getDoctrine();
+        $repo_providers = $doctrine->getRepository('AppBundle:Provider');
+        $repo_services = $doctrine->getRepository('AppBundle:Service');
+        $providers=$repo_providers->findAll();
+        $services=$repo_services->findAll();
+
+
+
+        return $this->render('home/home.html.twig', ['providers'=>$providers, 'services'=>$services]);
     }
 }

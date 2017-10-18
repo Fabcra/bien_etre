@@ -1,108 +1,103 @@
-
-<div class="page-wrapper">
+{# EN-TETE + NAVIGATIONS #}
 <header class="header">
-        <div class="header-wrapper">
-            <div class="container">
-                <div class="header-inner">
-                    <div class="header-logo">
-                        <a href={{path('homepage')}}>
-                            <img src={{asset("assets/img/logo.png")}} alt="Logo">
-                            <span>Bien-être</span>
-                        </a>
-                    </div><!-- /.header-logo -->
+    <div class="header-wrapper">
+        <div class="container">
+            <div class="header-inner">
+                <div class="header-logo">
+                    <a href={{ path('homepage') }}>
+                        <img src={{ asset("assets/img/logo.png") }} alt="Logo">
+                        <span>Bien-être</span>
+                    </a>
+                </div><!-- /.header-logo -->
 
-                    <div class="header-content">
-                        <div class="header-top">
-                            <div class="header-search">
-                                <input type="text" class="form-control" placeholder="Search for...">
-                            </div><!-- /.header-search -->
+                <div class="header-content">
 
-                            <ul class="header-nav-secondary nav nav-pills">
-                                <li><a href="login.html">Login</a></li>
-                                <li><a href="register.html">Register</a></li>
-                            </ul>
-                        </div><!-- /.header-top -->
+                    {# NAVIGATION 1 #}
+                    <div class="header-top">
+                        <ul class="header-nav-secondary nav nav-pills">
+                            <li><a href="#">Login</a></li>
+                            <li><a href="#">Register</a></li>
+                        </ul>
+                    </div><!-- /.header-top -->
 
-                        <div class="header-bottom">
+                    {# NAVIGATION 2 #}
+                    <div class="header-bottom">
+                        <ul class="header-nav-primary nav nav-pills collapse navbar-collapse">
+                            {# HOME #}
+                            <li>
+                                <a href="{{ path('homepage') }}">Home <i class="fa"></i></a>
+                            </li>
 
-                            <ul class="header-nav-primary nav nav-pills collapse navbar-collapse">
-                                <li class="active">
-                                    <a href="#">Home <i class="fa fa-chevron-down"></i></a>
-
-                                    <ul class="sub-menu">
-                                        <li><a href="/">#</a></li>
-                                       </ul>
-                                </li>
-
-                                <li >
-                                    <a href="#">menu2 <i class="fa fa-chevron-down"></i></a>
-
-                                    <ul class="sub-menu">
-                                        <li><a href="#">sub-menu2</a></li>
-
-                                    </ul>
-                                </li>
-
-                                <li class="has-mega-menu ">
-                                    <a href="#">menu3 <i class="fa fa-chevron-down"></i></a>
-
-                                    <ul class="mega-menu">
-                                        <li>
-                                            <a href="#">submenu</a>
-
-                                            <ul>
-                                                <a><a href="1">link</a></li>
-
-                                            </ul>
-                                        </li>
-
-                                        <li>
-                                            <a href="#">submenu</a>
-
-                                            <ul>
-                                                <li><a href="#">link</a></li>
-                                            </ul>
-                                        </li>
-
-                                        <li>
-                                            <a href="#">submenu</a>
-
-                                            <ul>
-                                                <li><a href="#">link</a></li>
-                                                 </ul>
-                                        </li>
-
-                                        <li class="hidden-xs">
-                                            <div class="special">
-                                                <a href="#">link</a>
-                                            </div><!-- /.special-->
-                                        </li>
-                                    </ul>
-                                </li>
-
-                                <li >
-                                    <a href="#">menu4 <i class="fa fa-chevron-down"></i></a>
-
-                                    <ul class="sub-menu">
-                                        <li><a href="#">link</a></li>
+                            {# LISTES SERVICES #}
+                            <li class="has-mega-menu ">
+                                <a href="#">Services<i class="fa fa-chevron-down"></i></a>
+                                <ul class="mega-menu">
+                                    <li>
+                                        {% for s in services|slice(0,2) %}
+                                        <ul>
+                                           <a href="#">{{ s.name }}</a></li>
                                         </ul>
-                                </li>
+                                       {% endfor %}
+                                    </li>
+                                    <li>
+                                        {% for s in services|slice(2,2) %}
+                                            <ul>
+                                                <a href="#">{{ s.name }}</a></li>
+                                            </ul>
+                                        {% endfor %}
+                                    </li>
+                                    <li>
+                                        {% for s in services|slice(4,2) %}
+                                            <ul>
+                                                <a href="#">{{ s.name }}</a></li>
+                                            </ul>
+                                        {% endfor %}
+                                    </li>
 
-                                <li >
-                                    <a href="#">menu5 <i class="fa fa-chevron-down"></i></a>
+                                   {#TODO: service du mois#}
+                                    {#<li class="hidden-xs">
+                                        <div class="special">
+                                            <a href="#"></a>
+                                        </div><!-- /.special-->
+                                    </li>#}
 
-                                    <ul class="sub-menu">
-                                        <li><a href="#">link</a></li>
-                                        </ul>
-                                </li>
+                                </ul>
+                            </li>
+
+                            {# STAGES TODO #}
+                            <li>
+                                <a href="#">Stages <i class="fa fa-chevron-down"></i></a>
+
+                                <ul class="sub-menu">
+                                    <li><a href="#">todo</a></li>
+
+                                </ul>
+                            </li>
+
+                            {# PROMOTIONS TODO #}
+                            <li>
+                                <a href="#">Promotions <i class="fa fa-chevron-down"></i></a>
+
+                               <ul class="sub-menu">
+                                    <li><a href="#">todo</a></li>
+                                </ul>
+                            </li>
+
+                           {# <li>
+                                <a href="#">menu <i class="fa fa-chevron-down"></i></a>
+
+                                <ul class="sub-menu">
+                                    <li><a href="#">link</a></li>
+                                </ul>
+                            </li>#}
 
 
-                            </ul>
+                        </ul>
 
 
-                        </div><!-- /.header-bottom -->
-                    </div><!-- /.header-content -->
-                </div><!-- /.header-inner -->
-            </div><!-- /.container -->
-        </div><!-- /.header-wrapper -->
-    </header><!-- /.header -->
+                    </div><!-- /.header-bottom -->
+                </div><!-- /.header-content -->
+            </div><!-- /.header-inner -->
+        </div><!-- /.container -->
+    </div><!-- /.header-wrapper -->
+</header><!-- /.header -->

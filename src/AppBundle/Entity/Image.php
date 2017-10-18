@@ -41,7 +41,7 @@ class Image
 
     /**
      *
-     * @ORM\OneToOne(targetEntity="AppBundle\Entity\Service")
+     * @ORM\OneToOne(targetEntity="AppBundle\Entity\Service", inversedBy="image")
      *
      * @ORM\JoinColumn(name="services")
      *

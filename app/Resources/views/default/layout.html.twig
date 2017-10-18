@@ -1,6 +1,20 @@
+{# LAYOUT A APPELER SUR CHAQUE PAGE #}
 {% extends 'base.html.twig' %}
+
 {% block header %}{% include 'default/header.html.twig' %}{% endblock %}
 {% block body %}
+<div class="main">
+    <div class="main-inner">
+        <div class="container">
+            <div class="content">
 
+{% block content %}{% endblock %}
+
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}
 {% block footer %}{% include 'default/footer.html.twig' %}{% endblock %}
+
+
