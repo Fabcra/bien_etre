@@ -19,7 +19,7 @@ class DefaultController extends Controller
         $doctrine = $this->getDoctrine();
         $repo_providers = $doctrine->getRepository('AppBundle:Provider');
         $repo_services = $doctrine->getRepository('AppBundle:Service');
-        $providers=$repo_providers->findAll();
+        $providers=$repo_providers->findLastProviders(); //affiche 8 résultats
         $services=$repo_services->findAll();
 
 

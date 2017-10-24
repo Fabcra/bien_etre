@@ -1,0 +1,38 @@
+{# LISTE DES SERVICES A INCLUDE DANS UN AUTRE TWIG #}
+<div class="page-wrapper">
+        <div class="container">
+            <div class="content">
+                <div class="mt-140">
+                    <div class="block background-white fullwidth mt80">
+                        <div class="page-header" style="margin-top:10px;">
+                            <h1>Liste des services proposés</h1>
+                            <p>Liste des services et leur description. <br/>Cliquez sur le services recherché pour découvrir <br/>la liste des prestataires qui le proposent</p>
+                        </div><!-- /.page-header -->
+                        <div class="row">
+                            <div class="posts">
+
+                                {% for s in services %}
+                                    <div class="post">
+                                        <div class="post-image">
+                                            <img src="{{ s.image.url }}" alt="{{ s.name }}">
+                                            <a class="read-more"
+                                               href="{{ path('show_service',{'id':s.id}) }}">{{ s.name }}</a>
+                                        </div><!-- /.post-image -->
+
+                                        <div class="post-content">
+                                            <div class="post-label">{{ s.name }}</div><!-- /.post-label -->
+                                            <h2>{{ s.name }}</h2>
+                                            <p>{{ s.description }}</p>
+                                        </div><!-- /.post-content -->
+                                    </div><!-- /.post -->
+                                {% endfor %}
+
+
+                            </div><!-- /.events -->
+
+                        </div><!-- /.row -->
+                    </div><!-- /.block -->
+                </div>
+            </div>
+        </div>
+    </div>

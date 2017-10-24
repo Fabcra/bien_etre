@@ -1,0 +1,18 @@
+{# DESCRIPTION DES SERVICES ET LISTES DES PRESTATAIRES LIES #}
+{% extends 'default/layout.html.twig' %}
+{% block content %}
+
+    <div class="imgservice">
+        <h1>{{ service.name }}</h1>
+        <img src="{{ service.image.url }}"/>
+        <ul class="breadcrumb">
+            <li>{{ service.description }}</li>
+        </ul>
+    </div><!-- /.document-title -->
+    <h2 class="page-title">Liste de prestataires {{ service.name }}</h2><!-- /.page-title -->
+
+
+    {% include 'providers/list.html.twig' %}
+
+
+{% endblock %}

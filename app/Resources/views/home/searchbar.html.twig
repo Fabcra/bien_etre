@@ -1,0 +1,44 @@
+{# MODULE DE RECHERCHE DE LA HOMEPAGE #}
+<form class="filter" method="post" action="{{ path('search') }}">
+    <div class="row">
+        <div class="col-sm-12 col-md-4">
+            <div class="form-group">
+                <input type="text" placeholder="Nom" class="form-control" name="by_name">
+            </div><!-- /.form-group -->
+        </div><!-- /.col-* -->
+
+
+        <div class="col-sm-12 col-md-4">
+
+            <div class="form-group">
+                <input type="text" placeholder="Localité" class="form-control" name="by_location">
+            </div><!-- /.form-group -->
+
+        </div><!-- /.col-* -->
+
+
+        <div class="col-sm-12 col-md-4">
+            <div class="form-group">
+                <select class="form-control" title="Service" name="by_service">
+                    {% for s in services %}
+                    <option value="{{ s.name }}">{{ s.name }}</option>
+                    {% endfor %}
+                </select>
+            </div><!-- /.form-group -->
+        </div><!-- /.col-* -->
+    </div><!-- /.row -->
+
+    <hr>
+
+    <div class="row">
+        <div class="col-sm-8">
+            <div class="filter-actions">
+                <input type="reset" class="btn btn-primary" value="reset"/>
+                {#<a href="#"><i class="fa fa-close"></i> Reset Filter</a>#}
+            </div><!-- /.filter-actions -->
+        </div><!-- /.col-* -->
+        <div class="col-sm-4">
+            <button type="submit" class="btn btn-primary">Recherche</button>
+        </div><!-- /.col-* -->
+    </div><!-- /.row -->
+</form>

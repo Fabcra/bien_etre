@@ -2,14 +2,16 @@
 {% extends 'default/layout.html.twig' %}
 {% block content %}
 
-    {# SLIDER todo: afficher les providers du service du mois #}
-    {% include 'home/slider.html.twig' %}
+                    {# SLIDER todo: afficher les providers du service du mois #}
+                    {% include 'home/slider.html.twig' %}
 
-    {# LISTE PROVIDERS todo: afficher les providers mis en avant #}
-    {% include 'home/highlights.html.twig' %}
+                    {% include 'home/searchbar.html.twig' %}
 
-    {# todo: afficher les 3 prochains stages #}
+                    {# LISTE PROVIDERS todo: afficher les providers mis en avant #}
+                    {% include 'providers/list.html.twig' %}
 
-    {# todo: afficher 3 promotions en cours #}
+                    {# todo: afficher les 3 prochains stages #}
+
+                    {# todo: afficher 3 promotions en cours #}
 
 {% endblock %}

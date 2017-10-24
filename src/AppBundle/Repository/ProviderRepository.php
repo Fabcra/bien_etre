@@ -10,4 +10,57 @@ namespace AppBundle\Repository;
  */
 class ProviderRepository extends \Doctrine\ORM\EntityRepository
 {
+
+    public function myFindBy($id)
+    {
+
+        $qb = $this->createQueryBuilder('p');
+
+        $qb ->leftJoin('p.services', 's')
+            ->andWhere('s.id like :id')
+            ->setParameter('id', $id);
+
+
+        return $qb
+            ->getQuery()
+            ->getResult();
+    }
+
+
+    public function search($params){
+
+        $qb = $this->createQueryBuilder('u');
+
+        $qb->addSelect('l')
+            ->leftJoin('u.locality', 'l')
+            ->addSelect('c')
+            ->innerJoin('u.services', 'c');
+        $qb     ->andWhere('u.name LIKE :name')
+
+            ->setParameter('name', '%' . $params['by_name'] . '%');
+
+
+
+        $qb->andwhere('l.locality LIKE :locality')
+            ->setParameter('locality', '%' . $params['by_location'] . '%');
+
+        $qb->andWhere('c.name LIKE :service')
+            ->setParameter('service', '%' . $params['by_service'] . '%');
+
+
+
+        return $qb->getQuery()
+            ->getResult();
+    }
+
+
+    public function findLastProviders(){
+
+        $qb = $this->createQueryBuilder('p');
+
+        $qb->setMaxResults(8);
+
+        return $qb->getQuery()
+            ->getResult();
+    }
 }

@@ -1,3 +1,8 @@
 AppBundle\Entity\Image:
   img-{1..100}:
-    url: http://zenannietude-hypnose.fr/wp-content/uploads/2015/10/massage-stones-bg-1920x850.jpg
+    url: '<imageUrl(1200, 400, "nature")>'
+
+
+
+
+#

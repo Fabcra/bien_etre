@@ -2,7 +2,10 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
+
 
 /**
  * Service
@@ -60,7 +63,6 @@ class Service
 
     /**
      *
-     *
      * @ORM\OneToOne(targetEntity="AppBundle\Entity\Image", mappedBy="service", cascade={"persist"})
      *
      * @ORM\JoinColumn(name="images", nullable=true, onDelete = "SET NULL")
@@ -74,7 +76,16 @@ class Service
      */
     private $promotions;
 
+    /**
+     * @Gedmo\Slug(fields={"name"})
+     * @ORM\column(length=128, nullable=true)
+     */
+    private $slug;
 
+    public function __construct()
+    {
+        $this->users=new ArrayCollection();
+    }
 
     /**
      * Get id
@@ -229,5 +240,22 @@ class Service
     {
         $this->promotions = $promotions;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getSlug()
+    {
+        return $this->slug;
+    }
+
+    /**
+     * @param mixed $slug
+     */
+    public function setSlug($slug)
+    {
+        $this->slug = $slug;
+    }
+
 
 }
