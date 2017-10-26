@@ -3,19 +3,40 @@
 <div class="detail-gallery">
 
     <div class="detail-gallery-preview">
-        <a href="">
+        {% if provider.gallery is not empty %}
+        <a href="{{ provider.gallery[0].url }}">
             <img src="{{ provider.gallery[0].url }}">
         </a>
+        {% else %}  {# image par défaut si la galerie d'images est vide #}
+        <a href="{{ 'http://via.placeholder.com/640x480'  }}">
+            <img src={{ 'http://via.placeholder.com/640x480' }}>
+        </a>
+        {% endif %}
     </div>
 
+
     <ul class="detail-gallery-index">
+        {% if provider.gallery is not empty %}
         {% for i in provider.gallery %}
         <li class="detail-gallery-list-item active">
             <a data-target="{{ i.url }}">
+
                 <img src="{{ i.url }}" alt="{{ provider.name }}">
+
             </a>
         </li>
         {% endfor %}
+        {% else %}{# image par défaut si la galerie est vide #}
+            <li class="detail-gallery-list-item active">
+                <a data-target="{{ 'http://via.placeholder.com/640x480'  }}">
+
+                    <img src={{ 'http://via.placeholder.com/640x480' }}>
+
+                </a>
+            </li>
+
+
+        {% endif %}
     </ul>
 
 </div><!-- /.detail-gallery -->

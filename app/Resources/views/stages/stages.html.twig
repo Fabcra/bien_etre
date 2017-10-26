@@ -1,0 +1,14 @@
+{# AFFICHE LA LISTE DES STAGES AU COMPLET #}
+{% extends 'default/layout.html.twig' %}
+{% block content %}
+    <div class="page-header">
+        <h1>Liste de stages</h1>
+        <p>Voici la liste des stages organisé par nos prestataires. <br/>
+            En cliquant sur le lien "s'inscrire", vous serez redirigé
+            vers la page du prestataire <br/> que vous pourrez ensuite contacter .
+
+        </p>
+    </div><!-- /.page-header -->
+    {% include 'stages/list.html.twig' %}
+
+{% endblock %}

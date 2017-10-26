@@ -1,4 +1,0 @@
-AppBundle\Entity\Gallery:
-    gallery_img{1..100}:
-        url: '<imageUrl()>'
-        provider: '@provider-*'

@@ -74,7 +74,7 @@ class Provider extends User
 
     /**
      *
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Gallery", mappedBy="provider")
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Image", mappedBy="provider")
      *
      *
      */

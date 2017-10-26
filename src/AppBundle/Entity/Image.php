@@ -29,6 +29,17 @@ class Image
     private $url;
 
 
+    /**
+     *
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Provider", inversedBy="gallery", cascade={"persist"})
+     *
+     * @ORM\JoinColumn(name="provider", onDelete="SET NULL")
+     *
+     */
+    private $provider;
+
+
+
 
 
     /**

@@ -1,3 +1,4 @@
+{# PAGE PRESTATAIRE #}
 {% extends 'default/layout.html.twig' %}
 {% block content %}
     <div class="mt-80 mb80">
@@ -5,8 +6,9 @@
             <div class="container">
                 <div class="detail-banner-left">
                     <div class="detail-banner-info">
-                        <div class="detail-label">Restaurant</div>
-                        <div class="detail-verified">Verified</div>
+                        {% for s in provider.services %}
+                        <a href="{{ path('show_service',{'slug':s.slug})  }}"><div class="detail-label">{{ s.name }}</div></a>
+                            {% endfor %}
                     </div><!-- /.detail-banner-info -->
 
                     <h2 class="detail-title">
@@ -72,7 +74,7 @@
                     {% include 'providers/facebook.html.twig' %}
                 </div><!-- /.follow-wrapper -->
             </div><!-- /.detail-follow -->
-
+            {# TODO:AFFICHER LA LISTE DES STAGES ET PROMOTIONS #}
         </div>
     </div>
 {% endblock %}

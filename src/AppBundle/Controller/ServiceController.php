@@ -30,7 +30,7 @@ class ServiceController extends Controller {
 
 
 
-        return $this->render('services/description.html.twig', ['service'=>$service,  'providers'=>$providers]);
+        return $this->render('services/service.html.twig', ['service'=>$service,  'providers'=>$providers]);
 
 
     }
