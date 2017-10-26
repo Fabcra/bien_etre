@@ -1,7 +1,7 @@
 {# DESCRIPTION DES SERVICES ET LISTES DES PRESTATAIRES LIES #}
 {% extends 'default/layout.html.twig' %}
 {% block content %}
-
+    <div class="container">
     <div class="imgservice">
         <h1>{{ service.name }}</h1>
         <img src="{{ service.image.url }}"/>
@@ -13,6 +13,6 @@
 
 
     {% include 'providers/list.html.twig' %}
-
+    </div>
 
 {% endblock %}

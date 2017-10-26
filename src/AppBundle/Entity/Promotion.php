@@ -24,35 +24,35 @@ class Promotion
     /**
      * @var string
      *
-     * @ORM\Column(name="names", type="string", length=255)
+     * @ORM\Column(name="name", type="string", length=255)
      */
     private $name;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="descriptions", type="string", length=255)
+     * @ORM\Column(name="description", type="string", length=255)
      */
     private $description;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="pdf_docs", type="string", length=255)
+     * @ORM\Column(name="pdf_doc", type="string", length=255)
      */
     private $pdfDoc;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="from_dates", type="datetime")
+     * @ORM\Column(name="from_date", type="datetime")
      */
     private $fromDate;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="to_dates", type="datetime")
+     * @ORM\Column(name="to_date", type="datetime")
      */
     private $toDate;
 

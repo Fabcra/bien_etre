@@ -24,42 +24,42 @@ class Stage
     /**
      * @var string
      *
-     * @ORM\Column(name="names", type="string", length=255)
+     * @ORM\Column(name="name", type="string", length=255)
      */
     private $name;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="descriptions", type="string", length=255)
+     * @ORM\Column(name="description", type="string", length=255)
      */
     private $description;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="prices", type="string", length=255)
+     * @ORM\Column(name="price", type="string", length=255)
      */
     private $price;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="more_infos", type="string", length=255)
+     * @ORM\Column(name="more_info", type="string", length=255)
      */
     private $moreInfo;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="from_dates", type="datetime")
+     * @ORM\Column(name="from_date", type="datetime")
      */
     private $fromDate;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="to_dates", type="datetime")
+     * @ORM\Column(name="to_date", type="datetime")
      */
     private $toDate;
 
@@ -81,7 +81,7 @@ class Stage
      *
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Provider", inversedBy="stages")
      *
-     * @ORM\JoinColumn(name="users")
+     * @ORM\JoinColumn(name="user")
      */
     private $user;
 

@@ -24,7 +24,7 @@ class City
     /**
      * @var string
      *
-     * @ORM\Column(name="Cities", type="string", length=255, nullable=true)
+     * @ORM\Column(name="city", type="string", length=255, nullable=true)
      */
     private $city;
 

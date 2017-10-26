@@ -24,29 +24,11 @@ class Image
     /**
      * @var string
      *
-     * @ORM\Column(name="urls", type="string", length=255, nullable=true)
+     * @ORM\Column(name="url", type="string", length=255, nullable=true)
      */
     private $url;
 
 
-    /**
-     * @var string
-     *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Provider", inversedBy="galery", cascade="persist")
-     *
-     * @ORM\JoinColumn(name="providers")
-     *
-     */
-    private $provider;
-
-    /**
-     *
-     * @ORM\OneToOne(targetEntity="AppBundle\Entity\Service", inversedBy="image")
-     *
-     * @ORM\JoinColumn(name="services")
-     *
-     */
-    private $service;
 
 
     /**
@@ -100,21 +82,6 @@ class Image
         $this->provider = $provider;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getService()
-    {
-        return $this->service;
-    }
-
-    /**
-     * @param mixed $service
-     */
-    public function setService($service)
-    {
-        $this->service = $service;
-    }
 
 
 

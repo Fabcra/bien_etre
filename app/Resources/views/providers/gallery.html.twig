@@ -1,0 +1,21 @@
+{# GALERIE D'IMAGE A INSERER DANS UN TWIG #}
+
+<div class="detail-gallery">
+
+    <div class="detail-gallery-preview">
+        <a href="">
+            <img src="{{ provider.gallery[0].url }}">
+        </a>
+    </div>
+
+    <ul class="detail-gallery-index">
+        {% for i in provider.gallery %}
+        <li class="detail-gallery-list-item active">
+            <a data-target="{{ i.url }}">
+                <img src="{{ i.url }}" alt="{{ provider.name }}">
+            </a>
+        </li>
+        {% endfor %}
+    </ul>
+
+</div><!-- /.detail-gallery -->

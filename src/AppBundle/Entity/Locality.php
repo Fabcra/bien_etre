@@ -24,7 +24,7 @@ class Locality
     /**
      * @var string
      *
-     * @ORM\Column(name="localities", type="string", length=255, nullable=true)
+     * @ORM\Column(name="locality", type="string", length=255, nullable=true)
      */
     private $locality;
 

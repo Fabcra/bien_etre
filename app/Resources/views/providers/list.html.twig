@@ -7,11 +7,11 @@
                 <div class="card-simple" data-background-image={{ p.logo.url }}>
                     <div class="card-simple-background">
                         <div class="card-simple-content">
-                            <h2><a href="#">{{ p.name }}</a></h2>
+                            <h2><a href="{{ path('show_provider',{'slug':p.slug}) }}">{{ p.name }}</a></h2>
 
 
                             <div class="card-simple-actions">
-                                <a href="#" class="fa fa-search"></a>
+                                <a href="{{ path('show_provider',{'slug':p.slug}) }}" class="fa fa-search"></a>
                             </div><!-- /.card-simple-actions -->
                         </div><!-- /.card-simple-content -->
 

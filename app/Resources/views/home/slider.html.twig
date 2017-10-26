@@ -11,26 +11,18 @@
                         {% set active='' %}
                     {% endif %}
                     <div class="item {{ active }}" style="height:400px;">
-                        <div class="item-bg" style='background-color: #000'></div>
+                        <div class="item-bg" style="background-image: url({{ p.logo.url}})"></div>
                         <img src={{ p.logo.url }} alt="{{ p.name }}">
                         <div class="carousel-caption">
                             <div class="hero-slider-content">
-                                <h1>{{ p.name }}</h1>
+                                <a href="{{ path('show_provider',{'slug':p.slug}) }}"><h1>{{ p.name }}</h1></a>
 
-                                {#  <div class="hero-slider-rating">
-                                      <i class="fa fa-star"></i>
-                                      <i class="fa fa-star"></i>
-                                      <i class="fa fa-star"></i>
-                                      <i class="fa fa-star"></i>
-                                      <i class="fa fa-star"></i>
-                                  </div><!-- /.card-simple-rating -->#}
+
                             </div><!-- /.hero-slider-content -->
 
-                            {#<div class="hero-slider-actions">
-                                <a href="#"><i class="fa fa-heart-o"></i></a>
-                                <a href="listing-detail.html"><i class="fa fa-search"></i></a>
-                                <a href="#"><i class="fa fa-bookmark-o"></i></a>
-                            </div><!-- /.hero-slider-actions -->#}
+                            <div class="hero-slider-actions">
+                                <a href="{{ path('show_provider',{'slug':p.slug}) }}"><i class="fa fa-search"></i></a>
+                            </div><!-- /.hero-slider-actions -->
                         </div><!-- /.carousel-caption -->
                     </div><!-- /.item -->
 

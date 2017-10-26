@@ -2,41 +2,41 @@ AppBundle\Entity\Service:
   service-1:
        name: acupuncture
        description: '<paragraph(5)>'
-       inFront: false
+       highlight: false
        valid: true
        image (unique): '@img-*'
 
   service-2:
        name: relaxation
        description: '<paragraph(5)>'
-       inFront: false
+       highlight: false
        valid: true
        image (unique): '@img-*'
 
   service-3:
        name: bronzage
        description: '<paragraph(5)>'
-       inFront: false
+       highlight: false
        valid: true
        image (unique): '@img-*'
 
   service-4:
        name: gastronomie
        description: '<paragraph(5)>'
-       inFront: false
+       highlight: false
        valid: true
        image (unique): '@img-*'
 
   service-5:
        name: coiffure
        description: '<paragraph(5)>'
-       inFront: false
+       highlight: false
        valid: true
        image (unique): '@img-*'
 
   service-6:
        name: relooking
        description: '<paragraph(5)>'
-       inFront: false
+       highlight: false
        valid: true
        image (unique): '@img-*'

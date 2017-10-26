@@ -22,7 +22,8 @@ class ProviderController extends Controller
      * @Route("/search", name="search")
      *
      */
-    public function searchProviders(Request $request){
+    public function searchProviders(Request $request)
+    {
 
         $params = $request->request->all();
         $doctrine = $this->getDoctrine();
@@ -35,9 +36,24 @@ class ProviderController extends Controller
         $providers = $repo->search($params);
 
 
-        return $this->render('providers/providers.html.twig', ['providers'=>$providers, 'services'=>$services]);
+        return $this->render('providers/providers.html.twig', ['providers' => $providers, 'services' => $services]);
 
     }
 
+    /**
+     *
+     * @Route("/provider/{slug}", name="show_provider")
+     *
+     */
+    public function viewProvider($slug)
+    {
+        $doctrine = $this->getDoctrine();
 
+        $repo = $doctrine->getRepository('AppBundle:Provider');
+
+        $provider = $repo->findOneBy(['slug'=>$slug]);
+
+        return $this->render('providers/provider.html.twig', ['provider'=>$provider]);
+
+    }
 }

@@ -1,6 +1,7 @@
 {# HOME les modules de la homepage s'ajoutent ici #}
 {% extends 'default/layout.html.twig' %}
 {% block content %}
+    <div class="container">
 
                     {# SLIDER todo: afficher les providers du service du mois #}
                     {% include 'home/slider.html.twig' %}
@@ -13,5 +14,5 @@
                     {# todo: afficher les 3 prochains stages #}
 
                     {# todo: afficher 3 promotions en cours #}
-
+    </div>
 {% endblock %}

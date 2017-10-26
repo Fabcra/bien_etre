@@ -11,17 +11,19 @@ class ServiceController extends Controller {
      *
      * affiche la description d'un service et la liste des providers liés à celui-ci
      *
-     * @Route("service/{id}", name="show_service")
+     * @Route("service/{slug}", name="show_service")
      *
      */
-    public function showService($id){
+    public function showService($slug){
 
         $doctrine = $this->getDoctrine();
         $repo = $doctrine->getRepository('AppBundle:Service');
         $repo_provider = $doctrine->getRepository('AppBundle:Provider');
 
 
-        $service = $repo->findOneBy(['id'=>$id]);
+        $service = $repo->findOneBy(['slug'=>$slug]);
+
+        $id = $service->getId();
 
 
         $providers = $repo_provider->myFindBy($id);

@@ -1,0 +1,78 @@
+{% extends 'default/layout.html.twig' %}
+{% block content %}
+    <div class="mt-80 mb80">
+        <div class="detail-banner" style="background-image: url({{ provider.logo.url }});">
+            <div class="container">
+                <div class="detail-banner-left">
+                    <div class="detail-banner-info">
+                        <div class="detail-label">Restaurant</div>
+                        <div class="detail-verified">Verified</div>
+                    </div><!-- /.detail-banner-info -->
+
+                    <h2 class="detail-title">
+                        {{ provider.name }}
+                    </h2>
+                    <div class="detail-banner-address">
+                        <i class="fa fa-map-o"></i> {{ provider.streetName }}
+                        , {{ provider.addressNo }} {{ provider.postalCode.postalCode }} {{ provider.locality.locality }} {{ provider.city.city }}
+                    </div><!-- /.detail-banner-address -->
+
+
+                </div><!-- /.detail-banner-left -->
+            </div><!-- /.container -->
+        </div><!-- /.detail-banner -->
+    </div>
+
+
+    <div class="container">
+        <div class="col-sm-7">
+            <div class="row detail-content">
+
+
+                {% include 'providers/gallery.html.twig' %}
+
+
+            </div>
+
+        </div>
+        <div class="col-sm-5">
+                <div class="detail-vcard">
+                    <div class="detail-logo">
+                        <img width="100px" src="{{ provider.logo.url }}">
+                    </div><!-- /.detail-logo -->
+
+
+                    <div class="detail-contact">
+                        <div class="detail-contact-email">
+                            <i class="fa fa-envelope-o"></i> <a href="mailto:#">{{ provider.email }}</a>
+                        </div>
+                        <div class="detail-contact-phone">
+                            <i class="fa fa-mobile-phone"></i> <a href="tel:#">{{ provider.phoneNo }}</a>
+                        </div>
+                        <div class="detail-contact-website">
+                            <i class="fa fa-globe"></i> <a href="#">{{ provider.website }}</a>
+                        </div>
+                        <div class="detail-contact-address">
+                            <i class="fa fa-map-o"></i>
+                            {{ provider.addressNo }}, {{ provider.streetName }}<br>
+                            {{ provider.postalCode.postalCode }} {{ provider.locality.locality }} {{ provider.city.city }}
+                        </div>
+                    </div><!-- /.detail-contact -->
+                </div><!-- /.detail-vcard -->
+            <div class="tab-content">
+                <h2>Nous sommes ici</h2>
+
+                {% include 'providers/map.html.twig' %}
+
+            </div>
+
+            <div class="detail-follow">
+                <h5>Follow Us:</h5>
+                <div class="follow-wrapper">
+                    {% include 'providers/facebook.html.twig' %}
+                </div><!-- /.follow-wrapper -->
+            </div><!-- /.detail-follow -->
+
+        </div>
+    </div>
+{% endblock %}

@@ -6,12 +6,11 @@ AppBundle\Entity\Provider:
         phoneNo: '<phoneNumber()>'
         tvaNo: '<vat()>'
         services : '<numberBetween(1,2)>x @service-*'
-        galery: '<numberBetween(1,10)>x @img-*'
         logo : '@img-*'
         eMail: '<email()>'
         password: password
         addressNo: '<buildingNumber()>'
-        streetName: '<streetName()>'
+        streetName: rue de l'église
         registrationDate: '<dateTimeBetween("-200 days", "now")>'
         testNo: 0
         banned: false

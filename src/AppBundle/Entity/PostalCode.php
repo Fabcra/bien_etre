@@ -24,7 +24,7 @@ class PostalCode
     /**
      * @var string
      *
-     * @ORM\Column(name="postal_codes", type="string", length=255, nullable=true)
+     * @ORM\Column(name="postal_code", type="string", length=255, nullable=true)
      */
     private $postalCode;
 

@@ -5,6 +5,7 @@ namespace AppBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * Provider
@@ -28,21 +29,21 @@ class Provider extends User
     /**
      * @var string
      *
-     * @ORM\Column(name="names", type="string", length=25, nullable=true)
+     * @ORM\Column(name="name", type="string", length=25, nullable=true)
      */
     private $name;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="websites", type="string", length=255, nullable=true)
+     * @ORM\Column(name="website", type="string", length=255, nullable=true)
      */
     private $website;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="e_mails_contact", type="string", length=255, nullable=true)
+     * @ORM\Column(name="e_mail_contact", type="string", length=255, nullable=true)
      */
     private $eMail_contact;
 
@@ -50,14 +51,14 @@ class Provider extends User
     /**
      * @var string
      *
-     * @ORM\Column(name="phone_nos", type="string", length=255, nullable=true)
+     * @ORM\Column(name="phone_no", type="string", length=255, nullable=true)
      */
     private $phoneNo;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="tva_nos", type="string", length=255, nullable=true)
+     * @ORM\Column(name="tva_no", type="string", length=255, nullable=true)
      */
     private $tvaNo;
 
@@ -72,23 +73,20 @@ class Provider extends User
 
 
     /**
-     * @var string
      *
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Image", mappedBy="provider")
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Gallery", mappedBy="provider")
      *
-     * @ORM\JoinColumn(name="galeries")
      *
      */
-    private $galery;
+    private $gallery;
 
 
     /**
      * @var string
      *
-     * @ORM\OneToOne(targetEntity="AppBundle\Entity\Image")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Image", cascade={"persist"})
      *
-     * @ORM\JoinColumn(name="logos", onDelete="SET NULL")
-     *
+     * @ORM\JoinColumn(onDelete="SET NULL")
      */
     private $logo;
 
@@ -106,6 +104,12 @@ class Provider extends User
      */
     private $promotions;
 
+    /**
+     * @Gedmo\Slug(fields={"name"})
+     * @ORM\column(length=128, nullable=true)
+     */
+    private $slug;
+
 
     /**
      * Provider constructor.
@@ -115,6 +119,7 @@ class Provider extends User
         $this->stages = new ArrayCollection();
         $this->promotions = new ArrayCollection();
         $this->services = new ArrayCollection();
+        $this->gallery = new ArrayCollection();
     }
 
     /**
@@ -249,17 +254,17 @@ class Provider extends User
     /**
      * @return string
      */
-    public function getGalery()
+    public function getGallery()
     {
-        return $this->galery;
+        return $this->gallery;
     }
 
     /**
-     * @param string $galery
+     * @param string $gallery
      */
-    public function setGalery($galery)
+    public function setGallery($gallery)
     {
-        $this->galery = $galery;
+        $this->gallery = $gallery;
     }
 
 
@@ -327,6 +332,23 @@ class Provider extends User
     {
         $this->eMail_contact = $eMail_contact;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getSlug()
+    {
+        return $this->slug;
+    }
+
+    /**
+     * @param mixed $slug
+     */
+    public function setSlug($slug)
+    {
+        $this->slug = $slug;
+    }
+
 
 }
 

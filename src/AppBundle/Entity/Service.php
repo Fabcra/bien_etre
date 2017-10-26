@@ -27,23 +27,23 @@ class Service
     /**
      * @var string
      *
-     * @ORM\Column(name="names", type="string", length=255)
+     * @ORM\Column(name="name", type="string", length=255)
      */
     private $name;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="descriptions", type="string", length=255, nullable=true)
+     * @ORM\Column(name="description", type="string", length=255, nullable=true)
      */
     private $description;
 
     /**
      * @var bool
      *
-     * @ORM\Column(name="in_front", type="boolean", nullable=true)
+     * @ORM\Column(name="highlight", type="boolean", nullable=true)
      */
-    private $inFront;
+    private $highlight;
 
     /**
      * @var bool
@@ -63,9 +63,9 @@ class Service
 
     /**
      *
-     * @ORM\OneToOne(targetEntity="AppBundle\Entity\Image", mappedBy="service", cascade={"persist"})
+     * @ORM\OneToOne(targetEntity="AppBundle\Entity\Image", cascade={"persist"})
      *
-     * @ORM\JoinColumn(name="images", nullable=true, onDelete = "SET NULL")
+     * @ORM\JoinColumn(onDelete="SET NULL")
      *
      */
     private $image;
@@ -146,28 +146,21 @@ class Service
     }
 
     /**
-     * Set inFront
-     *
-     * @param boolean $inFront
-     *
-     * @return Services
+     * @return bool
      */
-    public function setInFront($inFront)
+    public function isHighlight()
     {
-        $this->inFront = $inFront;
-
-        return $this;
+        return $this->highlight;
     }
 
     /**
-     * Get inFront
-     *
-     * @return bool
+     * @param bool $highlight
      */
-    public function getInFront()
+    public function setHighlight($highlight)
     {
-        return $this->inFront;
+        $this->highlight = $highlight;
     }
+
 
     /**
      * Set valid

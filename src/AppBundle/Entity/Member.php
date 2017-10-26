@@ -5,6 +5,7 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 
+
 /**
  * Member
  *
@@ -25,21 +26,21 @@ class Member extends User
     /**
      * @var string
      *
-     * @ORM\Column(name="last_names", type="string", length=255, nullable=true)
+     * @ORM\Column(name="last_name", type="string", length=255, nullable=true)
      */
     private $lastName;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="first_names", type="string", length=255, nullable=true)
+     * @ORM\Column(name="first_name", type="string", length=255, nullable=true)
      */
     private $firstName;
 
     /**
      * @var bool
      *
-     * @ORM\Column(name="newsletters", type="boolean")
+     * @ORM\Column(name="newsletter", type="boolean")
      */
     private $newsletter;
 
@@ -47,9 +48,9 @@ class Member extends User
     /**
      * @var
      *
-     * @ORM\OneToOne(targetEntity="AppBundle\Entity\Image")
+     * @ORM\OneToOne(targetEntity="AppBundle\Entity\Image", cascade={"persist"})
      *
-     * @ORM\JoinColumn(name="avatars", onDelete = "SET NULL")
+     * @ORM\JoinColumn(name="avatar", onDelete = "SET NULL")
      */
     private $avatar;
 
@@ -60,6 +61,7 @@ class Member extends User
      *
      */
     private $abuses;
+
 
 
 

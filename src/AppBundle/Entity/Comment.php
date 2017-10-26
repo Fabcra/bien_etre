@@ -24,28 +24,28 @@ class Comment
     /**
      * @var int
      *
-     * @ORM\Column(name="cotes", type="integer")
+     * @ORM\Column(name="cote", type="integer")
      */
     private $cote;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="titles", type="string", length=255)
+     * @ORM\Column(name="title", type="string", length=255)
      */
     private $title;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="contents", type="string", length=255)
+     * @ORM\Column(name="content", type="string", length=255)
      */
     private $content;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="insert_dates", type="datetime")
+     * @ORM\Column(name="insert_date", type="datetime")
      */
     private $insertDate;
 
@@ -53,16 +53,12 @@ class Comment
      *
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Member")
      *
-     * @ORM\JoinColumn(name="members")
      */
     private $member;
 
     /**
      *
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\Abuse", mappedBy="comment")
-     *
-     *
-     * @ORM\JoinColumn(name="abuses")
      *
      *
      */

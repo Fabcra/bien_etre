@@ -24,14 +24,14 @@ class Abuse
     /**
      * @var string
      *
-     * @ORM\Column(name="descriptions", type="string", length=255)
+     * @ORM\Column(name="description", type="string", length=255)
      */
     private $description;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="insert_dates", type="datetime")
+     * @ORM\Column(name="insert_date", type="datetime")
      */
     private $insertDate;
 
@@ -39,7 +39,6 @@ class Abuse
      *
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Member", inversedBy="abuses")
      *
-     * @ORM\JoinColumn(name="members")
      *
      */
     private $member;
@@ -49,7 +48,6 @@ class Abuse
      *
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Comment", inversedBy="abuses")
      *
-     * @ORM\JoinColumn(name="comments")
      *
      */
     private $comment;

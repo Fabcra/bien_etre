@@ -27,35 +27,35 @@ class User
     /**
      * @var string
      *
-     * @ORM\Column(name="e_mails", type="string", length=255, unique=true, nullable=true)
+     * @ORM\Column(name="e_mail", type="string", length=255, unique=true, nullable=true)
      */
     private $eMail;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="passwords", type="string", length=255, nullable=true)
+     * @ORM\Column(name="password", type="string", length=255, nullable=true)
      */
     private $password;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="addresses_no", type="string", length=5, nullable=true)
+     * @ORM\Column(name="addresse_no", type="string", length=5, nullable=true)
      */
     private $addressNo;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="street_names", type="string", length=255, nullable=true)
+     * @ORM\Column(name="street_name", type="string", length=255, nullable=true)
      */
     private $streetName;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="registration_dates", type="datetime", nullable=true)
+     * @ORM\Column(name="registration_date", type="datetime", nullable=true)
      */
     private $registrationDate;
 
@@ -63,7 +63,7 @@ class User
     /**
      * @var int
      *
-     * @ORM\Column(name="tests_no", type="integer", nullable=true)
+     * @ORM\Column(name="test_no", type="integer", nullable=true)
      */
     private $testNo;
 
@@ -86,7 +86,7 @@ class User
      *
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\PostalCode")
      *
-     * @ORM\JoinColumn(name="postal_codes", nullable=true)
+     * @ORM\JoinColumn(name="postal_code", nullable=true)
      */
     private $postalCode;
 
@@ -95,7 +95,7 @@ class User
      *
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Locality")
      *
-     * @ORM\JoinColumn(name="localities", nullable=true)
+     * @ORM\JoinColumn(name="locality", nullable=true)
      */
     private $locality;
 
@@ -104,7 +104,7 @@ class User
      *
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\City")
      *
-     * @ORM\JoinColumn(name="cities", nullable=true, onDelete="SET NULL")
+     * @ORM\JoinColumn(name="city", nullable=true, onDelete="SET NULL")
      *
      */
     private $city;
