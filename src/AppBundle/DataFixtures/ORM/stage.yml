@@ -1,7 +1,7 @@
 AppBundle\Entity\Stage:
   stage-{1..10}:
         name: '<word()>'
-        description: '<sentence()>'
+        description: '<paragraph(20)>'
         price: '<randomDigitNotNull()>'
         moreInfo: '<sentence()>'
         fromDate: '<dateTimeBetween("-200 days", "now")>'

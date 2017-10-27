@@ -3,14 +3,14 @@
     <div class="pricings">
         <div class="row">
             {% for s in stages %}
-
                 <div class="col-sm-4">
                     <div class="pricing">
                         <div class="pricing-title">{{ s.name }}</div><!-- /.pricing-title -->
                         <div class="pricing-subtitle">{{ s.description|slice(0,20) }}</div><!-- /.pricing-subtitle -->
                         <div class="pricing-price"><span class="pricing-currency">€</span>{{ s.price }} <span
                                     class="pricing-period">/ jour</span></div><!-- /.pricing-price -->
-                        <a href="#" class="btn-primary">S'inscrire</a>
+                        <a href="{{ path('show_stage',{'slug':s.slug}) }}" class="btn-primary">Voir</a>
+
                         <hr>
                         <ul class="pricing-list">
                             <li><span>du</span><strong>{{ s.fromDate|date('d-m-Y') }}</strong></li>

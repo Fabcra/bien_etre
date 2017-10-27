@@ -3,6 +3,8 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
+
 
 /**
  * Stage
@@ -84,6 +86,13 @@ class Stage
      * @ORM\JoinColumn(name="user")
      */
     private $user;
+
+
+    /**
+     * @Gedmo\Slug(fields={"name"})
+     * @ORM\column(length=128, nullable=true)
+     */
+    private $slug;
 
 
     public function getUser()
@@ -299,5 +308,23 @@ class Stage
     {
         return $this->displayTo;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getSlug()
+    {
+        return $this->slug;
+    }
+
+    /**
+     * @param mixed $slug
+     */
+    public function setSlug($slug)
+    {
+        $this->slug = $slug;
+    }
+
+
 }
 
