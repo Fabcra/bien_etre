@@ -16,6 +16,8 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 class StageController extends Controller
 {
     /**
+     * AFFICHE LA PAGE D'UN STAGE
+     *
      * @Route("stage/{slug}", name="show_stage")
      */
     public function showStage($slug){
@@ -29,6 +31,9 @@ class StageController extends Controller
     }
 
     /**
+     *
+     * AFFICHE LA LISTE DES STAGES
+     *
      * @Route("stages/list", name="list_stages")
      */
     public function listStages()

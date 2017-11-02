@@ -17,6 +17,8 @@ class PromoController extends Controller
 {
 
     /**
+     * AFFICHE LA LISTE DES PROMOTIONS
+     *
      * @Route("promotions/list", name="list_promos")
      */
     public function listPromo(){
@@ -31,6 +33,7 @@ class PromoController extends Controller
 
 
     /**
+     * AFFICHE UNE PAGE PROMOTION TODO: A CONVERTIR EN PDF
      *
      * @Route("promotion/{slug}", name="show_promo")
      */
