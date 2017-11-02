@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * Promotion
@@ -70,21 +71,27 @@ class Promotion
      */
     private $displayTo;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Service", inversedBy="promotions")
+     */
+    private $service;
+
 
     /**
      * @var string
      *
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Provider", inversedBy="promotions")
+     *
+     * @ORM\JoinColumn(onDelete="SET NULL")
      */
     private $user;
 
-    /**
-     *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Service", inversedBy="promotions")
-     *
-     */
-    private $service;
 
+    /**
+     * @Gedmo\Slug(fields={"name"})
+     * @ORM\column(length=128, nullable=true)
+     */
+    private $slug;
 
 
     /**
@@ -284,6 +291,22 @@ class Promotion
     /**
      * @return mixed
      */
+    public function getSlug()
+    {
+        return $this->slug;
+    }
+
+    /**
+     * @param mixed $slug
+     */
+    public function setSlug($slug)
+    {
+        $this->slug = $slug;
+    }
+
+    /**
+     * @return mixed
+     */
     public function getService()
     {
         return $this->service;
@@ -296,6 +319,8 @@ class Promotion
     {
         $this->service = $service;
     }
+
+
 
 
 }

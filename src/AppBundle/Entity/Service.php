@@ -58,6 +58,7 @@ class Service
      * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Provider", mappedBy="services",cascade={"persist"})
      *
      *
+     * @ORM\JoinColumn(onDelete="SET NULL")
      */
     private $users;
 

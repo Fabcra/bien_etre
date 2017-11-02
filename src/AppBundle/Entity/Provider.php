@@ -101,6 +101,7 @@ class Provider extends User
     /**
      *
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\Promotion", mappedBy="user")
+     *
      */
     private $promotions;
 
@@ -116,8 +117,7 @@ class Provider extends User
      */
     public function __construct()
     {
-        $this->stages = new ArrayCollection();
-        $this->promotions = new ArrayCollection();
+
         $this->services = new ArrayCollection();
         $this->gallery = new ArrayCollection();
     }
