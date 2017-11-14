@@ -7,7 +7,7 @@
                 <div class="detail-banner-left">
                     <div class="detail-banner-info">
                         {% for s in provider.services %}
-                        <a href="{{ path('show_service',{'slug':s.slug})  }}"><div class="detail-label">{{ s.name }}</div></a>
+                        <a href="{{ path('show_service',{'slug':s.slug})}}"><div class="detail-label">{{ s.name }}</div></a>
                             {% endfor %}
                     </div><!-- /.detail-banner-info -->
 

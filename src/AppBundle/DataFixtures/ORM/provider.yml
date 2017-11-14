@@ -5,7 +5,7 @@ AppBundle\Entity\Provider:
         eMail_contact: '<email()>'
         phoneNo: '<phoneNumber()>'
         tvaNo: '<vat()>'
-        services (unique): '<numberBetween(1,2)>x @service-*'
+        services: '1x @service-*'
         logo : '@img-*'
         eMail: '<email()>'
         password: password

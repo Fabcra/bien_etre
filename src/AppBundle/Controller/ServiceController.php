@@ -26,7 +26,10 @@ class ServiceController extends Controller {
         $id = $service->getId();
 
 
+        //requête pour lister les provider de ce service
         $providers = $repo_provider->myFindBy($id);
+
+
 
 
 
@@ -52,5 +55,8 @@ class ServiceController extends Controller {
 
 
     }
+
+
+
 
 }

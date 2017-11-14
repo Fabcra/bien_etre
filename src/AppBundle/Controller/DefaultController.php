@@ -24,6 +24,7 @@ class DefaultController extends Controller
 
 
 
+
         return $this->render('home/home.html.twig', ['providers'=>$providers, 'services'=>$services]);
     }
 }

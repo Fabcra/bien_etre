@@ -68,6 +68,7 @@ class Provider extends User
      *
      * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Service", inversedBy="users", cascade={"persist"})
      *
+     *
      */
     private $services;
 
