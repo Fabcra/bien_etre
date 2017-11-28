@@ -84,7 +84,7 @@ class Promotion
      *
      * @ORM\JoinColumn(onDelete="SET NULL")
      */
-    private $user;
+    private $provider;
 
 
     /**
@@ -275,17 +275,17 @@ class Promotion
     /**
      * @return string
      */
-    public function getUser()
+    public function getProvider()
     {
-        return $this->user;
+        return $this->provider;
     }
 
     /**
-     * @param string $user
+     * @param string $provider
      */
-    public function setUser($user)
+    public function setProvider($provider)
     {
-        $this->user = $user;
+        $this->provider = $provider;
     }
 
     /**

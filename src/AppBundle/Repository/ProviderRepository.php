@@ -16,7 +16,7 @@ class ProviderRepository extends \Doctrine\ORM\EntityRepository
 
         $qb = $this->createQueryBuilder('p');
 
-        $qb ->leftJoin('p.services', 's')
+        $qb->leftJoin('p.services', 's')
             ->andWhere('s.id like :id')
             ->setParameter('id', $id);
 
@@ -27,40 +27,52 @@ class ProviderRepository extends \Doctrine\ORM\EntityRepository
     }
 
 
-    public function search($params){
+    public function search($params)
+    {
 
         $qb = $this->createQueryBuilder('u');
 
-        $qb->addSelect('l')
-            ->leftJoin('u.locality', 'l')
-            ->addSelect('c')
-            ->innerJoin('u.services', 'c');
-        $qb     ->andWhere('u.name LIKE :name')
+        $qb
+            ->leftJoin('u.locality', 'l')->addSelect('l')
+            ->innerJoin('u.services', 'c')->addSelect('c')
+        ->leftJoin('c.image','i')->addSelect('i');
 
-            ->setParameter('name', '%' . $params['by_name'] . '%');
+        if ($params['by_name'] != null) {
+            $qb->andWhere('u.name LIKE :name')
+                ->setParameter('name', '%' . $params['by_name'] . '%');
 
-
-
-        $qb->andwhere('l.locality LIKE :locality')
-            ->setParameter('locality', '%' . $params['by_location'] . '%');
-
-        $qb->andWhere('c.name LIKE :service')
-            ->setParameter('service', '%' . $params['by_service'] . '%');
+        }
 
 
+        if ($params['by_location'] != null) {
+            $qb->andwhere('l.locality LIKE :locality')
+                ->setParameter('locality', '%' . $params['by_location'] . '%');
+        }
+
+        if ($params['by_service'] != null) {
+
+            $qb->andWhere('c.name LIKE :service')
+                ->setParameter('service', '%' . $params['by_service'] . '%');
+
+        }
 
         return $qb->getQuery()
             ->getResult();
     }
 
 
-    public function findLastProviders(){
+    public function findProvidersWithLogo()
+    {
 
         $qb = $this->createQueryBuilder('p');
+        $qb->leftJoin('p.logo', 'l')->addSelect('l');
+        $qb->leftJoin('p.locality', 'lo')->addSelect('lo');
 
         $qb->setMaxResults(8);
 
         return $qb->getQuery()
             ->getResult();
     }
+
+
 }

@@ -24,7 +24,7 @@ class StageController extends Controller
 
         $doctrine = $this->getDoctrine();
         $repo = $doctrine->getRepository('AppBundle:Stage');
-        $stage = $repo->findOneBy(['slug' => $slug]);
+        $stage = $repo->stageWhithProvider($slug);
 
         return $this->render('stages/stage.html.twig',['stage'=>$stage]);
 

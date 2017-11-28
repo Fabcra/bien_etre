@@ -57,10 +57,8 @@ class Service
      *
      * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Provider", mappedBy="services",cascade={"persist"})
      *
-     *
-     * @ORM\JoinColumn(onDelete="SET NULL")
      */
-    private $users;
+    private $providers;
 
     /**
      *
@@ -85,7 +83,7 @@ class Service
 
     public function __construct()
     {
-        $this->users=new ArrayCollection();
+        $this->providers=new ArrayCollection();
     }
 
     /**
@@ -188,20 +186,22 @@ class Service
     }
 
     /**
-     * @return string
+     * @return mixed
      */
-    public function getUsers()
+    public function getProviders()
     {
-        return $this->users;
+        return $this->providers;
     }
 
     /**
-     * @param string $users
+     * @param mixed $providers
      */
-    public function setUsers($users)
+    public function setProviders($providers)
     {
-        $this->users = $users;
+        $this->providers = $providers;
     }
+
+
 
     /**
      * @return mixed

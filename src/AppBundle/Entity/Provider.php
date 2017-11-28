@@ -66,7 +66,7 @@ class Provider extends User
     /**
      * @var string
      *
-     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Service", inversedBy="users", cascade={"persist"})
+     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Service", inversedBy="providers", cascade={"persist"})
      *
      *
      */
@@ -94,14 +94,14 @@ class Provider extends User
     /**
      * @var string
      *
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Stage", mappedBy="user")
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Stage", mappedBy="provider")
      *
      */
     private $stages;
 
     /**
      *
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Promotion", mappedBy="user")
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Promotion", mappedBy="provider")
      *
      */
     private $promotions;

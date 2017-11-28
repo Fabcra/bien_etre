@@ -41,7 +41,7 @@ class PromoController extends Controller
 
         $doctrine = $this->getDoctrine();
         $repo = $doctrine->getRepository('AppBundle:Promotion');
-        $promo = $repo->findOneBy(['slug' => $slug]);
+        $promo = $repo->promoWithProvider($slug);
 
         return $this->render('promotions/promo.html.twig', ['promotion'=>$promo]);
 

@@ -7,7 +7,7 @@
 
             <div class="post-meta clearfix">
                 <div class="post-meta-author"><a
-                            href="{{ path('show_provider',{'slug':promotion.user.slug}) }}">{{ promotion.user.slug }}</a></div>
+                            href="{{ path('show_provider',{'slug':promotion.provider.slug}) }}">{{ promotion.provider.slug }}</a></div>
                 <!-- /.post-meta-author -->
                 <div class="post-meta-date">du {{ promotion.fromDate|date('d-m-Y') }}</div><!-- /.post-meta-date -->
                 <div class="post-meta-date">au {{ promotion.toDate|date('d-m-Y') }}</div><!-- /.post-meta-date -->
@@ -21,7 +21,7 @@
 
             <div class="post-meta-tags clearfix">
                 Tags:
-                {% for p in promotion.user.services %}
+                {% for p in promotion.provider.services %}
                     <ul>
                         <li class="tag"><a href="{{ path('show_service', {'slug':p.name}) }}">{{ p.name }}</a></li>
                     </ul>

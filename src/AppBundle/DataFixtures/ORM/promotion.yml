@@ -7,4 +7,4 @@ AppBundle\Entity\Promotion:
         toDate: '<dateTimeBetween("-200 days", "now")>'
         displayFrom: '<dateTimeBetween("-200 days", "now")>'
         displayTo: '<dateTimeBetween("-200 days", "now")>'
-        user: '@provider-*'
+        provider: '@provider-*'

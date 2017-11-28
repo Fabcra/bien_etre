@@ -83,9 +83,9 @@ class Stage
      *
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Provider", inversedBy="stages")
      *
-     * @ORM\JoinColumn(name="user")
+     * @ORM\JoinColumn(name="provider")
      */
-    private $user;
+    private $provider;
 
 
     /**
@@ -95,15 +95,15 @@ class Stage
     private $slug;
 
 
-    public function getUser()
+    public function getProvider()
     {
-        return $this->user;
+        return $this->provider;
     }
 
 
-    public function setUser($user)
+    public function setProvider($provider)
     {
-        $this->user = $user;
+        $this->provider = $provider;
     }
 
 

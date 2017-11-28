@@ -10,7 +10,6 @@ use Symfony\Component\HttpFoundation\Request;
 class DefaultController extends Controller
 {
     /**
-     * envoie les données à la homepage todo:3 prochains stages et 3 promotions en cours
      * @Route("/", name="homepage")
      */
     public function indexAction()
@@ -19,11 +18,9 @@ class DefaultController extends Controller
         $doctrine = $this->getDoctrine();
         $repo_providers = $doctrine->getRepository('AppBundle:Provider');
         $repo_services = $doctrine->getRepository('AppBundle:Service');
-        $providers=$repo_providers->findLastProviders(); //affiche 8 résultats
-        $services=$repo_services->findAll();
 
-
-
+        $providers = $repo_providers->findProvidersWithLogo(); //affiche 8 providers avec logo
+        $services = $repo_services->findAll();
 
         return $this->render('home/home.html.twig', ['providers'=>$providers, 'services'=>$services]);
     }

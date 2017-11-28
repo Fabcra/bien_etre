@@ -31,8 +31,6 @@ class ServiceController extends Controller {
 
 
 
-
-
         return $this->render('services/service.html.twig', ['service'=>$service,  'providers'=>$providers]);
 
 
@@ -49,7 +47,7 @@ class ServiceController extends Controller {
 
         $doctrine = $this->getDoctrine();
         $repo = $doctrine->getRepository('AppBundle:Service');
-        $services = $repo->findAll();
+        $services = $repo->findServiceWithImage();
 
         return $this->render('services/services.html.twig',['services'=>$services]);
 
