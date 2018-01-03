@@ -1,7 +1,6 @@
 <?php
 
 namespace AppBundle\Repository;
-
 /**
  * ProviderRepository
  *
@@ -35,7 +34,7 @@ class ProviderRepository extends \Doctrine\ORM\EntityRepository
         $qb
             ->leftJoin('u.locality', 'l')->addSelect('l')
             ->innerJoin('u.services', 'c')->addSelect('c')
-        ->leftJoin('c.image','i')->addSelect('i');
+            ->leftJoin('c.image', 'i')->addSelect('i');
 
         if ($params['by_name'] != null) {
             $qb->andWhere('u.name LIKE :name')

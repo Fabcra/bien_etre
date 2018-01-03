@@ -5,7 +5,7 @@ AppBundle\Entity\Member:
         newsletter: false
         avatar : '@img-*'
         eMail: '<email()>'
-        password: password
+        password: \$2a\$12\$qAWawH8EFd1gN3.Ld1pkVO5IGzQOvmbnV9T6WF6TVlw4BuWbUKUve
         addressNo: '<buildingNumber()>'
         streetName: '<streetName()>'
         registrationDate: '<dateTimeBetween("-200 days", "now")>'

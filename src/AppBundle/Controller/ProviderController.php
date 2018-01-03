@@ -25,7 +25,12 @@ class ProviderController extends Controller
     public function searchProviders(Request $request)
     {
 
-        $params = $request->request->all();
+
+        $params['by_name'] = $request->query->get('by_name');
+        $params['by_location'] = $request->query->get('by_locality');
+        $params['by_service'] = $request->query->get('by_service');
+
+
         $doctrine = $this->getDoctrine();
 
         $repo = $doctrine->getRepository('AppBundle:Provider');
@@ -36,7 +41,18 @@ class ProviderController extends Controller
         $providers = $repo->search($params);
 
 
-        return $this->render('providers/providers.html.twig', ['providers' => $providers, 'services' => $services]);
+        $paginator = $this->get('knp_paginator');
+
+
+        $result = $paginator->paginate(
+            $providers,
+            $request->query->getInt('page', 1),
+            $request->query->getInt('limit', 4)
+        );
+
+
+        return $this->render('providers/providers.html.twig',
+            ['providers' => $result, 'services' => $services, 'params' => $params]);
 
     }
 
@@ -51,9 +67,9 @@ class ProviderController extends Controller
 
         $repo = $doctrine->getRepository('AppBundle:Provider');
 
-        $provider = $repo->findOneBy(['slug'=>$slug]);
+        $provider = $repo->findOneBy(['slug' => $slug]);
 
-        return $this->render('providers/provider.html.twig', ['provider'=>$provider]);
+        return $this->render('providers/provider.html.twig', ['provider' => $provider]);
 
     }
 }

@@ -8,7 +8,7 @@ AppBundle\Entity\Provider:
         services: '1x @service-*'
         logo : '@img-*'
         eMail: '<email()>'
-        password: password
+        password: \$2a\$12\$qAWawH8EFd1gN3.Ld1pkVO5IGzQOvmbnV9T6WF6TVlw4BuWbUKUve
         addressNo: '<buildingNumber()>'
         streetName: rue de l'église
         registrationDate: '<dateTimeBetween("-200 days", "now")>'

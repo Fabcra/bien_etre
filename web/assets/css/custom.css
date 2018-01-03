@@ -8,3 +8,13 @@
 }
 
 
+.mypagination{
+
+    display: inline-block !important;
+    padding: 5px 14px !important;
+    background-color: #fff !important;
+    border: 2px solid #000 !important;
+    border-radius: 15px !important;
+}
+
+

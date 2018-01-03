@@ -3,8 +3,18 @@
 {% block content %}
     <div class="container">
 
-    <u><p>Résultat de la recherche</p></u>
-    <h2> Liste de prestataires</h2>
-                {% include 'providers/list.html.twig' %}
+        <u><p>Résultat de la recherche</p></u>
+        <h2> Liste de prestataires</h2>
+
+
+        <div>
+            {% include 'providers/list.html.twig' %}
+        </div>
+        <div class="mypagination pager">
+            {{ knp_pagination_render(providers) }}
+        </div>
+
     </div>
+
+
 {% endblock %}

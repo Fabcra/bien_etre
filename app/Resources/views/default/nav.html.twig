@@ -1,7 +1,12 @@
 {# NAVIGATION 1 #}
 <div class="header-top">
     <ul class="header-nav-secondary nav nav-pills">
-        <li><a href="#">Login</a></li>
+        {% if is_granted('ROLE_USER') %}
+            <li><a href="{{ path("logout") }}">Logout</a></li>
+        {% else %}
+            <li><a href="{{ path("login") }}">Login</a></li>
+        {% endif %}
+
         <li><a href="#">Register</a></li>
     </ul>
 </div><!-- /.header-top -->

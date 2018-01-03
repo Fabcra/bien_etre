@@ -4,6 +4,7 @@ namespace AppBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\HttpFoundation\Request;
 
 class ServiceController extends Controller {
 
@@ -14,7 +15,7 @@ class ServiceController extends Controller {
      * @Route("service/{slug}", name="show_service")
      *
      */
-    public function showService($slug){
+    public function showService(Request $request, $slug){
 
         $doctrine = $this->getDoctrine();
         $repo = $doctrine->getRepository('AppBundle:Service');
@@ -29,9 +30,15 @@ class ServiceController extends Controller {
         //requête pour lister les provider de ce service
         $providers = $repo_provider->myFindBy($id);
 
+        $paginator = $this->get('knp_paginator');
 
+        $result = $paginator->paginate(
+            $providers,
+            $request->query->getInt('page', 1),
+            $request->query->getInt('limit', 3)
+        );
 
-        return $this->render('services/service.html.twig', ['service'=>$service,  'providers'=>$providers]);
+        return $this->render('services/service.html.twig', ['service'=>$service,  'providers'=>$result, 'id'=>$id]);
 
 
     }

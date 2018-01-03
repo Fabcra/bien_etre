@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use Symfony\Component\Security\Core\User\UserInterface;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -13,7 +14,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\DiscriminatorColumn(name="user_type", type="string")
  * @ORM\DiscriminatorMap({"users" = "User", "members" = "Member", "providers" = "Provider"})
  */
-class User
+class User implements UserInterface
 {
     /**
      * @var int
@@ -111,6 +112,56 @@ class User
 
 
 
+
+
+
+//authentication
+
+    public function getUsername()
+    {
+        return $this->eMail;
+    }
+
+    public function getRoles()
+    {
+        return['ROLE_USER'];
+    }
+
+    public function getSalt()
+    {
+        return null;
+    }
+
+    public function eraseCredentials()
+    {
+        return null;
+    }
+
+    /**
+     * Set password
+     *
+     * @param string $password
+     *
+     * @return User
+     */
+    public function setPassword($password)
+    {
+        $this->password = $password;
+
+        return $this;
+    }
+
+    /**
+     * Get password
+     *
+     * @return string
+     */
+    public function getPassword()
+    {
+        return $this->password;
+    }
+//end authentication
+
     /**
      * Get id
      *
@@ -145,29 +196,7 @@ class User
         return $this->eMail;
     }
 
-    /**
-     * Set password
-     *
-     * @param string $password
-     *
-     * @return User
-     */
-    public function setPassword($password)
-    {
-        $this->password = $password;
 
-        return $this;
-    }
-
-    /**
-     * Get password
-     *
-     * @return string
-     */
-    public function getPassword()
-    {
-        return $this->password;
-    }
 
     /**
      * Set addressNo

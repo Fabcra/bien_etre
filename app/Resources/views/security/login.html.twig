@@ -8,15 +8,19 @@
                 <h1>Login</h1>
             </div><!-- /.page-title -->
 
-            <form method="post" action="?">
+            {% if error %}
+                <div>{{ error.messageKey|trans(error.messageData, 'security')}}</div>
+            {% endif %}
+
+            <form method="post" action="{{ path('login') }}">
                 <div class="form-group">
                     <label for="login-form-email">E-mail</label>
-                    <input type="email" class="form-control" name="email" id="login-form-email">
+                    <input type="email" class="form-control" name="_username" id="username" value="{{ last_username }}">
                 </div><!-- /.form-group -->
 
                 <div class="form-group">
                     <label for="login-form-password">Password</label>
-                    <input type="password" class="form-control" name="password" id="login-form-password">
+                    <input type="password" class="form-control" name="_password" id="password">
                 </div><!-- /.form-group -->
 
                 <button type="submit" class="btn btn-primary pull-right">Login</button>
