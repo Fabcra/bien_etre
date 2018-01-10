@@ -18,3 +18,4 @@ AppBundle\Entity\Provider:
         postalCode: '@cp-*'
         locality: '@locality-*'
         city: '@city-*'
+        roles: ['ROLE_ADMIN']

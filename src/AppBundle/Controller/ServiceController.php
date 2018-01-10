@@ -35,7 +35,7 @@ class ServiceController extends Controller {
         $result = $paginator->paginate(
             $providers,
             $request->query->getInt('page', 1),
-            $request->query->getInt('limit', 3)
+            $request->query->getInt('limit', 4)
         );
 
         return $this->render('services/service.html.twig', ['service'=>$service,  'providers'=>$result, 'id'=>$id]);

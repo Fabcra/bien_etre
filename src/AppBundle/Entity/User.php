@@ -2,8 +2,11 @@
 
 namespace AppBundle\Entity;
 
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+
 
 /**
  * User
@@ -13,6 +16,8 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\InheritanceType("SINGLE_TABLE")
  * @ORM\DiscriminatorColumn(name="user_type", type="string")
  * @ORM\DiscriminatorMap({"users" = "User", "members" = "Member", "providers" = "Provider"})
+ * @UniqueEntity(fields={"eMail"}, message="Vous avez déjà un compte avec cette adresse")
+ *
  */
 class User implements UserInterface
 {
@@ -28,14 +33,20 @@ class User implements UserInterface
     /**
      * @var string
      *
-     * @ORM\Column(name="e_mail", type="string", length=255, unique=true, nullable=true)
+     * @Assert\NotBlank()
+     * @Assert\Email()
+     *
+     * @ORM\Column(name="e_mail", type="string", length=255, unique=true)
+     *
      */
     private $eMail;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="password", type="string", length=255, nullable=true)
+     * @Assert\NotBlank()
+     *
+     * @ORM\Column(name="password", type="string", length=255)
      */
     private $password;
 
@@ -110,12 +121,17 @@ class User implements UserInterface
      */
     private $city;
 
+    /**
+     * @ORM\Column(type="json_array"))
+     */
+    private $roles=[];
 
 
 
 
 
-//authentication
+
+// security
 
     public function getUsername()
     {
@@ -124,7 +140,13 @@ class User implements UserInterface
 
     public function getRoles()
     {
-        return['ROLE_USER'];
+        $roles = $this->roles;
+
+        if(!in_array('ROLE_USER', $roles)){
+            $roles[] = 'ROLE_USER';
+        }
+
+        return $roles;
     }
 
     public function getSalt()
@@ -160,7 +182,7 @@ class User implements UserInterface
     {
         return $this->password;
     }
-//end authentication
+//end security
 
     /**
      * Get id
@@ -392,6 +414,15 @@ class User implements UserInterface
     {
         $this->city = $city;
     }
+
+    /**
+     * @param mixed $roles
+     */
+    public function setRoles($roles)
+    {
+        $this->roles = $roles;
+    }
+
 
 
 }

@@ -1,4 +1,4 @@
-{# découpe formulaire enregistrement #}
+ {# découpe formulaire enregistrement #}
 {% extends 'default/layout.html.twig' %}
 {% block content %}
 <div class="row">
@@ -7,34 +7,32 @@
             <h1>Register</h1>
         </div><!-- /.page-title -->
 
-        <form method="post" action="?">
-            <div class="form-group">
-                <label for="login-form-email">E-mail</label>
-                <input type="email" class="form-control" name="email" id="login-form-email">
+        {{ form_start(form, {attr:{novalidate : 'novalidate'}}) }}
+            <div class="form-group" >
+
+               {{ form_row(form.eMail, {'attr':{'class':'form-control'}}) }}
             </div><!-- /.form-group -->
 
             <div class="form-group">
-                <label for="login-form-first-name">First name</label>
-                <input type="text" class="form-control" name="first_name" id="login-form-first-name">
+               {{ form_row(form.password.first,
+               {
+                   'label':'Password',
+                   'attr':{'class':'form-control'}
+               }) }}
             </div><!-- /.form-group -->
 
             <div class="form-group">
-                <label for="login-form-last-name">Last name</label>
-                <input type="text" class="form-control" name="last_name" id="login-form-last-name">
-            </div><!-- /.form-group -->
+               {{ form_row(form.password.second,
+               {
+                   'label':'Repeat Password',
+                   'attr':{'class':'form-control'}
+               }
 
-            <div class="form-group">
-                <label for="login-form-password">Password</label>
-                <input type="password" class="form-control" name="password" id="login-form-password">
-            </div><!-- /.form-group -->
-
-            <div class="form-group">
-                <label for="login-form-password-retype">Retype password</label>
-                <input type="password" class="form-control" name="password-retype" id="login-form-password-retype">
+               ) }}
             </div><!-- /.form-group -->
 
             <button type="submit" class="btn btn-primary pull-right">Register</button>
-        </form>
+        {{ form_end(form) }}
     </div><!-- /.col-sm-4 -->
 </div><!-- /.row -->
 {% endblock %}

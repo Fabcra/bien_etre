@@ -7,12 +7,12 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 
+
 /**
  * Provider
  *
  * @ORM\Table(name="providers")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\ProviderRepository")
- *
  *
  */
 class Provider extends User
@@ -29,21 +29,24 @@ class Provider extends User
     /**
      * @var string
      *
-     * @ORM\Column(name="name", type="string", length=25, nullable=true)
+     * @ORM\Column(name="name", type="string", length=255)
+     *
+     *
      */
     private $name;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="website", type="string", length=255, nullable=true)
+     * @ORM\Column(name="website", type="string", length=255)
+     *
      */
     private $website;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="e_mail_contact", type="string", length=255, nullable=true)
+     * @ORM\Column(name="e_mail_contact", type="string", length=255)
      */
     private $eMail_contact;
 
@@ -51,14 +54,14 @@ class Provider extends User
     /**
      * @var string
      *
-     * @ORM\Column(name="phone_no", type="string", length=255, nullable=true)
+     * @ORM\Column(name="phone_no", type="string", length=255)
      */
     private $phoneNo;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="tva_no", type="string", length=255, nullable=true)
+     * @ORM\Column(name="tva_no", type="string", length=255)
      */
     private $tvaNo;
 
@@ -108,7 +111,7 @@ class Provider extends User
 
     /**
      * @Gedmo\Slug(fields={"name"})
-     * @ORM\column(length=128, nullable=true)
+     * @ORM\column(length=128)
      */
     private $slug;
 
@@ -138,8 +141,6 @@ class Provider extends User
     {
         $this->stages = $stages;
     }
-
-
 
 
     /**
@@ -251,7 +252,6 @@ class Provider extends User
     }
 
 
-
     /**
      * @return string
      */
@@ -267,7 +267,6 @@ class Provider extends User
     {
         $this->gallery = $gallery;
     }
-
 
 
     /**

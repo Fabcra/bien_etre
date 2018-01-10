@@ -6,11 +6,19 @@
 <div class="main">
     <div class="main-inner">
             <div class="content">
+                {% for message in app.flashes('success') %}
+                    <div class="alert alert-success">
+                        {{ message }}
+                    </div>
+                {% endfor %}
                 {% block content %}{% endblock %}
             </div><!-- /.content -->
     </div><!-- /.main-inner -->
 </div><!-- /.main -->
 {% endblock %}
-{% block footer %}{% include 'default/footer.html.twig' %}{% endblock %}
+{% block footer %}
+
+    {% include 'default/footer.html.twig' %}
+{% endblock %}
 
 
