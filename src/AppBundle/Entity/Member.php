@@ -9,7 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Member
  *
- * @ORM\Table(name="Members")
+ * @ORM\Table(name="members")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\MemberRepository")
  */
 class Member extends User
@@ -61,6 +61,8 @@ class Member extends User
      *
      */
     private $abuses;
+
+
 
 
 
@@ -194,6 +196,13 @@ class Member extends User
     {
         $this->abuses = $abuses;
     }
+
+    /**
+     * @return mixed
+     */
+
+
+
 
 
 }

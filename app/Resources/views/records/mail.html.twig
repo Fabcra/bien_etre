@@ -1,0 +1,4 @@
+<h1>Confirmation d'inscription</h1>
+<p>Bonjour {{ tempuser.eMail }}!<br>Bienvue dans Annuaire Bien-être, Veuillez confirmer et complèter votre inscription en cliquant sur le lien suivant : </p>
+<a href="http://localhost:8888{{ path('register',{'id':tempuser.id, 'token':tempuser.token}) }}">Cliquez ici ! </a>
+

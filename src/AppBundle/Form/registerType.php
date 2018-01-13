@@ -9,6 +9,7 @@ use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use AppBundle\Entity\User;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 
 class registerType extends AbstractType
@@ -17,10 +18,7 @@ class registerType extends AbstractType
     {
 
         $builder
-            ->add('eMail', EmailType::class)
-            ->add('password', RepeatedType::class, [
-                    'type' => PasswordType::class
-                ]);
+            ->add('eMail', EmailType::class);
 
     }
 

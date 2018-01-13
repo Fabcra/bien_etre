@@ -13,7 +13,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *
  * @ORM\Table(name="users")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\UserRepository")
- * @ORM\InheritanceType("SINGLE_TABLE")
+ * @ORM\InheritanceType("JOINED")
  * @ORM\DiscriminatorColumn(name="user_type", type="string")
  * @ORM\DiscriminatorMap({"users" = "User", "members" = "Member", "providers" = "Provider"})
  * @UniqueEntity(fields={"eMail"}, message="Vous avez déjà un compte avec cette adresse")
@@ -82,14 +82,14 @@ class User implements UserInterface
     /**
      * @var bool
      *
-     * @ORM\Column(name="banned", type="boolean", nullable=true)
+     * @ORM\Column(name="banned", type="boolean")
      */
     private $banned;
 
     /**
      * @var bool
      *
-     * @ORM\Column(name="confirmed", type="boolean", nullable=true)
+     * @ORM\Column(name="confirmed", type="boolean")
      */
     private $confirmed;
 
@@ -124,11 +124,13 @@ class User implements UserInterface
     /**
      * @ORM\Column(type="json_array"))
      */
-    private $roles=[];
+    private $roles = [];
 
 
-
-
+    /**
+     * @var
+     */
+    private $user_type;
 
 
 // security
@@ -142,7 +144,7 @@ class User implements UserInterface
     {
         $roles = $this->roles;
 
-        if(!in_array('ROLE_USER', $roles)){
+        if (!in_array('ROLE_USER', $roles)) {
             $roles[] = 'ROLE_USER';
         }
 
@@ -217,7 +219,6 @@ class User implements UserInterface
     {
         return $this->eMail;
     }
-
 
 
     /**
@@ -421,6 +422,54 @@ class User implements UserInterface
     public function setRoles($roles)
     {
         $this->roles = $roles;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getMember()
+    {
+        return $this->member;
+    }
+
+    /**
+     * @param mixed $member
+     */
+    public function setMember($member)
+    {
+        $this->member = $member;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getProvider()
+    {
+        return $this->provider;
+    }
+
+    /**
+     * @param mixed $provider
+     */
+    public function setProvider($provider)
+    {
+        $this->provider = $provider;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getUserType()
+    {
+        return $this->user_type;
+    }
+
+    /**
+     * @param mixed $user_type
+     */
+    public function setUserType($user_type)
+    {
+        $this->user_type = $user_type;
     }
 
 

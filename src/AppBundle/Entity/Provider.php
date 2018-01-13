@@ -116,6 +116,9 @@ class Provider extends User
     private $slug;
 
 
+
+
+
     /**
      * Provider constructor.
      */
@@ -348,6 +351,16 @@ class Provider extends User
     {
         $this->slug = $slug;
     }
+
+
+
+
+
+
+
+
+
+
 
 
 }
