@@ -10,7 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="images")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\ImageRepository")
  */
-class Image
+class Image implements \Serializable
 {
     /**
      * @var int
@@ -94,6 +94,24 @@ class Image
     }
 
 
+    public function __toString()
+    {
+        return $this->url;
+    }
+
+    public function serialize()
+    {
+        return serialize(array(
+            $this->url,
+            $this->id
+        ));
+    }
+    public function unserialize($serialized)
+    {
+        list(
+            $this->url,
+            $this->id
+            ) = unserialize($serialized);    }
 
 
 }

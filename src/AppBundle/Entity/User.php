@@ -127,10 +127,11 @@ class User implements UserInterface
     private $roles = [];
 
 
-    /**
-     * @var
-     */
-    private $user_type;
+
+    public function __construct()
+    {
+        $this->registrationDate = new \DateTime();
+    }
 
 
 // security
@@ -424,53 +425,10 @@ class User implements UserInterface
         $this->roles = $roles;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getMember()
-    {
-        return $this->member;
-    }
 
-    /**
-     * @param mixed $member
-     */
-    public function setMember($member)
-    {
-        $this->member = $member;
-    }
 
-    /**
-     * @return mixed
-     */
-    public function getProvider()
-    {
-        return $this->provider;
-    }
 
-    /**
-     * @param mixed $provider
-     */
-    public function setProvider($provider)
-    {
-        $this->provider = $provider;
-    }
 
-    /**
-     * @return mixed
-     */
-    public function getUserType()
-    {
-        return $this->user_type;
-    }
-
-    /**
-     * @param mixed $user_type
-     */
-    public function setUserType($user_type)
-    {
-        $this->user_type = $user_type;
-    }
 
 
 

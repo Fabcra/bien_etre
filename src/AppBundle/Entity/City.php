@@ -62,5 +62,10 @@ class City
     {
         return $this->city;
     }
+
+    public function __toString()
+    {
+        return $this->getCity();
+    }
 }
 

@@ -8,20 +8,22 @@
 
 namespace AppBundle\Controller;
 
-use AppBundle\Entity\User;
-use AppBundle\Form\registerType;
+use AppBundle\Entity\Image;
+use AppBundle\Entity\Member;
+use AppBundle\Entity\Provider;
+use AppBundle\Form\MemberType;
+use AppBundle\Form\ProviderType;
 use AppBundle\Services\Message;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Entity\TempUser;
 use AppBundle\Form\TempUserType;
+use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 
 
 class UserController extends Controller
 {
-
-
     /**
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
@@ -61,8 +63,8 @@ class UserController extends Controller
 
             $message = \Swift_Message::newInstance()
                 ->setSubject("Nouvelle inscription")
-                ->setFrom("newuser@bien_etre.com")
-                ->setTo($mail)
+                ->setFrom($mail)
+                ->setTo("newuser@bien_etre.com")
                 ->setBody(
                     $this->renderView('records/mail.html.twig', array('tempuser' => $tempuser)
                     ), 'text/html'
@@ -80,10 +82,13 @@ class UserController extends Controller
 
     }
 
+
     /**
-     * @Route("/register/{token}/{id}", name="register")
+     *
+     * @Route("/register/{token}/{id}/{usertype}", name="register")
+     *
      */
-    public function registerAction(Request $request, Message $message, $token, $id)
+    public function registerAction(Request $request, Message $message, $token, $id, $usertype)
     {
 
         $tempuser = $this->getDoctrine()
@@ -91,30 +96,58 @@ class UserController extends Controller
             ->getRepository('AppBundle:TempUser')
             ->findOneBy(['id' => $id]);
 
+        $usertype = $request->get('usertype');
+
 
         //vérification token
         if ($token === $tempuser->getToken()) {
-            $user = new User();
-
             $mail = $tempuser->getEMail();
-            $user->setEMail($mail);
+
+            if ($usertype === 'provider') {
+
+                $user = new Provider();
+                $user->setEMail($mail);
+                $form = $this->createForm(ProviderType::class, $user);
+
+            } else if ($usertype === 'member') {
+
+                $user = new Member();
+                $user->setEMail($mail);
+                $form = $this->createForm(MemberType::class, $user);
+            }
 
             $password = $tempuser->getPassword();
             $user->setPassword($password);
 
-            $usertype = $tempuser->getUserType();
-            $user->setUserType($usertype);
-
-            $form = $this->createForm(registerType::class, $user);
 
             $form->handleRequest($request);
+
 
             if ($form->isSubmitted() && $form->isValid()) {
 
 
 
+                $image = new Image();
+
+
+                if ($usertype === 'member') {
+                   $user->setRoles(['ROLE_MEMBER']);
+                    $image->setUrl('http://www.rammandir.ca/sites/default/files/default_images/defaul-avatar_0.jpg');
+                } else {
+                    $image->setUrl('https://www.logaster.com/blog/wp-content/uploads/2013/06/jpg.png');
+                    $user->setRoles(['ROLE_PROVIDER']);
+                }
+
                 $em = $this->getDoctrine()->getManager();
 
+                $em->persist($image);
+                $em->flush();
+                if ($usertype === 'member') {
+                    $user->setAvatar($image);
+                } else {
+                    $user->setLogo($image);
+                }
+                //
 
                 $user->setBanned(false);
                 $user->setConfirmed(true);
@@ -122,17 +155,36 @@ class UserController extends Controller
                 $em->persist($user);
                 $em->flush();
 
-                $msg = $message->getSuccess();
+                //log in après inscription
+                $mytoken = new UsernamePasswordToken(
+                    $user,
+                    $password,
+                    'main',
+                    $user->getRoles()
+                );
 
+                $this->get('security.token_storage')->setToken($mytoken);
+                $this->get('session')->set('_security_main', serialize($mytoken));
+
+                $msg = $message->getSuccess();
                 $this->addFlash('success', $msg);
 
-                return $this->redirectToRoute('homepage');
+
+                return $this->redirectToRoute('homepage', array('slug' => $user->getSlug()));
             }
         }
 
-        return $this->render('records/register.html.twig', [
-            'form' => $form->createView()
-        ]);
+        if ($usertype === "provider") {
+            return $this->render('records/provider.html.twig', [
+                'form' => $form->createView()
+            ]);
+        } else {
+            return $this->render('records/member.html.twig', [
+                'form' => $form->createView()
+            ]);
+        }
+
+
     }
 
 

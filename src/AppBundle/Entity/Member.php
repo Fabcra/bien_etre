@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 
 
@@ -50,7 +51,7 @@ class Member extends User
      *
      * @ORM\OneToOne(targetEntity="AppBundle\Entity\Image", cascade={"persist"})
      *
-     * @ORM\JoinColumn(name="avatar", onDelete = "SET NULL")
+     * @ORM\JoinColumn(name="avatar", onDelete = "SET NULL", nullable=true)
      */
     private $avatar;
 
@@ -62,9 +63,11 @@ class Member extends User
      */
     private $abuses;
 
-
-
-
+    /**
+     * @Gedmo\Slug(fields={"lastName"})
+     * @ORM\column(length=128)
+     */
+    private $slug;
 
 
     /**
@@ -200,8 +203,18 @@ class Member extends User
     /**
      * @return mixed
      */
+    public function getSlug()
+    {
+        return $this->slug;
+    }
 
-
+    /**
+     * @param mixed $slug
+     */
+    public function setSlug($slug)
+    {
+        $this->slug = $slug;
+    }
 
 
 

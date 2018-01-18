@@ -4,6 +4,11 @@
     <ul class="header-nav-secondary nav nav-pills">
         {% if is_granted('ROLE_USER') %}
             <li><a href="{{ path("logout") }}">Logout</a></li>
+            {% if is_granted('ROLE_PROVIDER') %}
+                <li><a href="{{ path('update-provider', {'slug': app.user.slug}) }}">Update</a></li>
+            {% elseif is_granted('ROLE_MEMBER') %}
+                <li><a href="{{ path('update-member', {'slug': app.user.slug}) }}">Update</a></li>
+            {% endif %}
         {% else %}
             <li><a href="{{ path("login") }}">Login</a></li>
             <li><a href="{{ path("preregister") }}">Register</a></li>
@@ -30,13 +35,11 @@
         <li>
             <a href="{{ path('list_stages') }}">Stages <i class="fa"></i></a>
 
-
         </li>
 
         {# PROMOTIONS  #}
         <li>
             <a href="{{ path('list_promos') }}">Promotions <i class="fa"></i></a>
-
 
         </li>
 

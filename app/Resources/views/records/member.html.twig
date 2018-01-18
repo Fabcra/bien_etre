@@ -1,0 +1,52 @@
+{# découpe formulaire modification profil #}
+{% extends 'default/layout.html.twig' %}
+{% block content %}
+<div class="container">
+    <div class="row">
+
+
+        <div class="col-sm-8 col-lg-12">
+            <div class="content">
+                <div class="page-title">
+                    <h1>Confirmation d'inscription</h1>
+                </div><!-- /.page-title -->
+
+                <div class="background-white p20 mb30">
+                    {{ form_start(form, {attr:{novalidate:'novalidate'}}) }}
+                    <h3 class="page-title">
+                        Contact Information
+
+                        <button type="submit" class="btn btn-primary pull-right">Confirmation</button>
+                    </h3>
+
+                    <div class="row">
+                        <div class="form-group col-sm-6">
+                            {{ form_row(form.firstName, {'attr':{'class':'form-control'}}) }}
+                        </div><!-- /.form-group -->
+
+                        <div class="form-group col-sm-6">
+                            {{ form_row(form.lastName, {'attr':{'class':'form-control'}}) }}
+                        </div><!-- /.form-group -->
+
+                        <div class="form-group col-sm-6">
+                            {{ form_row(form.eMail, {'attr':{'class':'form-control'}}) }}
+                        </div><!-- /.form-group -->
+
+                        <div class="form-group col-sm-6" style="">
+                            {{ form_row(form.newsletter) }}
+                        </div><!-- /.form-group -->
+
+
+
+
+                        {{ form_row(form._token)}}
+                    </div><!-- /.row -->
+                    {{ form_end(form,{'render_rest':false}) }}
+                </div>
+
+
+            </div><!-- /.content -->
+        </div><!-- /.col-* -->
+    </div><!-- /.row -->
+</div><!-- /.container -->
+{% endblock %}

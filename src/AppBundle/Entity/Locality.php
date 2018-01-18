@@ -62,5 +62,10 @@ class Locality
     {
         return $this->locality;
     }
+
+    public function __toString()
+    {
+        return $this->getLocality();
+    }
 }
 

@@ -62,5 +62,10 @@ class PostalCode
     {
         return $this->postalCode;
     }
+
+    public function __toString()
+    {
+        return $this->getPostalCode();
+    }
 }
 

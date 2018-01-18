@@ -116,15 +116,11 @@ class Provider extends User
     private $slug;
 
 
-
-
-
     /**
      * Provider constructor.
      */
     public function __construct()
     {
-
         $this->services = new ArrayCollection();
         $this->gallery = new ArrayCollection();
     }
@@ -351,6 +347,10 @@ class Provider extends User
     {
         $this->slug = $slug;
     }
+
+
+
+
 
 
 
