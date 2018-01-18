@@ -45,8 +45,9 @@ class ProviderController extends Controller
     {
 
         $user = $this->getDoctrine()->getManager()->getRepository('AppBundle:Provider')->findOneBy(['slug'=>$slug]);
-        $pwd = $user->getPassword();
 
+        //vérification pwd
+        $pwd = $user->getPassword();
         $useractif = $this->getUser();
         $pwdactif = $useractif->getPassword();
 
