@@ -1,0 +1,23 @@
+{% extends 'default/layout_admin.html.twig' %}
+
+{% block rightside %}
+
+    <div class="page-title">
+        <h1>
+            Ajout d'images à la gallerie
+        </h1>
+    </div><!-- /.page-title -->
+
+
+    {{ form_start(galleryForm) }}
+    <div class="form-group">
+
+        {{ form_row(galleryForm.url) }}
+
+    </div><!-- /.form-group -->
+
+    <button type="submit" class="btn btn-primary pull-right">Insérer</button>
+
+    {{ form_end(galleryForm) }}
+
+{% endblock %}

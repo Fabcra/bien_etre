@@ -1,7 +1,8 @@
 {# LISTE DES STAGES A INCLURE DANS UN TWIG #}
 <div class="container">
     <div class="pricings">
-        <div class="row">
+            {% if stages is not empty %}
+            <h3>Liste des stages</h3>
             {% for s in stages %}
                 <div class="col-sm-4">
                     <div class="pricing">
@@ -23,6 +24,6 @@
                     <br/>
                 </div><!-- /.col-* -->
             {% endfor %}
-        </div><!-- /.row -->
+            {% endif %}
     </div><!-- /.pricings -->
 </div>

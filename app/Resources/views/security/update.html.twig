@@ -1,0 +1,9 @@
+{% extends 'default/layout_admin.html.twig' %}
+
+{% block rightside %}
+    {% if (is_granted('ROLE_PROVIDER')) %}
+        {% include 'providers/update.html.twig' %}
+    {% else %}
+        {% include 'members/update.html.twig' %}
+    {% endif %}
+{% endblock %}

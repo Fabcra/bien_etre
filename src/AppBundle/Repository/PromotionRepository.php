@@ -30,5 +30,17 @@ class PromotionRepository extends \Doctrine\ORM\EntityRepository
     }
 
 
+    public function findPromoByProvider($slug){
+
+        $qb = $this->createQueryBuilder('promo');
+
+        $qb->leftJoin('promo.provider', 'prov')
+            ->andWhere('prov.slug like :slug')
+            ->setParameter('slug', $slug);
+
+        return $qb
+            ->getQuery()
+            ->getResult();
+    }
 
 }

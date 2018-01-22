@@ -24,7 +24,19 @@ class StageRepository extends \Doctrine\ORM\EntityRepository
         return $qb->getQuery()
             ->getSingleResult();
 
+    }
 
+    public function findStageByProvider($slug)
+    {
+        $qb = $this->createQueryBuilder('stage');
+
+        $qb->leftJoin('stage.provider', 'prov')
+            ->andWhere('prov.slug like :slug')
+            ->setParameter('slug', $slug);
+
+        return $qb
+            ->getQuery()
+            ->getResult();
     }
 
 }

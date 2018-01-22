@@ -1,25 +1,28 @@
 {# LISTE DES PROMOTIONS A INCLURE DANS UN TWIG #}
 <div class="container">
     <div class="events">
-        {% for p in promotions %}
-            <div class="col-sm-6">
-                <div class="event">
-                    <div class="event-date">
-                        <span class="day">{{ p.fromDate|date('d') }}</span>
-                        <span class="month">{{ p.toDate|date('m') }}</span>
-                    </div><!-- /.event-date -->
+        {% if promotions is not empty %}
+            <h3>Liste des promotions</h3>
+            {% for p in promotions %}
+                <div class="col-sm-6">
+                    <div class="event">
+                        <div class="event-date">
+                            <span class="day">{{ p.fromDate|date('d') }}</span>
+                            <span class="month">{{ p.toDate|date('m') }}</span>
+                        </div><!-- /.event-date -->
 
-                    <div class="event-content">
-                        <h2>{{ p.name }}</h2>
-                        <p>{{ p.description }}</p>
-                        <a href="{{ path('show_promo',{'slug':p.slug}) }}">{{ p.pdfDoc }}</a>
-                        <div class="event-time"><i class="fa fa-clock-o"></i> 8:00PM - 11:00PM</div>
-                        <!-- /.event-time -->
-                    </div><!-- /.event-content -->
-                </div><!-- /.event -->
-                <br/>
-            </div>
-        {% endfor %}
+                        <div class="event-content">
+                            <h2>{{ p.name }}</h2>
+                            <p>{{ p.description }}</p>
+                            <a href="{{ path('show_promo',{'slug':p.slug}) }}">{{ p.pdfDoc }}</a>
+                            <div class="event-time"><i class="fa fa-clock-o"></i> 8:00PM - 11:00PM</div>
+                            <!-- /.event-time -->
+                        </div><!-- /.event-content -->
+                    </div><!-- /.event -->
+                    <br/>
+                </div>
+            {% endfor %}
+        {% endif %}
     </div><!-- /.events -->
 
 </div>

@@ -25,10 +25,12 @@ class PromoController extends Controller
 
         $doctrine=$this->getDoctrine();
         $repo = $doctrine->getRepository('AppBundle:Promotion');
+        $reposervice = $doctrine->getRepository('AppBundle:Service');
+        $services = $reposervice->findAll();
         $promos = $repo->findAll();
 
 
-        return $this->render('promotions/promotions.html.twig', ['promotions'=>$promos]);
+        return $this->render('promotions/promotions.html.twig', ['promotions'=>$promos, 'services'=>$services]);
     }
 
 
@@ -41,9 +43,11 @@ class PromoController extends Controller
 
         $doctrine = $this->getDoctrine();
         $repo = $doctrine->getRepository('AppBundle:Promotion');
+        $reposervice = $doctrine->getRepository('AppBundle:Service');
+        $services = $reposervice->findAll();
         $promo = $repo->promoWithProvider($slug);
 
-        return $this->render('promotions/promo.html.twig', ['promotion'=>$promo]);
+        return $this->render('promotions/promo.html.twig', ['promotion'=>$promo, 'services'=>$services]);
 
     }
 }

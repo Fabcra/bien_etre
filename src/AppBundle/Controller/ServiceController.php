@@ -23,6 +23,7 @@ class ServiceController extends Controller {
 
 
         $service = $repo->findOneBy(['slug'=>$slug]);
+        $services = $repo->findAll();
 
         $id = $service->getId();
 
@@ -38,7 +39,7 @@ class ServiceController extends Controller {
             $request->query->getInt('limit', 4)
         );
 
-        return $this->render('services/service.html.twig', ['service'=>$service,  'providers'=>$result, 'id'=>$id]);
+        return $this->render('services/service.html.twig', ['services'=>$services, 'service'=>$service,  'providers'=>$result, 'id'=>$id]);
 
 
     }

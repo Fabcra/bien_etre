@@ -63,8 +63,8 @@ class UserController extends Controller
 
             $message = \Swift_Message::newInstance()
                 ->setSubject("Nouvelle inscription")
-                ->setFrom($mail)
-                ->setTo("newuser@bien_etre.com")
+                ->setFrom("inscription@bien_etre.com")
+                ->setTo($mail)
                 ->setBody(
                     $this->renderView('records/mail.html.twig', array('tempuser' => $tempuser)
                     ), 'text/html'
@@ -126,12 +126,11 @@ class UserController extends Controller
             if ($form->isSubmitted() && $form->isValid()) {
 
 
-
                 $image = new Image();
 
 
                 if ($usertype === 'member') {
-                   $user->setRoles(['ROLE_MEMBER']);
+                    $user->setRoles(['ROLE_MEMBER']);
                     $image->setUrl('http://www.rammandir.ca/sites/default/files/default_images/defaul-avatar_0.jpg');
                 } else {
                     $image->setUrl('https://www.logaster.com/blog/wp-content/uploads/2013/06/jpg.png');
@@ -151,6 +150,9 @@ class UserController extends Controller
 
                 $user->setBanned(false);
                 $user->setConfirmed(true);
+
+                //suppression de l'utilisateur temporaire
+                $em->remove($tempuser);
 
                 $em->persist($user);
                 $em->flush();
@@ -184,6 +186,55 @@ class UserController extends Controller
             ]);
         }
 
+
+    }
+
+    /**
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     * @Route("/profile", name="update_profile"   )
+     */
+    public function updateUser(Request $request)
+    {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+
+        $user = $this->getUser();
+        $id = $user->getId();
+
+        $doctrine = $this->getDoctrine();
+        $repo = $doctrine->getRepository('AppBundle:Service');
+
+        $services = $repo->findAll();
+
+        if ($this->isGranted('ROLE_PROVIDER')) {
+            $form = $this->createForm(ProviderType::class, $user);
+        } else {
+            $form = $this->createForm(MemberType::class, $user);
+        }
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($user);
+            $em->flush();
+
+            $this->addFlash('success', 'update effectué avec succès');
+
+            return $this->redirectToRoute('homepage');
+
+        }
+
+        if ($this->isGranted('ROLE_PROVIDER')) {
+            return $this->render('security/update.html.twig', [
+                'providerForm' => $form->createView(), 'id' => $id, 'services'=>$services
+            ]);
+        } else {
+            return $this->render('security/update.html.twig', [
+                'memberForm' => $form->createView(), 'id' => $id, 'services'=>$services
+            ]);
+        }
 
     }
 

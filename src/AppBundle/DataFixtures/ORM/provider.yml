@@ -1,7 +1,7 @@
 AppBundle\Entity\Provider:
   provider-{1..10}:
         name: '<firstName()>'
-        website: '<domainName()>'
+        website: 'http://www.<domainName()>'
         eMail_contact: '<email()>'
         phoneNo: '<phoneNumber()>'
         tvaNo: '<vat()>'
@@ -18,4 +18,4 @@ AppBundle\Entity\Provider:
         postalCode: '@cp-*'
         locality: '@locality-*'
         city: '@city-*'
-        roles: ['ROLE_ADMIN']
+        roles: ['ROLE_PROVIDER']

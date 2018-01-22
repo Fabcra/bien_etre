@@ -3,18 +3,29 @@
 
 {% block header %}{% include 'default/header.html.twig' %}{% endblock %}
 {% block body %}
-<div class="main">
-    <div class="main-inner">
-            <div class="content">
-                {% for message in app.flashes('success') %}
-                    <div class="alert alert-success">
-                        {{ message }}
-                    </div>
-                {% endfor %}
-                {% block content %}{% endblock %}
-            </div><!-- /.content -->
-    </div><!-- /.main-inner -->
-</div><!-- /.main -->
+    <div class="main">
+        <div class="main-inner" style="padding-bottom: 0">
+            <div style="width: 1024px; margin: 0 auto;">
+            </div>
+            {% block content %}
+                <div class="content">
+
+                    {% for message in app.flashes('success') %}
+                        <div class="alert alert-success">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                    {% block split_content %}
+                        {% block leftside %}
+                        {% endblock %}
+                        {% block rightside %}
+                        {% endblock %}
+                    {% endblock %}
+                </div><!-- /.content -->
+            {% endblock %}
+        </div><!-- /.main-inner -->
+    </div><!-- /.main -->
+
 {% endblock %}
 {% block footer %}
 

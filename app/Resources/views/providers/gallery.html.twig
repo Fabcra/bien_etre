@@ -4,6 +4,7 @@
 
     <div class="detail-gallery-preview">
         {% if provider.gallery is not empty %}
+            {% dump provider.gallery[0].url %}
         <a href="{{ provider.gallery[0].url }}">
             <img src="{{ provider.gallery[0].url }}">
         </a>

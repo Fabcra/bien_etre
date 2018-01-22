@@ -196,8 +196,8 @@ class TempUser
         $this->firstRegisterDate = $firstRegisterDate;
 
         return $this;
-
     }
+
 
 
 

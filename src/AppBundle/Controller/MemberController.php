@@ -17,16 +17,21 @@ use Symfony\Component\Routing\Annotation\Route;
 class MemberController extends Controller
 {
 
-    /**
+   /* /**
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
-     * @Route("/member/update/{slug}", name="update-member"   )
+     * @Route("/profile/member", name="update-member"   )
      *
      */
-    public function updateMember(Request $request, $slug)
+  /*  public function updateMember(Request $request)
     {
 
-        $user = $this->getDoctrine()->getManager()->getRepository('AppBundle:Member')->findOneBy(['slug'=>$slug]);
+        $user = $this->getUser();
+
+
+
+        $id = $user->getId();
+
 
         $form = $this->createForm(MemberType::class, $user);
 
@@ -45,7 +50,7 @@ class MemberController extends Controller
         }
 
         return $this->render('members/update.html.twig', [
-            'memberForm' => $form->createView(), 'slug' => $slug
+            'memberForm' => $form->createView(), 'id' => $id
         ]);
-    }
+    }*/
 }

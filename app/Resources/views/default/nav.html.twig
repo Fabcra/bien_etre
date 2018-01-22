@@ -1,25 +1,27 @@
 {# NAVIGATION 1 #}
 <div class="header-top">
 
+
     <ul class="header-nav-secondary nav nav-pills">
         {% if is_granted('ROLE_USER') %}
             <li><a href="{{ path("logout") }}">Logout</a></li>
-            {% if is_granted('ROLE_PROVIDER') %}
-                <li><a href="{{ path('update-provider', {'slug': app.user.slug}) }}">Update</a></li>
-            {% elseif is_granted('ROLE_MEMBER') %}
-                <li><a href="{{ path('update-member', {'slug': app.user.slug}) }}">Update</a></li>
-            {% endif %}
+            <li><a href="{{ path('update_profile') }}">Update</a></li>
         {% else %}
             <li><a href="{{ path("login") }}">Login</a></li>
             <li><a href="{{ path("preregister") }}">Register</a></li>
         {% endif %}
-
     </ul>
+
+
 </div><!-- /.header-top -->
+
 
 {# NAVIGATION 2 #}
 <div class="header-bottom">
+
+
     <ul class="header-nav-primary nav nav-pills collapse navbar-collapse">
+
         {# HOME #}
         <li>
             <a href="{{ path('homepage') }}">Home <i class="fa"></i></a>
@@ -53,6 +55,20 @@
 
     </ul>
 
-
+    <form class="navbar-form" method="GET" action="{{ path('search') }}">
+        <ul class="header-nav-secondary nav navbar-nav navbar-left ">
+            <li><input type="text" placeholder="Nom" style="margin-right: 10px; width : 100px;" name="by_name"></li>
+            <li><input type="text" placeholder="Localité" style="margin-right: 10px; width : 100px" name="by_location"></li>
+            <li><select title="Service" name="by_service">
+                    {% for s in services %}
+                        <option value="{{ s.name }}">{{ s.name }}</option>
+                    {% endfor %}
+                </select></li>
+            <li>
+                <button type="submit" style="margin-left : 10px;" class="btn btn-sm btn-primary">Recherche</button>
+            </li>
+        </ul>
+    </form>
 </div><!-- /.header-bottom -->
+
 

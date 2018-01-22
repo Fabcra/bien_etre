@@ -1,24 +1,29 @@
-{% extends 'default/layout.html.twig' %}
-{% block content %}
+{% extends 'default/layout_admin.html.twig' %}
 
-    <div class="row">
-        <div class="col-sm-4 col-sm-offset-4">
+{% block rightside %}
+
+
             <div class="page-title">
-                <h1>Veuillez choisir un avatar</h1>
+                <h1>
+                    Veuillez choisir un
+                    {% if (is_granted('ROLE_MEMBER')) %}
+                        avatar
+                    {% else %}
+                        logo
+                    {% endif %}
+                </h1>
             </div><!-- /.page-title -->
 
 
             {{ form_start(imgForm) }}
-                <div class="form-group">
+            <div class="form-group">
 
-                    {{ form_row(imgForm.url) }}
+                {{ form_row(imgForm.url) }}
 
-                </div><!-- /.form-group -->
+            </div><!-- /.form-group -->
 
 
-
-                <button type="submit" class="btn btn-primary pull-right">Insérer</button>
+            <button type="submit" class="btn btn-primary pull-right">Insérer</button>
             {{ form_end(imgForm) }}
-        </div><!-- /.col-sm-4 -->
-    </div><!-- /.row -->
+
 {% endblock %}
