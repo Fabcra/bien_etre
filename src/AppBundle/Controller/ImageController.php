@@ -11,6 +11,7 @@ namespace AppBundle\Controller;
 use AppBundle\Entity\Image;
 use AppBundle\Form\ImageType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -48,7 +49,7 @@ class ImageController extends Controller
 
             $file->move($this->getParameter('images'), $filename);
 
-            $image->setUrl('../../web/uploads/images/'.$filename);
+            $image->setUrl('/bien_etre/web/uploads/images/'.$filename);
 
             $em=$this->getDoctrine()->getManager();
             $em->persist($image);
@@ -79,7 +80,8 @@ class ImageController extends Controller
     /**
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
-     * @Route("/gallerie", name="img-gallery")
+     * @Route("/image_gallery", name="img-gallery")
+     * @Security("is_granted('ROLE_PROVIDER')")
      */
     public function addImageGallery(Request $request){
 
@@ -109,7 +111,7 @@ class ImageController extends Controller
             );
 
             $image->setProvider($user);
-            $image->setUrl('../../../web/uploads/images/'.$fileName);
+            $image->setUrl('/bien_etre/web/uploads/images/'.$fileName);
 
             $em = $this->getDoctrine()->getManager();
             $em->persist($image);
@@ -117,11 +119,12 @@ class ImageController extends Controller
             $this->addFlash('success', 'image ajoutée');
 
 
-            return $this->redirectToRoute('homepage');
+            return $this->redirectToRoute('update_profile');
         }
 
-        return $this->render('images/insertimage_gallery.html.twig', [
-            'galleryForm' => $form->createView(), 'id' => $id, 'services'=>$services]);
+            return $this->render('images/insertimage_gallery.html.twig', [
+                'galleryForm' => $form->createView(), 'id' => $id, 'services' => $services]);
+
     }
 
 

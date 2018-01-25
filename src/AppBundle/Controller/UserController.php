@@ -20,7 +20,7 @@ use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Entity\TempUser;
 use AppBundle\Form\TempUserType;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
-
+use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
 
 class UserController extends Controller
 {
@@ -29,7 +29,7 @@ class UserController extends Controller
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      * @Route("/preregister", name="preregister")
      */
-    public function preregister(Request $request)
+    public function preregister(Request $request, EncoderFactoryInterface $encoderFactory)
     {
 
         $tempuser = new TempUser();
@@ -38,16 +38,21 @@ class UserController extends Controller
 
         $form->handleRequest($request);
 
+        $doctrine = $this->getDoctrine();
+        $repo = $doctrine->getRepository('AppBundle:Service');
+        $services = $repo->findAll();
 
         if ($form->isSubmitted() && $form->isValid()) {
 
+            $plainPassword = $tempuser->getPassword();
+            $encoder = $encoderFactory->getEncoder($tempuser);
+            $encoded = $encoder->encodePassword($plainPassword, '');
 
-            $tempuser
-                ->setToken();
+
+            $tempuser->setToken();
+            $tempuser->setPassword($encoded);
 
 
-            /** @var TempUser $tempuser */
-            $tempuser = $form->getData();
 
             $em = $this->getDoctrine()->getManager();
             $em->persist($tempuser);
@@ -77,7 +82,8 @@ class UserController extends Controller
         }
 
         return $this->render('records/preregister.html.twig', [
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'services' => $services
         ]);
 
     }
@@ -91,17 +97,23 @@ class UserController extends Controller
     public function registerAction(Request $request, Message $message, $token, $id, $usertype)
     {
 
-        $tempuser = $this->getDoctrine()
-            ->getManager()
+        $doctrine = $this->getDoctrine();
+        $tempuser = $doctrine
             ->getRepository('AppBundle:TempUser')
             ->findOneBy(['id' => $id]);
 
+        $repo = $doctrine->getRepository('AppBundle:Service');
+        $services = $repo->findAll();
+
         $usertype = $request->get('usertype');
+
+
 
 
         //vérification token
         if ($token === $tempuser->getToken()) {
             $mail = $tempuser->getEMail();
+            $registrationdate = $tempuser->getFirstRegisterDate();
 
             if ($usertype === 'provider') {
 
@@ -129,11 +141,12 @@ class UserController extends Controller
                 $image = new Image();
 
 
+
+                $image->setUrl('/bien_etre/web/uploads/images/d2efe41d3b4679de46d8ac93b28e7795.jpg');
+
                 if ($usertype === 'member') {
                     $user->setRoles(['ROLE_MEMBER']);
-                    $image->setUrl('http://www.rammandir.ca/sites/default/files/default_images/defaul-avatar_0.jpg');
                 } else {
-                    $image->setUrl('https://www.logaster.com/blog/wp-content/uploads/2013/06/jpg.png');
                     $user->setRoles(['ROLE_PROVIDER']);
                 }
 
@@ -150,6 +163,7 @@ class UserController extends Controller
 
                 $user->setBanned(false);
                 $user->setConfirmed(true);
+                $user->setRegistrationDate($registrationdate);
 
                 //suppression de l'utilisateur temporaire
                 $em->remove($tempuser);
@@ -178,11 +192,13 @@ class UserController extends Controller
 
         if ($usertype === "provider") {
             return $this->render('records/provider.html.twig', [
-                'form' => $form->createView()
+                'form' => $form->createView(),
+                'services' =>$services
             ]);
         } else {
             return $this->render('records/member.html.twig', [
-                'form' => $form->createView()
+                'form' => $form->createView(),
+                'services'=>$services
             ]);
         }
 
@@ -228,11 +244,11 @@ class UserController extends Controller
 
         if ($this->isGranted('ROLE_PROVIDER')) {
             return $this->render('security/update.html.twig', [
-                'providerForm' => $form->createView(), 'id' => $id, 'services'=>$services
+                'providerForm' => $form->createView(), 'id' => $id, 'services' => $services
             ]);
         } else {
             return $this->render('security/update.html.twig', [
-                'memberForm' => $form->createView(), 'id' => $id, 'services'=>$services
+                'memberForm' => $form->createView(), 'id' => $id, 'services' => $services
             ]);
         }
 

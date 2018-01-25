@@ -3,12 +3,15 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * TempUser
  *
  * @ORM\Table(name="temp_user")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\TempUserRepository")
+ * @UniqueEntity(fields={"eMail"}, message="Vous avez déjà envoyé une demande d'inscription en attente de validation avec cette adresse mail")
  */
 class TempUser
 {
@@ -23,14 +26,15 @@ class TempUser
 
     /**
      * @var string
-     *
+     * @Assert\NotBlank()
+     * @Assert\Email()
      * @ORM\Column(name="eMail", type="string", length=255, unique=true)
      */
     private $eMail;
 
     /**
      * @var string
-     *
+     * @Assert\NotBlank()
      * @ORM\Column(name="password", type="string", length=255)
      */
     private $password;
@@ -107,13 +111,9 @@ class TempUser
      */
     public function setPassword($password)
     {
+        $this->password = $password;
 
-        $options = [
-            'cost' => 12,
-        ];
-
-        $this->password = password_hash($password, PASSWORD_BCRYPT, $options);
-
+        return $this;
 
     }
 

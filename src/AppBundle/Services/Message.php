@@ -14,7 +14,6 @@ class Message
 
     public function getSuccess()
     {
-
         $msg = ['Welcome ! ',
             'Bienvenue',
             'Herzlich Willkommen ! '
@@ -22,18 +21,14 @@ class Message
 
         $index = array_rand($msg);
 
-
         return $msg[$index];
-
     }
 
     public function getError()
     {
-
         $msg = 'erreur';
 
         return $msg;
-
     }
 
 

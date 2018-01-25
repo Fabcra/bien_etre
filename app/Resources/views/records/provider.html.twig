@@ -21,46 +21,44 @@
 
                         <div class="row">
                             <div class="form-group col-sm-6">
-                                {{ form_row(form.name, {'attr':{'class':'form-control'}}) }}
+                                {{ form_row(form.name, {'label':'Nom','attr':{'class':'form-control'}}) }}
                             </div><!-- /.form-group -->
 
                             <div class="form-group col-sm-6">
-                                {{ form_row(form.website, {'attr':{'class':'form-control'}}) }}
+                                {{ form_row(form.website, {'label':'Adresse Site', 'attr':{'class':'form-control'}}) }}
                             </div><!-- /.form-group -->
 
                             <div class="form-group col-sm-6">
-                                {{ form_row(form.eMail_contact, {'attr':{'class':'form-control'}}) }}
+                                {{ form_row(form.eMail_contact, {'label':'E-mail public', 'attr':{'class':'form-control'}}) }}
                             </div><!-- /.form-group -->
                             <div class="form-group col-sm-6">
-                                {{ form_row(form.eMail, {'attr':{'class':'form-control'}}) }}
+                                {{ form_row(form.eMail, {'label':'E-mail privé', 'attr':{'class':'form-control'}}) }}
                             </div><!-- /.form-group -->
 
                             <div class="form-group col-sm-6">
-                                {{ form_row(form.phoneNo, {'attr':{'class':'form-control'}}) }}
+                                {{ form_row(form.phoneNo, {'label':'Téléphone', 'attr':{'class':'form-control'}}) }}
                             </div><!-- /.form-group -->
                             <div class="form-group col-sm-6">
-                                {{ form_row(form.tvaNo, {'attr':{'class':'form-control'}}) }}
+                                {{ form_row(form.tvaNo, {'label':'N° TVA', 'attr':{'class':'form-control'}}) }}
+                            </div><!-- /.form-group -->
+
+                            <div class="form-group col-sm-6">
+                                {{ form_row(form.services, {'label':'Catégorie de service', 'attr':{'class':'form-control'}}) }}
                             </div><!-- /.form-group -->
                             <div class="form-group col-sm-6">
-                                {{ form_row(form.tvaNo, {'attr':{'class':'form-control'}}) }}
+                                {{ form_row(form.streetName, {'label':'rue', 'attr':{'class':'form-control'}}) }}
                             </div><!-- /.form-group -->
                             <div class="form-group col-sm-6">
-                                {{ form_row(form.services, {'attr':{'class':'form-control'}}) }}
+                                {{ form_row(form.addressNo, {'label':'N°', 'attr':{'class':'form-control'}}) }}
                             </div><!-- /.form-group -->
                             <div class="form-group col-sm-6">
-                                {{ form_row(form.streetName, {'attr':{'class':'form-control'}}) }}
+                                {{ form_row(form.locality, {'label':'Localité','attr':{'class':'form-control'}}) }}
                             </div><!-- /.form-group -->
                             <div class="form-group col-sm-6">
-                                {{ form_row(form.addressNo, {'attr':{'class':'form-control'}}) }}
+                                {{ form_row(form.postalCode, {'label':'Code Postal','attr':{'class':'form-control'}}) }}
                             </div><!-- /.form-group -->
                             <div class="form-group col-sm-6">
-                                {{ form_row(form.locality, {'attr':{'class':'form-control'}}) }}
-                            </div><!-- /.form-group -->
-                            <div class="form-group col-sm-6">
-                                {{ form_row(form.postalCode, {'attr':{'class':'form-control'}}) }}
-                            </div><!-- /.form-group -->
-                            <div class="form-group col-sm-6">
-                                {{ form_row(form.city, {'attr':{'class':'form-control'}}) }}
+                                {{ form_row(form.city, {'label':'Ville','attr':{'class':'form-control'}}) }}
                             </div><!-- /.form-group -->
 
                             {{ form_row(form._token)}}

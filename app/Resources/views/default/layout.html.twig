@@ -7,14 +7,19 @@
         <div class="main-inner" style="padding-bottom: 0">
             <div style="width: 1024px; margin: 0 auto;">
             </div>
+            {% for message in app.flashes('danger') %}
+            <div class="alert alert-danger">
+                {{ message }}
+            </div>
+            {% endfor %}
+            {% for message in app.flashes('success') %}
+            <div class="alert alert-success">
+                {{ message }}
+            </div>
+            {% endfor %}
             {% block content %}
                 <div class="content">
 
-                    {% for message in app.flashes('success') %}
-                        <div class="alert alert-success">
-                            {{ message }}
-                        </div>
-                    {% endfor %}
                     {% block split_content %}
                         {% block leftside %}
                         {% endblock %}

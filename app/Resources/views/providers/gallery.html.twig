@@ -4,13 +4,12 @@
 
     <div class="detail-gallery-preview">
         {% if provider.gallery is not empty %}
-            {% dump provider.gallery[0].url %}
         <a href="{{ provider.gallery[0].url }}">
             <img src="{{ provider.gallery[0].url }}">
         </a>
         {% else %}  {# image par défaut si la galerie d'images est vide #}
-        <a href="{{ 'http://via.placeholder.com/640x480'  }}">
-            <img src={{ 'http://via.placeholder.com/640x480' }}>
+        <a href="{{ '/bien_etre/web/uploads/images/d2efe41d3b4679de46d8ac93b28e7795.jpg'  }}">
+            <img src={{ '/bien_etre/web/uploads/images/d2efe41d3b4679de46d8ac93b28e7795.jpg' }}>
         </a>
         {% endif %}
     </div>
@@ -29,9 +28,9 @@
         {% endfor %}
         {% else %}{# image par défaut si la galerie est vide #}
             <li class="detail-gallery-list-item active">
-                <a data-target="{{ 'http://via.placeholder.com/640x480'  }}">
+                <a data-target="{{ '/bien_etre/web/uploads/images/d2efe41d3b4679de46d8ac93b28e7795.jpg'  }}">
 
-                    <img src={{ 'http://via.placeholder.com/640x480' }}>
+                    <img src={{ '/bien_etre/web/uploads/images/d2efe41d3b4679de46d8ac93b28e7795.jpg' }}>
 
                 </a>
             </li>

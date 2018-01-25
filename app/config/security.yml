@@ -8,10 +8,12 @@ security:
                     algorithm: bcrypt
                     cost: 12
 
+        AppBundle\Entity\TempUser :
+                    algorithm: bcrypt
+                    cost: 12
+
+
     # https://symfony.com/doc/current/security.html#b-configuring-how-users-are-loaded
-
-
-
 
 
     providers:

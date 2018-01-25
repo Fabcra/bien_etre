@@ -30,9 +30,7 @@
         <div class="col-sm-7">
             <div class="row detail-content">
 
-
                 {% include 'providers/gallery.html.twig' %}
-
 
             </div>
 
@@ -46,13 +44,13 @@
 
                     <div class="detail-contact">
                         <div class="detail-contact-email">
-                            <i class="fa fa-envelope-o"></i> <a href="mailto:#">{{ provider.email }}</a>
+                            <i class="fa fa-envelope-o"></i> <a href="mailto:{{ provider.eMail }}">{{ provider.eMail }}</a>
                         </div>
                         <div class="detail-contact-phone">
-                            <i class="fa fa-mobile-phone"></i> <a href="tel:#">{{ provider.phoneNo }}</a>
+                            <i class="fa fa-mobile-phone"></i> {{ provider.phoneNo }}
                         </div>
                         <div class="detail-contact-website">
-                            <i class="fa fa-globe"></i> <a href="#">{{ provider.website }}</a>
+                            <i class="fa fa-globe"></i> <a href="http://{{ provider.website }}">{{ provider.website }}</a>
                         </div>
                         <div class="detail-contact-address">
                             <i class="fa fa-map-o"></i>

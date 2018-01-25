@@ -6,6 +6,8 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Security\Core\Validator\Constraints as SecurityAssert;
+
 
 
 /**
@@ -126,11 +128,16 @@ class User implements UserInterface
      */
     private $roles = [];
 
+    /**
+     * @var
+     * @ORM\Column(name="old_pwd", nullable=true)
+     */
+    private $oldPassword;
+
 
 
     public function __construct()
     {
-        $this->registrationDate = new \DateTime();
     }
 
 
@@ -425,9 +432,23 @@ class User implements UserInterface
         $this->roles = $roles;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getOldPassword()
+    {
+        return $this->oldPassword;
+    }
 
-
-
+    /**
+     * @param mixed $oldPassword
+     *
+     *
+     */
+    public function setOldPassword($oldPassword)
+    {
+        $this->oldPassword = $oldPassword;
+    }
 
 
 

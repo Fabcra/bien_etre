@@ -13,6 +13,7 @@
     </ul>
 
 
+
 </div><!-- /.header-top -->
 
 
@@ -53,22 +54,25 @@
              </ul>
          </li>#}
 
+
+
     </ul>
 
     <form class="navbar-form" method="GET" action="{{ path('search') }}">
-        <ul class="header-nav-secondary nav navbar-nav navbar-left ">
-            <li><input type="text" placeholder="Nom" style="margin-right: 10px; width : 100px;" name="by_name"></li>
-            <li><input type="text" placeholder="Localité" style="margin-right: 10px; width : 100px" name="by_location"></li>
+        <ul class="nav navbar-nav navbar-left">
+            <li><input type="text" placeholder="Nom" name="by_name"></li>
+            <li><input style="margin : 0 10px 0 10px;"  type="text" placeholder="Localité" name="by_location"></li>
             <li><select title="Service" name="by_service">
                     {% for s in services %}
                         <option value="{{ s.name }}">{{ s.name }}</option>
                     {% endfor %}
                 </select></li>
-            <li>
-                <button type="submit" style="margin-left : 10px;" class="btn btn-sm btn-primary">Recherche</button>
-            </li>
+
+            <button type="submit" style="margin-left : 10px;" class="btn btn-sm btn-primary">Recherche</button>
+
         </ul>
     </form>
+
 </div><!-- /.header-bottom -->
 
 
