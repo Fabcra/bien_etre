@@ -25,10 +25,8 @@ class StageController extends Controller
         $doctrine = $this->getDoctrine();
         $repo = $doctrine->getRepository('AppBundle:Stage');
         $stage = $repo->stageWhithProvider($slug);
-        $reposervice = $doctrine->getRepository('AppBundle:Service');
-        $services = $reposervice->findAll();
 
-        return $this->render('stages/stage.html.twig',['stage'=>$stage, 'services'=>$services]);
+        return $this->render('stages/stage.html.twig',['stage'=>$stage]);
 
     }
 
@@ -43,11 +41,9 @@ class StageController extends Controller
 
         $doctrine = $this->getDoctrine();
         $repo = $doctrine->getRepository('AppBundle:Stage');
-        $reposervice = $doctrine->getRepository('AppBundle:Service');
-        $service = $reposervice->findAll();
         $stages = $repo->findAll();
 
-        return $this->render('stages/stages.html.twig',['stages'=>$stages, 'services'=>$service]);
+        return $this->render('stages/stages.html.twig',['stages'=>$stages]);
 
     }
 

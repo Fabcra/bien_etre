@@ -1,0 +1,14 @@
+<form class="navbar-form" method="GET" action="{{ path('search') }}">
+    <ul class="nav navbar-nav navbar-left">
+        <li><input type="text" placeholder="Nom" name="by_name"></li>
+        <li><input style="margin : 0 10px 0 10px;"  type="text" placeholder="Localité" name="by_location"></li>
+        <li><select title="Service" name="by_service">
+                {% for s in services %}
+                    <option value="{{ s.name }}">{{ s.name }}</option>
+                {% endfor %}
+            </select></li>
+
+        <button type="submit" style="margin-left : 10px;" class="btn btn-sm btn-primary">Recherche</button>
+
+    </ul>
+</form>

@@ -23,8 +23,7 @@ class SecurityController extends Controller
     public function loginAction()
     {
         $doctrine = $this->getDoctrine();
-        $repo = $doctrine->getRepository('AppBundle:Service');
-        $services = $repo->findAll();
+
 
         $authenticationUtils = $this->get('security.authentication_utils');
 
@@ -36,7 +35,7 @@ class SecurityController extends Controller
             array(
                 'last_username' => $lastUsername,
                 'error' => $error,
-                'services' => $services
+
             ));
     }
 
@@ -53,8 +52,7 @@ class SecurityController extends Controller
         $pwd = $user->getPassword();
 
         $doctrine = $this->getDoctrine();
-        $repo = $doctrine->getRepository('AppBundle:Service');
-        $services = $repo->findAll();
+
 
 
         $form = $this->createForm(UserType::class, $user);
@@ -92,7 +90,7 @@ class SecurityController extends Controller
         }
 
         return $this->render('security/change_password.html.twig', [
-            'pwdForm' => $form->createView(), 'id' => $id, 'services' => $services
+            'pwdForm' => $form->createView(), 'id' => $id
         ]);
 
 

@@ -38,9 +38,6 @@ class UserController extends Controller
 
         $form->handleRequest($request);
 
-        $doctrine = $this->getDoctrine();
-        $repo = $doctrine->getRepository('AppBundle:Service');
-        $services = $repo->findAll();
 
         if ($form->isSubmitted() && $form->isValid()) {
 
@@ -51,7 +48,6 @@ class UserController extends Controller
 
             $tempuser->setToken();
             $tempuser->setPassword($encoded);
-
 
 
             $em = $this->getDoctrine()->getManager();
@@ -83,7 +79,6 @@ class UserController extends Controller
 
         return $this->render('records/preregister.html.twig', [
             'form' => $form->createView(),
-            'services' => $services
         ]);
 
     }
@@ -106,8 +101,6 @@ class UserController extends Controller
         $services = $repo->findAll();
 
         $usertype = $request->get('usertype');
-
-
 
 
         //vérification token
@@ -139,7 +132,6 @@ class UserController extends Controller
 
 
                 $image = new Image();
-
 
 
                 $image->setUrl('/bien_etre/web/uploads/images/d2efe41d3b4679de46d8ac93b28e7795.jpg');
@@ -193,12 +185,12 @@ class UserController extends Controller
         if ($usertype === "provider") {
             return $this->render('records/provider.html.twig', [
                 'form' => $form->createView(),
-                'services' =>$services
+                'services' => $services
             ]);
         } else {
             return $this->render('records/member.html.twig', [
                 'form' => $form->createView(),
-                'services'=>$services
+                'services' => $services
             ]);
         }
 
@@ -212,9 +204,13 @@ class UserController extends Controller
      */
     public function updateUser(Request $request)
     {
-        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
 
         $user = $this->getUser();
+
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+
+
+
         $id = $user->getId();
 
         $doctrine = $this->getDoctrine();

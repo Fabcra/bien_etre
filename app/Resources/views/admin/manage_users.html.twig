@@ -1,0 +1,77 @@
+{% extends 'admin/admin.html.twig' %}
+{% block rightside %}
+    <div class="row">
+        <div class="col-sm-12 col-lg-5">
+            <h3>Recent Users <a href="#">View All Logs <i
+                            class="fa fa-chevron-right"></i></a></h3>
+
+            <div class="users">
+                <table class="table">
+                    {% for p in provider %}
+                    <tbody>
+                    <tr>
+                        <td><a class="user" href="{{ path('admin_user_update',{'id':p.id}) }}"><img
+                                        src="{{ p.logo }}"
+                                        alt=""></a>
+                        </td>
+                        <td class="hidden-xs visible-sm visible-md visible-lg">
+                            <h2><a href="{{ path('admin_user_update',{'id':p.id}) }}">{{ p.name }}</a></h2>
+                            <h3>{{ p.eMail }}</h3>
+                            {% if p.banned == true %}
+                                <p class="text-danger">BANNI</p>
+                            {% endif %}
+                        </td>
+                        <td class="right">
+                            <a href="{{ path('active_user',{'id': p.id}) }}"
+                               class="btn btn-xs btn-primary">Active</a>
+                            <a href="{{ path('ban_user',{'id': p.id}) }}"
+                               class="btn btn-xs btn-danger">Ban</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+
+                    </tbody>
+                </table>
+            </div><!-- /.users -->
+
+        </div><!-- /.col-* -->
+
+        <div class="col-sm-12 col-lg-7">
+            <h3>New Listings <a href="#">All Pending Listings <i
+                            class="fa fa-chevron-right"></i></a></h3>
+
+            <div class="background-white p30 mb50">
+                <div class="cards-system">
+
+                    {% for m in member %}
+                        <div class="card-system">
+
+                            <div class="card-system-inner">
+
+                                <div class="card-system-image" data-background-image="{{ m.avatar }}">
+                                    <a href="{{ path('admin_user_update',{'id':m.id}) }}"></a>
+                                </div><!-- /.card-system-image -->
+                                <div class="card-system-content">
+                                    <h2><a href="listing-detail.html">{{ m.firstName }} {{ m.lastName }}</a></h2>
+                                    <h3 style="padding-bottom : 0;">{{ m.eMail }}</h3>
+                                    {% if m.banned == true %}
+                                        <p class="text-danger">BANNI</p>
+                                    {% endif %}
+                                    <a href="{{ path('ban_user',{'id': m.id}) }}"
+                                       class="btn btn-secondary btn-xs">Ban</a>
+                                    <a href="{{ path('active_user',{'id': m.id}) }}"
+                                       class="btn btn-secondary btn-xs">Active</a>
+                                </div>
+
+                            </div>
+
+                        </div><!-- /.card-system -->
+                    {% endfor %}
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+{% endblock %}

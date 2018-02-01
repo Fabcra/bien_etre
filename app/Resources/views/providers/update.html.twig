@@ -1,74 +1,72 @@
+<div class="page-title">
+    <h1>Modification profil</h1>
+</div><!-- /.page-title -->
+{{ form_start(providerForm, {attr:{novalidate:'novalidate'}}) }}
+<div class="background-white p20 mb30">
+    <h3 class="page-title">
+        Contact Information
+        <button type="submit" class="btn btn-primary btn-xs pull-right">Confirmation</button>
+    </h3>
 
-    <div class="page-title">
-        <h1>Modification profil</h1>
-    </div><!-- /.page-title -->
-    {{ form_start(providerForm, {attr:{novalidate:'novalidate'}}) }}
-    <div class="background-white p20 mb30">
-        <h3 class="page-title">
-            Contact Information
+    <div class="row">
+        <div class="form-group col-sm-6">
+            {{ form_row(providerForm.name, {'label' : 'Nom',
+                'attr':{'class':'form-control'}}) }}
+        </div><!-- /.form-group -->
 
-            <button type="submit" class="btn btn-primary btn-xs pull-right">Confirmation</button>
-        </h3>
+        <div class="form-group col-sm-6">
+            {{ form_row(providerForm.services, {'label' : 'Catégories de services','attr':{'class':'form-control'}}) }}
+        </div><!-- /.form-group -->
+        <div class="form-group col-sm-6">
+            {{ form_row(providerForm.tvaNo, {'label' : 'N° de TVA','attr':{'class':'form-control'}}) }}
+        </div><!-- /.form-group -->
+        <div class="form-group col-sm-6">
+            {{ form_row(providerForm.phoneNo, {'label' : 'N° de Téléphone','attr':{'class':'form-control'}}) }}
+        </div><!-- /.form-group -->
 
-        <div class="row">
-            <div class="form-group col-sm-6">
-                {{ form_row(providerForm.name, {'label' : 'Nom',
-                    'attr':{'class':'form-control'}}) }}
-            </div><!-- /.form-group -->
-
-            <div class="form-group col-sm-6">
-                {{ form_row(providerForm.services, {'label' : 'Catégories de services','attr':{'class':'form-control'}}) }}
-            </div><!-- /.form-group -->
-            <div class="form-group col-sm-6">
-                {{ form_row(providerForm.tvaNo, {'label' : 'N° de TVA','attr':{'class':'form-control'}}) }}
-            </div><!-- /.form-group -->
-            <div class="form-group col-sm-6">
-                {{ form_row(providerForm.phoneNo, {'label' : 'N° de Téléphone','attr':{'class':'form-control'}}) }}
-            </div><!-- /.form-group -->
-
-            <div class="form-group col-sm-6">
-                {{ form_row(providerForm.website, {'label' : 'Website','attr':{'class':'form-control'}}) }}
-            </div><!-- /.form-group -->
-            <div class="form-group col-sm-6">
-                {{ form_row(providerForm.eMail, {'label' : 'E-mail privé','attr':{'class':'form-control'}}) }}
-            </div><!-- /.form-group -->
+        <div class="form-group col-sm-6">
+            {{ form_row(providerForm.website, {'label' : 'Website','attr':{'class':'form-control'}}) }}
+        </div><!-- /.form-group -->
+        <div class="form-group col-sm-6">
+            {{ form_row(providerForm.eMail, {'label' : 'E-mail privé','attr':{'class':'form-control'}}) }}
+        </div><!-- /.form-group -->
 
 
-        </div><!-- /.row -->
+    </div><!-- /.row -->
 
-    </div>
+</div>
 
-    <div class="background-white p20 mb30">
-        <h3 class="page-title">
-            Address
+<div class="background-white p20 mb30">
+    <h3 class="page-title">
+        Address
 
-        </h3>
+    </h3>
 
-        <div class="row">
-            <div class="form-group col-sm-6">
-                {{ form_row(providerForm.streetName, {'label' : 'Rue','attr':{'class':'form-control'}}) }}
-            </div><!-- /.form-group -->
-            <div class="form-group col-sm-6">
-                {{ form_row(providerForm.addressNo, {'label' : 'Numéro','attr':{'class':'form-control'}}) }}
-            </div><!-- /.form-group -->
-            <div class="form-group col-sm-6">
-                {{ form_row(providerForm.postalCode, {'label' : 'Code Postal','attr':{'class':'form-control'}}) }}
-            </div><!-- /.form-group -->
+    <div class="row">
+        <div class="form-group col-sm-6">
+            {{ form_row(providerForm.streetName, {'label' : 'Rue','attr':{'class':'form-control'}}) }}
+        </div><!-- /.form-group -->
+        <div class="form-group col-sm-6">
+            {{ form_row(providerForm.addressNo, {'label' : 'Numéro','attr':{'class':'form-control'}}) }}
+        </div><!-- /.form-group -->
+        <div class="form-group col-sm-6">
+            {{ form_row(providerForm.postalCode, {'label' : 'Code Postal','attr':{'class':'form-control'}}) }}
+        </div><!-- /.form-group -->
 
-            <div class="form-group col-sm-6">
-                {{ form_row(providerForm.locality, {'label' : 'Localité','attr':{'class':'form-control'}}) }}
-            </div><!-- /.form-group -->
-            <div class="form-group col-sm-6">
-                {{ form_row(providerForm.city, {'label' : 'Ville','attr':{'class':'form-control'}}) }}
-            </div><!-- /.form-group -->
-            <div class="form-group col-sm-6">
-                {{ form_row(providerForm.eMail_contact, {'label' : 'E-mail public','attr':{'class':'form-control'}}) }}
-            </div><!-- /.form-group -->
+        <div class="form-group col-sm-6">
+            {{ form_row(providerForm.locality, {'label' : 'Localité','attr':{'class':'form-control'}}) }}
+        </div><!-- /.form-group -->
+        <div class="form-group col-sm-6">
+            {{ form_row(providerForm.city, {'label' : 'Ville','attr':{'class':'form-control'}}) }}
+        </div><!-- /.form-group -->
+        <div class="form-group col-sm-6">
+            {{ form_row(providerForm.eMail_contact, {'label' : 'E-mail public','attr':{'class':'form-control'}}) }}
+        </div><!-- /.form-group -->
 
-        </div><!-- /.row -->
-    </div>
+    </div><!-- /.row -->
+</div>
 
 
-    {{ form_end(providerForm    ) }}
+{{ form_end(providerForm    ) }}
 
 

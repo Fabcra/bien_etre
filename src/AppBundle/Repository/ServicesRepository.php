@@ -11,7 +11,7 @@ namespace AppBundle\Repository;
 class ServicesRepository extends \Doctrine\ORM\EntityRepository
 {
 
-    public function findServiceWithImage()
+    public function findServicesWithImage()
     {
 
         $qb = $this->createQueryBuilder('s');

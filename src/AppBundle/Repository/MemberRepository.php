@@ -10,4 +10,16 @@ namespace AppBundle\Repository;
  */
 class MemberRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function findAllMembersWithAvatar()
+    {
+
+        $qb = $this->createQueryBuilder('m')
+            ->orderBy('m.registrationDate', 'DESC')
+            ->leftJoin('m.avatar', 'a')->addSelect('a')
+            ->leftJoin('m.locality', 'lo')->addSelect('lo');
+
+
+        return $qb->getQuery()
+            ->getResult();
+    }
 }

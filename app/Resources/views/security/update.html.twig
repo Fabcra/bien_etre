@@ -1,4 +1,7 @@
 {% extends 'default/layout_admin.html.twig' %}
+ {% block leftside %}
+     {% include 'default/nav_update.html.twig' %}
+ {% endblock %}
 
 {% block rightside %}
     {% if (is_granted('ROLE_PROVIDER')) %}

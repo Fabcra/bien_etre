@@ -1,0 +1,24 @@
+{% extends 'admin/admin.html.twig' %}
+
+{% block rightside %}
+
+
+            <div class="page-title">
+                <h1>
+                    Veuillez choisir une image qui représente le service
+                </h1>
+            </div><!-- /.page-title -->
+
+
+            {{ form_start(ServImgForm) }}
+            <div class="form-group">
+
+                {{ form_row(ServImgForm.url) }}
+
+            </div><!-- /.form-group -->
+
+
+            <button type="submit" class="btn btn-primary pull-right">Insérer</button>
+            {{ form_end(ServImgForm) }}
+
+{% endblock %}

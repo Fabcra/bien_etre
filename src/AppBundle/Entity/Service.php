@@ -202,7 +202,6 @@ class Service
     }
 
 
-
     /**
      * @return mixed
      */

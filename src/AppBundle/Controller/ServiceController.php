@@ -6,7 +6,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
 
-class ServiceController extends Controller {
+class ServiceController extends Controller
+{
 
     /**
      *
@@ -15,14 +16,15 @@ class ServiceController extends Controller {
      * @Route("service/{slug}", name="show_service")
      *
      */
-    public function showService(Request $request, $slug){
+    public function showService(Request $request, $slug)
+    {
 
         $doctrine = $this->getDoctrine();
         $repo = $doctrine->getRepository('AppBundle:Service');
         $repo_provider = $doctrine->getRepository('AppBundle:Provider');
 
 
-        $service = $repo->findOneBy(['slug'=>$slug]);
+        $service = $repo->findOneBy(['slug' => $slug]);
         $services = $repo->findAll();
 
         $id = $service->getId();
@@ -39,7 +41,7 @@ class ServiceController extends Controller {
             $request->query->getInt('limit', 4)
         );
 
-        return $this->render('services/service.html.twig', ['services'=>$services, 'service'=>$service,  'providers'=>$result, 'id'=>$id]);
+        return $this->render('services/service.html.twig', ['services' => $services, 'service' => $service, 'providers' => $result, 'id' => $id]);
 
 
     }
@@ -51,18 +53,27 @@ class ServiceController extends Controller {
      *
      * @Route("services/list", name="list_services")
      */
-    public function listServices(){
+    public function listServices()
+    {
 
         $doctrine = $this->getDoctrine();
         $repo = $doctrine->getRepository('AppBundle:Service');
-        $services = $repo->findServiceWithImage();
+        $services = $repo->findServicesWithImage();
 
-        return $this->render('services/services.html.twig',['services'=>$services]);
+        return $this->render('services/services.html.twig', ['services' => $services]);
 
 
     }
 
 
+    public function searchServices()
+    {
 
+        $doctrine = $this->getDoctrine();
+        $repo = $doctrine->getRepository('AppBundle:Service');
 
+        $services = $repo->findAll();
+
+        return $this->render('default/minisearchbar.html.twig', ['services' => $services]);
+    }
 }

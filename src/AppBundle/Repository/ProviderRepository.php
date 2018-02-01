@@ -74,5 +74,18 @@ class ProviderRepository extends \Doctrine\ORM\EntityRepository
             ->getResult();
     }
 
+    public function findAllProvidersWithLogo()
+    {
+
+        $qb = $this->createQueryBuilder('p')
+            ->orderBy('p.registrationDate', 'DESC')
+            ->leftJoin('p.logo', 'l')->addSelect('l')
+            ->leftJoin('p.locality', 'lo')->addSelect('lo');
+
+
+        return $qb->getQuery()
+            ->getResult();
+    }
+
 
 }

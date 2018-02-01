@@ -33,9 +33,6 @@ class ImageController extends Controller
         $user = $this->getUser();
         $id = $user->getId();
 
-        $doctrine = $this->getDoctrine();
-        $repo = $doctrine->getRepository('AppBundle:Service');
-        $services = $repo->findAll();
 
 
 
@@ -67,13 +64,11 @@ class ImageController extends Controller
             $em->persist($user);
             $em->flush();
 
-
-
             return $this->redirectToRoute("update_profile");
         }
 
         return $this->render('images/insertimage.html.twig', [
-            'imgForm'=>$form->createView(),'id'=>$id, 'services'=>$services
+            'imgForm'=>$form->createView(),'id'=>$id,
         ]);
     }
 
@@ -88,9 +83,7 @@ class ImageController extends Controller
         $user = $this->getUser();
         $id = $user->getId();
 
-        $doctrine = $this->getDoctrine();
-        $repo = $doctrine->getRepository('AppBundle:Service');
-        $services = $repo->findAll();
+
 
         $image = new Image();
 
@@ -123,7 +116,7 @@ class ImageController extends Controller
         }
 
             return $this->render('images/insertimage_gallery.html.twig', [
-                'galleryForm' => $form->createView(), 'id' => $id, 'services' => $services]);
+                'galleryForm' => $form->createView(), 'id' => $id]);
 
     }
 

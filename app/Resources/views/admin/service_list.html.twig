@@ -1,0 +1,21 @@
+<div class="posts">
+    {% for s in services %}
+    <div class="post">
+        <div class="post-image">
+            <img src="{{ s.image.url }}" alt="{{ s.name }}">
+            <a class="read-more" href="blog-detail-right-sidebar.html">View</a>
+        </div><!-- /.post-image -->
+
+        <div class="post-content">
+            <h2><a href="{{ path('service_update',{'id':s.id}) }}">{{ s.name }}</a></h2>
+            <p>{{ s.description }}</p>
+        </div><!-- /.post-content -->
+
+        <div class="clearfix">
+            <a href="{{ path('service_update',{'id':s.id}) }}"
+               class="btn btn-secondary btn-xs">EDIT</a>
+            <a href="#"
+               class="btn btn-secondary btn-xs">DELETE</a>
+        </div><!-- /.post-meta -->
+    </div><!-- /.post -->
+    {% endfor %}

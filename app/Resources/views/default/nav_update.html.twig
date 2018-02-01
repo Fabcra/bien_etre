@@ -1,24 +1,28 @@
+<div class="col-sm-4 col-lg-3">
+    <div class="sidebar">
 <div class="widget">
-    <div class="user-photo">
-        <a href="{{ path("new_image") }}">
-            {% if (is_granted('ROLE_PROVIDER')) %}
-                <img src="{{ app.user.logo.url }}" alt="User Photo">
-            {% else %}
-                <img src="{{ app.user.avatar.url }}" alt="User Photo">
+        <div class="user-photo">
+            <a href="{{ path("new_image") }}">
+                {% if (is_granted('ROLE_PROVIDER')) %}
+                    <img src="{{ app.user.logo.url }}" alt="User Photo">
+                {% else %}
+                    <img src="{{ app.user.avatar.url }}" alt="User Photo">
+                {% endif %}
+                <span class="user-photo-action">Click here to reupload</span>
+            </a>
+        </div><!-- /.user-photo -->
+    </div><!-- /.widget -->
+
+
+    <div class="widget">
+        <ul class="menu-advanced">
+            <li><a href="{{ path('update_profile') }}"><i class="fa fa-user"></i> Modification profil</a></li>
+            {% if (is_granted('ROLE_PROVIDER')) %} {# pas de galerie d'images pour le simple utilisateur #}
+                <li><a href="{{ path('img-gallery') }}"><i class="fa fa-image"></i> Ajouter une image</a></li>
             {% endif %}
-            <span class="user-photo-action">Click here to reupload</span>
-        </a>
-    </div><!-- /.user-photo -->
-</div><!-- /.widget -->
-
-
-<div class="widget">
-    <ul class="menu-advanced">
-        <li><a href="{{ path('update_profile') }}"><i class="fa fa-user"></i> Modification profil</a></li>
-        {% if (is_granted('ROLE_PROVIDER')) %} {# pas de galerie d'images pour le simple utilisateur #}
-        <li><a href="{{ path('img-gallery') }}"><i class="fa fa-image"></i> Ajouter une image</a></li>
-        {% endif %}
-        <li><a href="{{ path('update_password') }}"><i class="fa fa-key"></i> Mot de passe</a></li>
-        <li><a href="{{ path('logout') }}"><i class="fa fa-sign-out"></i> Logout</a></li>
-    </ul>
-</div><!-- /.widget -->
+            <li><a href="{{ path('update_password') }}"><i class="fa fa-key"></i> Mot de passe</a></li>
+            <li><a href="{{ path('logout') }}"><i class="fa fa-sign-out"></i> Logout</a></li>
+        </ul>
+    </div><!-- /.widget -->
+    </div>
+</div>

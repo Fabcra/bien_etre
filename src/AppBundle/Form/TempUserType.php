@@ -28,11 +28,13 @@ class TempUserType extends AbstractType
             ->add('userType', ChoiceType::class, [
                 'choices' => [
                     'member' => 'member',
-                    'provider' => 'provider',
+                    'provider' => 'provider'
                 ],
                 'multiple' => false,
                 'expanded' => true
-            ]);
+            ])
+
+           ;
     }
 
     /**
