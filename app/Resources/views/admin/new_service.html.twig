@@ -1,0 +1,29 @@
+{% extends 'admin/admin.html.twig' %}
+{% block rightside %}
+    <div class="page-title">
+        <h1>{{ service.name }}</h1>
+    </div><!-- /.page-title -->
+    {{ form_start(serviceForm) }}
+    <div class="col-sm-8 col-lg-12">
+        <div class="content">
+            <div class="background-white p20 mb30">
+
+                <div class="row">
+                    <h3 class="page-title">
+                        Mise à jour
+
+                    </h3>
+                    <div class="form-group col-sm-12" style="margin-bottom: 10px;">
+                        <div class="form-group">{{ form_row(serviceForm.name, {'label' : 'Nom','attr':{'class':'form-control'}}) }}</div>
+                        <div class="form-group">{{ form_row(serviceForm.description, {'label' : 'Description','attr':{'class':'form-control'}}) }}</div>
+                        <div class="form-group col-sm-6">{{ form_row(serviceForm.valid,{'label': 'Valide'}) }}</div>
+                        <div class="form-group col-sm-6">{{ form_row(serviceForm.highlight, {'label' : 'Mettre en avant'}) }}</div>
+                        <div class="form-group col-sm-6">{{ form_row(serviceForm.image, {'label' : 'image'}) }}</div>
+                        <button type="submit" class="btn btn-primary btn-xs pull-right">Save</button>
+                    </div><!-- /.form-group -->
+                </div>
+            </div>
+        </div>
+    </div>
+    {{ form_end(serviceForm) }}
+{% endblock %}

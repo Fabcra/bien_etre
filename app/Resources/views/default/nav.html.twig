@@ -6,6 +6,10 @@
         {% if is_granted('ROLE_USER') %}
             <li><a href="{{ path("logout") }}">Logout</a></li>
             <li><a href="{{ path('update_profile') }}">Update</a></li>
+            {% if is_granted('ROLE_ADMIN') %}
+                <li><a href="{{ path('admin') }}">Admin</a></li>
+                {% endif %}
+
         {% else %}
             <li><a href="{{ path("login") }}">Login</a></li>
             <li><a href="{{ path("preregister") }}">Register</a></li>

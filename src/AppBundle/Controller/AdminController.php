@@ -10,11 +10,11 @@ namespace AppBundle\Controller;
 
 
 use AppBundle\Entity\Image;
+use AppBundle\Entity\Service;
 use AppBundle\Form\ImageType;
 use AppBundle\Form\MemberType;
 use AppBundle\Form\ProviderType;
 use AppBundle\Form\ServiceType;
-use AppBundle\Form\UserType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -152,6 +152,78 @@ class AdminController extends Controller
 
     /**
      * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     * @Route("admin/service/new", name="new_service")
+     */
+    public function newService(Request $request)
+    {
+
+        $service = new Service();
+
+        $image = new Image();
+
+        $form = $this->createForm(ServiceType::class, [$service, $image]);
+
+
+
+        $form->handleRequest($request);
+
+
+        if($form->isSubmitted() && $form->isValid()){
+
+            var_dump($form);
+            die();
+
+        }
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+
+
+
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($service);
+            $em->flush();
+
+
+
+
+
+            $file = $image->getUrl();
+
+
+
+            $filename = md5(uniqid()) . '.' . $file->guessExtension();
+
+            $file->move(
+                $this->getParameter('images'), $filename
+            );
+
+
+            $image->setUrl('/bien_etre/web/uploads/images/' . $filename);
+
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($image);
+
+            $em->flush();
+
+            $service->setImage($image);
+
+
+            return $this->redirectToRoute('admin_services');
+
+        }
+
+        return $this->render('admin/new_service.html.twig', [
+            'serviceForm' => $form->createView(), 'service' => $service
+        ]);
+
+
+    }
+
+
+    /**
+     * @param Request $request
      * @param $id
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      * @Route("admin/service/{id}", name="service_update")
@@ -191,12 +263,32 @@ class AdminController extends Controller
     }
 
     /**
+     * @param $id
+     * @return \Symfony\Component\HttpFoundation\Response
+     * @Route("admin/delete_service/{id}", name="delete_service")
+     */
+    public function deleteService($id)
+    {
+
+        $service = $this->getDoctrine()->getRepository('AppBundle:Service')->findOneById($id);
+
+        $em = $this->getDoctrine()->getManager();
+        $em->remove($service);
+        $em->flush();
+
+        $services = $this->getDoctrine()->getRepository('AppBundle:Service')->findServicesWithImage();
+
+        return $this->render('admin/manage_services.html.twig', ['services' => $services]);
+    }
+
+    /**
      * @param Request $request
      * @param $id
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      * @Route("admin/img_service/{id}", name="img_service")
      */
-    public function imgService(Request $request, $id){
+    public function imgService(Request $request, $id)
+    {
 
 
         $image = new Image();
@@ -211,18 +303,13 @@ class AdminController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             $file = $image->getUrl();
 
-
-
             $filename = md5(uniqid()) . '.' . $file->guessExtension();
-
-
 
             $file->move(
                 $this->getParameter('images'), $filename
             );
 
-
-            $image->setUrl('/bien_etre/web/uploads/images/'.$filename);
+            $image->setUrl('/bien_etre/web/uploads/images/' . $filename);
 
             $em = $this->getDoctrine()->getManager();
             $em->persist($image);
@@ -248,5 +335,6 @@ class AdminController extends Controller
             'ServImgForm' => $form->createView(), 'id' => $id]);
 
     }
+
 
 }
