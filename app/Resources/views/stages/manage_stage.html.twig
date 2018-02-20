@@ -1,0 +1,12 @@
+{% extends 'default/layout_update.html.twig' %}
+ {% block leftside %}
+     {% include 'default/nav_update.html.twig' %}
+ {% endblock %}
+
+{% block rightside %}
+
+    <a href="{{ path('new_stage') }}" class="btn btn-xs btn-primary pull-right">Nouveau</a>
+    <h3>Liste de vos stages</h3>
+
+ {% include 'stages/list.html.twig' %}
+{% endblock %}

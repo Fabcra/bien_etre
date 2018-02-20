@@ -1,21 +1,30 @@
+<div class="fa addmorespace">
+    <a href="{{ path('new_service') }}"
+       class="btn btn-primary pull-right">Nouveau service</a>
+</div>
+
+
 <div class="posts">
+
     {% for s in services %}
-    <div class="post">
-        <div class="post-image">
-            <img src="{{ s.image.url }}" alt="{{ s.name }}">
-            <a class="read-more" href="blog-detail-right-sidebar.html">View</a>
-        </div><!-- /.post-image -->
+        <div class="post">
+            <div class="post-image">
+                <img src="{{ s.image.url }}" alt="{{ s.name }}">
+                <a class="read-more" href="{{ path('img_service', {'id':s.id}) }}">Modifier l'image</a>
+            </div><!-- /.post-image -->
 
-        <div class="post-content">
-            <h2><a href="{{ path('service_update',{'id':s.id}) }}">{{ s.name }}</a></h2>
-            <p>{{ s.description }}</p>
-        </div><!-- /.post-content -->
+            <div class="post-content">
+                <h2><a href="{{ path('service_update',{'id':s.id}) }}">{{ s.name }}</a></h2>
+                <p>{{ s.description }}</p>
+            </div><!-- /.post-content -->
 
-        <div class="clearfix">
-            <a href="{{ path('service_update',{'id':s.id}) }}"
-               class="btn btn-secondary btn-xs">EDIT</a>
-            <a href="{{ path('delete_service',{'id':s.id}) }}"
-               class="btn btn-secondary btn-xs">DELETE</a>
-        </div><!-- /.post-meta -->
-    </div><!-- /.post -->
+            <div class="clearfix">
+                <a href="{{ path('service_update',{'id':s.id}) }}"
+                   class="btn btn-secondary btn-xs">MODIFIER</a>
+                <a href="{{ path('delete_service',{'id':s.id}) }}"
+                   class="btn btn-secondary btn-xs">SUPPRIMER</a>
+            </div><!-- /.post-meta -->
+        </div><!-- /.post -->
     {% endfor %}
+</div>
+

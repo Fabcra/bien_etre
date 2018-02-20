@@ -1,6 +1,6 @@
 AppBundle\Entity\Service:
   service-1:
-       name: acupuncture
+       name: bien-être
        description: '<paragraph(5)>'
        highlight: false
        valid: true

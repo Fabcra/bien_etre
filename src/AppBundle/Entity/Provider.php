@@ -6,6 +6,7 @@ namespace AppBundle\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Symfony\Component\Validator\Constraints as Assert;
 
 
 /**
@@ -28,7 +29,7 @@ class Provider extends User
 
     /**
      * @var string
-     *
+     * @Assert\NotBlank(groups={"providers"})
      * @ORM\Column(name="name", type="string", length=255)
      *
      *
@@ -37,7 +38,7 @@ class Provider extends User
 
     /**
      * @var string
-     *
+     * @Assert\NotBlank(groups={"providers"})
      * @ORM\Column(name="website", type="string", length=255)
      *
      */
@@ -45,7 +46,7 @@ class Provider extends User
 
     /**
      * @var string
-     *
+     * @Assert\NotBlank(groups={"providers"})
      * @ORM\Column(name="e_mail_contact", type="string", length=255)
      */
     private $eMail_contact;
@@ -54,13 +55,14 @@ class Provider extends User
     /**
      * @var string
      *
+     * @Assert\NotBlank(groups={"providers"})
      * @ORM\Column(name="phone_no", type="string", length=255)
      */
     private $phoneNo;
 
     /**
      * @var string
-     *
+     * @Assert\NotBlank(groups={"providers"})
      * @ORM\Column(name="tva_no", type="string", length=255)
      */
     private $tvaNo;
@@ -68,18 +70,17 @@ class Provider extends User
 
     /**
      * @var string
-     *
+     * @Assert\NotBlank(groups={"providers"})
      * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Service", inversedBy="providers", cascade={"persist"})
      *
-     *
+     * @ORM\JoinColumn(nullable=false)
      */
     private $services;
 
 
     /**
      *
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Image", mappedBy="provider")
-     *
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Image", mappedBy="provider", cascade={"remove"})
      *
      */
     private $gallery;
@@ -88,7 +89,7 @@ class Provider extends User
     /**
      * @var string
      *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Image", cascade={"persist"})
+     * @ORM\OneToOne(targetEntity="AppBundle\Entity\Image", cascade={"remove"})
      *
      * @ORM\JoinColumn(onDelete="SET NULL")
      */
@@ -97,14 +98,14 @@ class Provider extends User
     /**
      * @var string
      *
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Stage", mappedBy="provider")
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Stage", mappedBy="provider", cascade={"remove"})
      *
      */
     private $stages;
 
     /**
      *
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Promotion", mappedBy="provider")
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Promotion", mappedBy="provider", cascade={"remove"})
      *
      */
     private $promotions;
@@ -347,20 +348,6 @@ class Provider extends User
     {
         $this->slug = $slug;
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 }

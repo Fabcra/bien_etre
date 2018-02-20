@@ -1,77 +1,79 @@
 {% extends'admin/admin.html.twig' %}
 
 {% block rightside %}
-<div class="page-title">
-    <h1>Modification profil</h1>
-</div><!-- /.page-title -->
-{{ form_start(adminProviderForm, {attr:{novalidate:'novalidate'}}) }}
-<div class="background-white p20 mb30">
-    <h3 class="page-title">
-        Contact Information
+    <div class="page-title">
+        <h1>Modification profil</h1>
+    </div><!-- /.page-title -->
+    {{ form_start(adminProviderForm, {attr:{novalidate:'novalidate'}}) }}
+    <div class="background-white p20 mb30">
+        <h3 class="page-title">
+            Contact Information
 
-        <button type="submit" class="btn btn-primary btn-xs pull-right">Confirmation</button>
-    </h3>
+            <button type="submit" class="btn btn-primary btn-xs pull-right">Confirmation</button>
+        </h3>
 
-    <div class="row">
-        <div class="form-group col-sm-6">
-            {{ form_row(adminProviderForm.name, {'label' : 'Nom',
-                'attr':{'class':'form-control'}}) }}
-        </div><!-- /.form-group -->
+        <div class="row">
+            <div class="form-group col-sm-6">
+                {{ form_row(adminProviderForm.name, {'label' : 'Nom',
+                    'attr':{'class':'form-control'}}) }}
+            </div><!-- /.form-group -->
 
-        <div class="form-group col-sm-6">
-            {{ form_row(adminProviderForm.services, {'label' : 'Catégories de services','attr':{'class':'form-control'}}) }}
-        </div><!-- /.form-group -->
-        <div class="form-group col-sm-6">
-            {{ form_row(adminProviderForm.tvaNo, {'label' : 'N° de TVA','attr':{'class':'form-control'}}) }}
-        </div><!-- /.form-group -->
-        <div class="form-group col-sm-6">
-            {{ form_row(adminProviderForm.phoneNo, {'label' : 'N° de Téléphone','attr':{'class':'form-control'}}) }}
-        </div><!-- /.form-group -->
+            <div class="form-group col-sm-6">
+                {{ form_row(adminProviderForm.services, {'label' : 'Catégories de services','attr':{'class':'form-control'}}) }}
+            </div><!-- /.form-group -->
+            <div class="form-group col-sm-6">
+                {{ form_row(adminProviderForm.tvaNo, {'label' : 'N° de TVA','attr':{'class':'form-control'}}) }}
+            </div><!-- /.form-group -->
+            <div class="form-group col-sm-6">
+                {{ form_row(adminProviderForm.phoneNo, {'label' : 'N° de Téléphone','attr':{'class':'form-control'}}) }}
+            </div><!-- /.form-group -->
 
-        <div class="form-group col-sm-6">
-            {{ form_row(adminProviderForm.website, {'label' : 'Website','attr':{'class':'form-control'}}) }}
-        </div><!-- /.form-group -->
-        <div class="form-group col-sm-6">
-            {{ form_row(adminProviderForm.eMail, {'label' : 'E-mail privé','attr':{'class':'form-control'}}) }}
-        </div><!-- /.form-group -->
-
-
-    </div><!-- /.row -->
-
-</div>
-
-<div class="background-white p20 mb30">
-    <h3 class="page-title">
-        Address
-
-    </h3>
-
-    <div class="row">
-        <div class="form-group col-sm-6">
-            {{ form_row(adminProviderForm.streetName, {'label' : 'Rue','attr':{'class':'form-control'}}) }}
-        </div><!-- /.form-group -->
-        <div class="form-group col-sm-6">
-            {{ form_row(adminProviderForm.addressNo, {'label' : 'Numéro','attr':{'class':'form-control'}}) }}
-        </div><!-- /.form-group -->
-        <div class="form-group col-sm-6">
-            {{ form_row(adminProviderForm.postalCode, {'label' : 'Code Postal','attr':{'class':'form-control'}}) }}
-        </div><!-- /.form-group -->
-
-        <div class="form-group col-sm-6">
-            {{ form_row(adminProviderForm.locality, {'label' : 'Localité','attr':{'class':'form-control'}}) }}
-        </div><!-- /.form-group -->
-        <div class="form-group col-sm-6">
-            {{ form_row(adminProviderForm.city, {'label' : 'Ville','attr':{'class':'form-control'}}) }}
-        </div><!-- /.form-group -->
-        <div class="form-group col-sm-6">
-            {{ form_row(adminProviderForm.eMail_contact, {'label' : 'E-mail public','attr':{'class':'form-control'}}) }}
-        </div><!-- /.form-group -->
-
-    </div><!-- /.row -->
-</div>
+            <div class="form-group col-sm-6">
+                {{ form_row(adminProviderForm.website, {'label' : 'Website','attr':{'class':'form-control'}}) }}
+            </div><!-- /.form-group -->
+            <div class="form-group col-sm-6">
+                {{ form_row(adminProviderForm.eMail, {'label' : 'E-mail privé','attr':{'class':'form-control'}}) }}
+            </div><!-- /.form-group -->
 
 
-{{ form_end(adminProviderForm) }}
+            <div class="form-group col-sm-6">
+                {{ form_row(adminProviderForm.roles, {'label' : 'Role','attr':{'disabled':'true'}}) }}
+            </div><!-- /.form-group -->
+        </div><!-- /.row -->
+
+    </div>
+
+    <div class="background-white p20 mb30">
+        <h3 class="page-title">
+            Address
+
+        </h3>
+
+        <div class="row">
+            <div class="form-group col-sm-6">
+                {{ form_row(adminProviderForm.streetName, {'label' : 'Rue','attr':{'class':'form-control'}}) }}
+            </div><!-- /.form-group -->
+            <div class="form-group col-sm-6">
+                {{ form_row(adminProviderForm.addressNo, {'label' : 'Numéro','attr':{'class':'form-control'}}) }}
+            </div><!-- /.form-group -->
+            <div class="form-group col-sm-6">
+                {{ form_row(adminProviderForm.postalCode, {'label' : 'Code Postal','attr':{'class':'form-control'}}) }}
+            </div><!-- /.form-group -->
+
+            <div class="form-group col-sm-6">
+                {{ form_row(adminProviderForm.locality, {'label' : 'Localité','attr':{'class':'form-control'}}) }}
+            </div><!-- /.form-group -->
+            <div class="form-group col-sm-6">
+                {{ form_row(adminProviderForm.city, {'label' : 'Ville','attr':{'class':'form-control'}}) }}
+            </div><!-- /.form-group -->
+            <div class="form-group col-sm-6">
+                {{ form_row(adminProviderForm.eMail_contact, {'label' : 'E-mail public','attr':{'class':'form-control'}}) }}
+            </div><!-- /.form-group -->
+
+        </div><!-- /.row -->
+    </div>
+
+    {{ form_end(adminProviderForm) }}
 
 {% endblock %}
 

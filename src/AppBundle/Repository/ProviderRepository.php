@@ -17,6 +17,7 @@ class ProviderRepository extends \Doctrine\ORM\EntityRepository
 
         $qb->leftJoin('p.services', 's')
             ->andWhere('s.id like :id')
+            ->andWhere('p.banned=:bool')->setParameter('bool', false)
             ->setParameter('id', $id);
 
 
@@ -38,7 +39,8 @@ class ProviderRepository extends \Doctrine\ORM\EntityRepository
 
         if ($params['by_name'] != null) {
             $qb->andWhere('u.name LIKE :name')
-                ->setParameter('name', '%' . $params['by_name'] . '%');
+                ->setParameter('name', '%' . $params['by_name'] . '%')
+                ->andWhere('u.banned=:bool')->setParameter('bool', false);
 
         }
 
@@ -64,6 +66,7 @@ class ProviderRepository extends \Doctrine\ORM\EntityRepository
     {
 
         $qb = $this->createQueryBuilder('p')
+            ->andWhere('p.banned=:bool')->setParameter('bool', false)
             ->orderBy('p.registrationDate', 'DESC')
             ->leftJoin('p.logo', 'l')->addSelect('l')
             ->leftJoin('p.locality', 'lo')->addSelect('lo')
@@ -85,6 +88,18 @@ class ProviderRepository extends \Doctrine\ORM\EntityRepository
 
         return $qb->getQuery()
             ->getResult();
+    }
+
+    public function findProvidersWithHighlightedServices(){
+
+        $qb = $this->createQueryBuilder('p')
+            ->innerJoin('p.services', 's')->addSelect('s')
+            ->Where('s.highlight = true');
+
+
+            return $qb->getQuery()
+                ->getResult();
+
     }
 
 

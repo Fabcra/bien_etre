@@ -17,11 +17,18 @@
     <div class="dropdown">
         <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
             <div class="user-image">
+                {% if app.user.usertype == 'provider' %}
                 <img src="{{ app.user.logo.url }}">
+                {% else %}
+                <img src="{{ app.user.avatar.url }}">
+                {% endif %}
                 <div class="notification"></div><!-- /.notification-->
             </div><!-- /.user-image -->
-
+            {% if app.user.usertype == 'provider' %}
             <span class="header-nav-user-name">{{ app.user.name }}</span> <i class="fa fa-chevron-down"></i>
+            {% else %}
+            <span class="header-nav-user-name">{{ app.user.firstname }}</span> <i class="fa fa-chevron-down"></i>
+            {% endif %}
         </button>
 
         <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">

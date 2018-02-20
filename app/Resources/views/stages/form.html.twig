@@ -1,0 +1,25 @@
+{{ form_start(stageForm) }}
+    <div class="background-white p20 mb30">
+
+
+            <h3 class="page-title">
+               Stage
+
+            </h3>
+
+            <div class="row">
+            <div class="" style="margin-bottom: 10px;">
+                <div class="form-group col-sm-6">{{ form_row(stageForm.name, {'label' : 'Nom','attr':{'class':'form-control'}}) }}</div>
+                <div class="form-group col-sm-6">{{ form_row(stageForm.description, {'label' : 'Description','attr':{'class':'form-control'}}) }}</div>
+                <div class="form-group col-sm-6">{{ form_row(stageForm.price, {'label' : 'prix','attr':{'class':'form-control'}}) }}</div>
+                <div class="form-group col-sm-6">{{ form_row(stageForm.moreInfo, {'label' : 'infos complémentaires','attr':{'class':'form-control'}}) }}</div>
+                <div class="form-group col-sm-3">{{ form_row(stageForm.fromDate, {'label' : 'Date de début','attr':{'class':'form-control'}}) }}</div>
+                <div class="form-group col-sm-3">{{ form_row(stageForm.toDate, {'label' : 'Date de fin','attr':{'class':'form-control'}}) }}</div>
+                <div class="form-group col-sm-3">{{ form_row(stageForm.displayFrom, {'label' : 'Affichage de','attr':{'class':'form-control'}}) }}</div>
+                <div class="form-group col-sm-3">{{ form_row(stageForm.displayTo, {'label' : 'Affichage jusque','attr':{'class':'form-control'}}) }}</div>
+
+                <button type="submit" class="btn btn-primary btn-xs pull-right">Valider</button>
+            </div><!-- /.form-group -->
+        </div>
+    </div>
+{{ form_end(stageForm) }}

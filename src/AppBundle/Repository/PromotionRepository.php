@@ -18,6 +18,7 @@ class PromotionRepository extends \Doctrine\ORM\EntityRepository
 
         $qb
             ->leftJoin('promo.provider', 'prov')->addSelect('prov')
+            ->andWhere('prov.banned=:bool')->setParameter('bool', false)
             ->leftJoin('promo.service', 's')->addSelect('s')
             ->andWhere('promo.name LIKE :slug')
             ->setParameter('slug', $slug);
@@ -41,6 +42,25 @@ class PromotionRepository extends \Doctrine\ORM\EntityRepository
         return $qb
             ->getQuery()
             ->getResult();
+    }
+
+    public function findPromoWithProvidersNotBanned(){
+
+        $qb = $this->createQueryBuilder('promo');
+
+        $qb
+            ->leftJoin('promo.provider', 'prov')->addSelect('prov')
+            ->andWhere('prov.banned=:bool')->setParameter('bool', false)
+            ->andWhere('promo.displayFrom <= CURRENT_DATE()')
+            // et dont la date de début d'affichage est inférieure ou égale à ajd
+            ->andWhere('promo.displayTo >= CURRENT_DATE()' )
+            // et dont la date de fin d'affichage est supérieure ou égale à ajd
+        ;
+
+        return $qb
+            ->getQuery()
+            ->getResult();
+
     }
 
 }

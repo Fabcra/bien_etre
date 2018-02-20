@@ -1,4 +1,4 @@
-{% extends 'default/layout_admin.html.twig' %}
+{% extends 'default/layout_update.html.twig' %}
  {% block leftside %}
      {% include 'default/nav_update.html.twig' %}
  {% endblock %}
@@ -8,7 +8,7 @@
             <div class="page-title">
                 <h1>
                     Veuillez choisir un
-                    {% if (is_granted('ROLE_MEMBER')) %}
+                    {% if (app.user.usertype == 'member') %}
                         avatar
                     {% else %}
                         logo
@@ -20,7 +20,7 @@
             {{ form_start(imgForm) }}
             <div class="form-group">
 
-                {{ form_row(imgForm.url) }}
+                {{ form_row(imgForm.file) }}
 
             </div><!-- /.form-group -->
 

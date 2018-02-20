@@ -1,4 +1,4 @@
-{% extends 'default/layout_admin.html.twig' %}
+{% extends 'default/layout_update.html.twig' %}
  {% block leftside %}
      {% include 'default/nav_update.html.twig' %}
  {% endblock %}
@@ -14,7 +14,7 @@
     {{ form_start(galleryForm) }}
     <div class="form-group">
 
-        {{ form_row(galleryForm.url) }}
+        {{ form_row(galleryForm.file) }}
 
     </div><!-- /.form-group -->
 

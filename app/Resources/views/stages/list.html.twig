@@ -1,29 +1,33 @@
 {# LISTE DES STAGES A INCLURE DANS UN TWIG #}
-<div class="container">
-    <div class="pricings">
-            {% if stages is not empty %}
-            <h3>Liste des stages</h3>
-            {% for s in stages %}
-                <div class="col-sm-4">
-                    <div class="pricing">
-                        <div class="pricing-title">{{ s.name }}</div><!-- /.pricing-title -->
-                        <div class="pricing-subtitle">{{ s.description|slice(0,20) }}</div><!-- /.pricing-subtitle -->
-                        <div class="pricing-price"><span class="pricing-currency">€</span>{{ s.price }} <span
-                                    class="pricing-period">/ jour</span></div><!-- /.pricing-price -->
-                        <a href="{{ path('show_stage',{'slug':s.slug}) }}" class="btn-primary">Voir</a>
+<div class="pricings">
+    {% if stages is empty %}
+        <div> IL N'Y A PAS DE STAGE EN COURS</div>
+    {% else %}
 
-                        <hr>
-                        <ul class="pricing-list">
-                            <li><span>du</span><strong>{{ s.fromDate|date('d-m-Y') }}</strong></li>
-                            <li><span>au</span><strong>{{ s.toDate|date('d-m-Y') }}</strong></li>
-                            {#<li><span>Support</span><strong>Mail communication</strong></li>#}
-                        </ul><!-- /.pricing-list -->
-                        <hr>
-                        {#<a href="#" class="pricing-action">Full List of Features</a>#}
-                    </div><!-- /.pricing -->
-                    <br/>
-                </div><!-- /.col-* -->
-            {% endfor %}
-            {% endif %}
-    </div><!-- /.pricings -->
-</div>
+        {% for s in stages %}
+            <div class="col-sm-3">
+                <div class="pricing">
+                    <div class="pricing-title">{{ s.name }}</div><!-- /.pricing-title -->
+                    <div class="pricing-subtitle">{{ s.description|slice(0,20) }}</div><!-- /.pricing-subtitle -->
+                    <div class="pricing-price"><span class="pricing-currency">€</span>{{ s.price }} <span
+                                class="pricing-period">/ jour</span></div><!-- /.pricing-price -->
+                    <a href="{{ path('show_stage',{'slug':s.slug}) }}" class="btn-primary">Voir</a>
+
+                    <hr>
+                    <ul class="pricing-list">
+                        <li><span>du</span><strong>{{ s.fromDate|date('d-m-Y') }}</strong></li>
+                        <li><span>au</span><strong>{{ s.toDate|date('d-m-Y') }}</strong></li>
+                    </ul><!-- /.pricing-list -->
+                    <hr>
+                    {% if app.user.usertype == 'provider' %}
+                        {% if s.provider.name == app.user.name %}
+                            <a href="{{ path('stage_update', {'id':s.id}) }}" class="pricing-action">Modifier</a><br>
+                            <a href="{{ path('delete_stage', {'id':s.id}) }}" class="pricing-action" style="color:red">Supprimer</a>
+                        {% endif %}
+                    {% endif %}
+                </div><!-- /.pricing -->
+                <br/>
+            </div><!-- /.col-* -->
+        {% endfor %}
+    {% endif %}
+</div><!-- /.pricings -->

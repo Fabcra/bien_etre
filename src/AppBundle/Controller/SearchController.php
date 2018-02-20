@@ -35,7 +35,7 @@ class SearchController extends Controller {
         $repo = $doctrine->getRepository('AppBundle:Provider');
         $repo_service = $doctrine->getRepository('AppBundle:Service');
 
-        $services = $repo_service->findAll();
+        $services = $repo_service->findValidServices();
 
         $providers = $repo->search($params);
 

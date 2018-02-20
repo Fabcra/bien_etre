@@ -11,13 +11,14 @@ namespace AppBundle\Repository;
 class StageRepository extends \Doctrine\ORM\EntityRepository
 {
 
-    public function stageWhithProvider($slug)
+    public function stageWithProvider($slug)
     {
 
         $qb = $this->createQueryBuilder('s');
 
         $qb->leftJoin('s.provider', 'p')->addSelect('p')
             ->leftJoin('p.services', 'services')->addSelect('services')
+            ->andWhere('p.banned=:bool')->setParameter('bool', false)
             ->andWhere('s.slug LIKE :slug')
             ->setParameter('slug', $slug);
 
@@ -26,13 +27,32 @@ class StageRepository extends \Doctrine\ORM\EntityRepository
 
     }
 
-    public function findStageByProvider($slug)
+    public function findStagesByProvider($slug)
     {
         $qb = $this->createQueryBuilder('stage');
 
         $qb->leftJoin('stage.provider', 'prov')
             ->andWhere('prov.slug like :slug')
+            ->andWhere('prov.banned=:bool')->setParameter('bool', false)
             ->setParameter('slug', $slug);
+
+        return $qb
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function findStagesWithProviderNotBanned()
+    {
+
+        $qb = $this->createQueryBuilder('stage'); //affiche les stages
+
+        $qb->leftJoin('stage.provider', 'prov') // dont les prestataires ne sont pas bannis
+            ->andWhere('prov.banned=:bool')->setParameter('bool', false)
+            ->andWhere('stage.displayFrom <= CURRENT_DATE()')
+            // et dont la date de début d'affichage est inférieure ou égale à ajd
+            ->andWhere('stage.displayTo >= CURRENT_DATE()' )
+            // et dont la date de fin d'affichage est supérieure ou égale à ajd
+            ;
 
         return $qb
             ->getQuery()

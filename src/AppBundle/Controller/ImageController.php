@@ -10,11 +10,11 @@ namespace AppBundle\Controller;
 
 use AppBundle\Entity\Image;
 use AppBundle\Form\ImageType;
+use AppBundle\Service\FileUploader;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 class ImageController extends Controller
 {
@@ -24,51 +24,49 @@ class ImageController extends Controller
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      * @Route("/image", name="new_image")
      */
-    public function insertImage(Request $request)
+    public function insertImage(Request $request, FileUploader $fileUploader)
     {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
-
 
         $image = new Image();
         $user = $this->getUser();
         $id = $user->getId();
 
-
+        $usertype = $user->getUsertype();
 
 
         $form = $this->createForm(ImageType::class, $image);
         $form->handleRequest($request);
 
+
+
         if ($form->isSubmitted() && $form->isValid()) {
-            $file = $image->getUrl();
 
-            $filename = md5(uniqid()) . '.' . $file->guessExtension();
+            $file = $image->getFile();
+            $filename = $fileUploader->upload($file);
+            $image->setUrl('/bien_etre/web/uploads/images/' . $filename);
 
-            $file->move($this->getParameter('images'), $filename);
-
-            $image->setUrl('/bien_etre/web/uploads/images/'.$filename);
-
-            $em=$this->getDoctrine()->getManager();
+            $em = $this->getDoctrine()->getManager();
             $em->persist($image);
-
             $em->flush();
 
-            if ($this->isGranted('ROLE_PROVIDER')){
+            if ($usertype === 'provider') {
 
                 $user->setLogo($image);
-
-            } else{
+            } elseif ($usertype === 'member') {
                 $user->setAvatar($image);
             }
 
             $em->persist($user);
             $em->flush();
 
+            $this->addFlash('success', 'Image insérée avec succès');
+
             return $this->redirectToRoute("update_profile");
         }
 
         return $this->render('images/insertimage.html.twig', [
-            'imgForm'=>$form->createView(),'id'=>$id,
+            'imgForm' => $form->createView(), 'id' => $id,
         ]);
     }
 
@@ -76,17 +74,15 @@ class ImageController extends Controller
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      * @Route("/image_gallery", name="img-gallery")
-     * @Security("is_granted('ROLE_PROVIDER')")
      */
-    public function addImageGallery(Request $request){
+    public function addImageGallery(Request $request, FileUploader $fileUploader)
+    {
 
         $user = $this->getUser();
         $id = $user->getId();
 
 
-
         $image = new Image();
-
 
 
         $form = $this->createForm(ImageType::class, $image);
@@ -95,28 +91,24 @@ class ImageController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-            $file = $image->getUrl();
+            $file = $image->getFile();
 
-            $fileName = md5(uniqid()) . '.' . $file->guessExtension();
-
-            $file->move(
-                $this->getParameter('images'), $fileName
-            );
+            $fileName = $fileUploader->upload($file);
 
             $image->setProvider($user);
-            $image->setUrl('/bien_etre/web/uploads/images/'.$fileName);
+            $image->setUrl('/bien_etre/web/uploads/images/' . $fileName);
 
             $em = $this->getDoctrine()->getManager();
             $em->persist($image);
             $em->flush();
-            $this->addFlash('success', 'image ajoutée');
+            $this->addFlash('success', 'image ajoutée dans la galerie');
 
 
             return $this->redirectToRoute('update_profile');
         }
 
-            return $this->render('images/insertimage_gallery.html.twig', [
-                'galleryForm' => $form->createView(), 'id' => $id]);
+        return $this->render('images/insertimage_gallery.html.twig', [
+            'galleryForm' => $form->createView(), 'id' => $id]);
 
     }
 

@@ -3,8 +3,8 @@ AppBundle\Entity\Promotion:
         name (unique): '<word()>'
         description: '<sentence()>'
         pdfDoc: pdf.url
-        fromDate: '<dateTimeBetween("-200 days", "now")>'
-        toDate: '<dateTimeBetween("-200 days", "now")>'
-        displayFrom: '<dateTimeBetween("-200 days", "now")>'
-        displayTo: '<dateTimeBetween("-200 days", "now")>'
+        fromDate: '<dateTimeBetween("now")>'
+        toDate: '<dateTimeBetween("+1 days", "+1 days")>'
+        displayFrom: '<dateTimeBetween("now")>'
+        displayTo: '<dateTimeBetween("+1 days", "+1 days")>'
         provider: '@provider-*'

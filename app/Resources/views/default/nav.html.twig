@@ -7,7 +7,10 @@
             <li><a href="{{ path("logout") }}">Logout</a></li>
             <li><a href="{{ path('update_profile') }}">Update</a></li>
             {% if is_granted('ROLE_ADMIN') %}
-                <li><a href="{{ path('admin') }}">Admin</a></li>
+                <li
+                        {%  if 'admin_users' in app.request.attributes.get('_route') %}
+                    class="active"
+                        {% endif %}><a href="{{ path('admin_users') }}">Admin</a></li>
                 {% endif %}
 
         {% else %}
@@ -28,24 +31,36 @@
     <ul class="header-nav-primary nav nav-pills collapse navbar-collapse">
 
         {# HOME #}
-        <li>
-            <a href="{{ path('homepage') }}">Home <i class="fa"></i></a>
+        <li
+            {%  if 'homepage' in app.request.attributes.get('_route') %}
+                class="active"
+            {% endif %}>
+            <a href="{{ path('homepage') }}">Home<i class="fa"></i></a>
         </li>
 
         {# LISTES SERVICES #}
-        <li>
+        <li
+            {%  if 'list_services' in app.request.attributes.get('_route') %}
+                class="active"
+            {% endif %}>
             <a href="{{ path('list_services') }}">Services<i class="fa"></i></a>
 
         </li>
 
         {# STAGES  #}
-        <li>
+        <li
+                {%  if 'list_stages' in app.request.attributes.get('_route') %}
+            class="active"
+                {% endif %}>
             <a href="{{ path('list_stages') }}">Stages <i class="fa"></i></a>
 
         </li>
 
         {# PROMOTIONS  #}
-        <li>
+        <li
+                {%  if 'list_promos' in app.request.attributes.get('_route') %}
+            class="active"
+                {% endif %}>
             <a href="{{ path('list_promos') }}">Promotions <i class="fa"></i></a>
 
         </li>

@@ -3,19 +3,17 @@
     <div class="page-title">
         <h1>{{ service.name }}</h1>
     </div><!-- /.page-title -->
+    {{ form_start(serviceForm) }}
     <div class="col-sm-4 col-lg-3">
         <div class="sidebar">
             <div class="widget">
                 <div class="user-photo">
-                    <a href="{{ path('img_service', {'id':service.id}) }}">
-                        <img src="{{ service.image.url }}" alt="User Photo">
-                        <span class="user-photo-action">Click here to reupload</span>
-                    </a>
+                    <img src="{{ service.image.url }}" alt="User Photo">
                 </div><!-- /.user-photo -->
             </div><!-- /.widget -->
         </div>
     </div>
-    {{ form_start(serviceForm) }}
+
     <div class="col-sm-8 col-lg-9">
         <div class="content">
             <div class="background-white p20 mb30">

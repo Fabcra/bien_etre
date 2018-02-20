@@ -1,13 +1,19 @@
 <div class="sidebar-secondary-admin">
     <ul>
-        <li class="active">
-            <a href="{{ path('admin') }}">
+        <li
+                {%  if 'admin_users' in app.request.attributes.get('_route') %}
+            class="active"
+                {% endif %}>
+            <a href="{{ path('admin_users') }}">
                 <span class="icon"><i class="fa fa-tachometer"></i></span>
                 <span class="title">Utilisateurs</span>
                 <span class="subtitle">Gestion des utilisateurs</span>
             </a>
         </li>
-        <li >
+        <li
+                {%  if 'admin_services' in app.request.attributes.get('_route') %}
+            class="active"
+                {% endif %}>
             <a href="{{ path('admin_services') }}">
                 <span class="icon"><i class="fa fa-i-cursor"></i></span>
                 <span class="title">Services</span>

@@ -1,0 +1,12 @@
+{% extends 'default/layout_update.html.twig' %}
+ {% block leftside %}
+     {% include 'default/nav_update.html.twig' %}
+ {% endblock %}
+
+{% block rightside %}
+
+    <a href="{{ path('new_promo') }}" class="btn btn-xs btn-primary pull-right">Nouveau</a>
+    <h3>Liste de vos promotions</h3>
+
+ {% include 'promotions/list.html.twig' %}
+{% endblock %}

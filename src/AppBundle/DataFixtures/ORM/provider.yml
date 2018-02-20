@@ -18,4 +18,5 @@ AppBundle\Entity\Provider:
         postalCode: '@cp-*'
         locality: '@locality-*'
         city: '@city-*'
-        roles: ['ROLE_PROVIDER','ROLE_ADMIN']
+        roles: ['ROLE_ADMIN']
+        usertype : provider

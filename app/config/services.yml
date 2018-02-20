@@ -4,6 +4,7 @@ parameters:
     #parameter_name: value
 
 services:
+
     # default configuration for services in *this* file
     _defaults:
         # automatically injects dependencies in your services
@@ -13,6 +14,8 @@ services:
         # this means you cannot fetch services directly from the container via $container->get()
         # if you need to do this, you can override this setting on individual services
         public: false
+
+
 
     # makes classes in src/AppBundle available to be used as services
     # this creates a service per class whose id is the fully-qualified class name
@@ -33,3 +36,7 @@ services:
     # AppBundle\Service\ExampleService:
     #     arguments:
     #         $someArgument: 'some_value'
+
+    AppBundle\Service\FileUploader:
+         arguments:
+             $targetDir: '%images_directory%'

@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -24,10 +25,15 @@ class Image
     /**
      * @var string
      *
+     *
      * @ORM\Column(name="url", type="string", length=255, nullable=true)
      */
     private $url;
 
+    /**
+     * @var
+     */
+    private $file;
 
     /**
      *
@@ -37,6 +43,8 @@ class Image
      *
      */
     private $provider;
+
+
 
 
 
@@ -92,11 +100,32 @@ class Image
     }
 
 
-
     public function __toString()
     {
         return $this->url;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getFile()
+    {
+        return $this->file;
+    }
+
+    /**
+     * @param mixed $file
+     */
+    public function setFile($file)
+    {
+        $this->file = $file;
+    }
+
+
+
+
+
+
 
 }
 

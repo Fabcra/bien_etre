@@ -6,17 +6,24 @@
             <div class="container">
                 <div class="detail-banner-left">
                     <div class="detail-banner-info">
+
                         {% for s in provider.services %}
-                        <a href="{{ path('show_service',{'slug':s.slug})}}"><div class="detail-label">{{ s.name }}</div></a>
-                            {% endfor %}
+                            {% if s.valid == true %}
+                                <a href="{{ path('show_service',{'id':s.id}) }}">
+                                    <div class="detail-label">{{ s.name }}</div>
+                                </a>
+                            {% endif %}
+                        {% endfor %}
                     </div><!-- /.detail-banner-info -->
 
                     <h2 class="detail-title">
                         {{ provider.name }}
                     </h2>
                     <div class="detail-banner-address">
+
                         <i class="fa fa-map-o"></i> {{ provider.streetName }}
                         , {{ provider.addressNo }} {{ provider.postalCode.postalCode }} {{ provider.locality.locality }} {{ provider.city.city }}
+
                     </div><!-- /.detail-banner-address -->
 
 
@@ -36,29 +43,29 @@
 
         </div>
         <div class="col-sm-5">
-                <div class="detail-vcard">
-                    <div class="detail-logo">
-                        <img width="100px" src="{{ provider.logo.url }}">
-                    </div><!-- /.detail-logo -->
+            <div class="detail-vcard">
+                <div class="detail-logo">
+                    <img width="100px" src="{{ provider.logo.url }}">
+                </div><!-- /.detail-logo -->
 
 
-                    <div class="detail-contact">
-                        <div class="detail-contact-email">
-                            <i class="fa fa-envelope-o"></i> <a href="mailto:{{ provider.eMail }}">{{ provider.eMail }}</a>
-                        </div>
-                        <div class="detail-contact-phone">
-                            <i class="fa fa-mobile-phone"></i> {{ provider.phoneNo }}
-                        </div>
-                        <div class="detail-contact-website">
-                            <i class="fa fa-globe"></i> <a href="http://{{ provider.website }}">{{ provider.website }}</a>
-                        </div>
-                        <div class="detail-contact-address">
-                            <i class="fa fa-map-o"></i>
-                            {{ provider.addressNo }}, {{ provider.streetName }}<br>
-                            {{ provider.postalCode.postalCode }} {{ provider.locality.locality }} {{ provider.city.city }}
-                        </div>
-                    </div><!-- /.detail-contact -->
-                </div><!-- /.detail-vcard -->
+                <div class="detail-contact">
+                    <div class="detail-contact-email">
+                        <i class="fa fa-envelope-o"></i> <a href="mailto:{{ provider.eMail }}">{{ provider.eMail }}</a>
+                    </div>
+                    <div class="detail-contact-phone">
+                        <i class="fa fa-mobile-phone"></i> {{ provider.phoneNo }}
+                    </div>
+                    <div class="detail-contact-website">
+                        <i class="fa fa-globe"></i> <a href="http://{{ provider.website }}">{{ provider.website }}</a>
+                    </div>
+                    <div class="detail-contact-address">
+                        <i class="fa fa-map-o"></i>
+                        {{ provider.addressNo }}, {{ provider.streetName }}<br>
+                        {{ provider.postalCode.postalCode }} {{ provider.locality.locality }} {{ provider.city.city }}
+                    </div>
+                </div><!-- /.detail-contact -->
+            </div><!-- /.detail-vcard -->
             <div class="tab-content">
                 <h2>Nous sommes ici</h2>
 
@@ -76,10 +83,16 @@
 
         </div>
     </div>
-    <div>
-    {% include 'promotions/list.html.twig' %}
-    </div>
-    <div>
-    {% include 'stages/list.html.twig' %}
-    </div>
+    {% if provider.promotions is not empty %}
+        <div class="container">
+            <h3>Promotions</h3>
+            {% include 'promotions/list.html.twig' %}
+        </div>
+    {% endif %}
+    {% if provider.stages is not empty%}
+        <div class="container">
+            <h3>Stages</h3>
+            {% include 'stages/list.html.twig' %}
+        </div>
+    {% endif %}
 {% endblock %}

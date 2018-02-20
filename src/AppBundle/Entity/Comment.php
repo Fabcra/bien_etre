@@ -51,7 +51,7 @@ class Comment
 
     /**
      *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Member")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Member", cascade={"persist"})
      *
      */
     private $member;

@@ -8,8 +8,8 @@
             <img src="{{ provider.gallery[0].url }}">
         </a>
         {% else %}  {# image par défaut si la galerie d'images est vide #}
-        <a href="{{ '/bien_etre/web/uploads/images/d2efe41d3b4679de46d8ac93b28e7795.jpg'  }}">
-            <img src={{ '/bien_etre/web/uploads/images/d2efe41d3b4679de46d8ac93b28e7795.jpg' }}>
+        <a href="{{ '/bien_etre/web/assets/img/default.jpg'  }}">
+            <img src={{ '/bien_etre/web/assets/img/default.jpg' }}>
         </a>
         {% endif %}
     </div>
@@ -28,9 +28,9 @@
         {% endfor %}
         {% else %}{# image par défaut si la galerie est vide #}
             <li class="detail-gallery-list-item active">
-                <a data-target="{{ '/bien_etre/web/uploads/images/d2efe41d3b4679de46d8ac93b28e7795.jpg'  }}">
+                <a data-target="{{ '/bien_etre/web/assets/img/default.jpg'  }}">
 
-                    <img src={{ '/bien_etre/web/uploads/images/d2efe41d3b4679de46d8ac93b28e7795.jpg' }}>
+                    <img src={{ '/bien_etre/web/assets/img/default.jpg' }}>
 
                 </a>
             </li>

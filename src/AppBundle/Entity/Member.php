@@ -4,8 +4,7 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
-
-
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Member
@@ -28,6 +27,7 @@ class Member extends User
      * @var string
      *
      * @ORM\Column(name="last_name", type="string", length=255)
+     * @Assert\NotBlank()
      */
     private $lastName;
 
@@ -35,6 +35,7 @@ class Member extends User
      * @var string
      *
      * @ORM\Column(name="first_name", type="string", length=255)
+     * @Assert\NotBlank()
      */
     private $firstName;
 
@@ -47,11 +48,10 @@ class Member extends User
 
 
     /**
-     * @var
+     * @var string
      *
-     * @ORM\OneToOne(targetEntity="AppBundle\Entity\Image", cascade={"persist"})
+     * @ORM\OneToOne(targetEntity="AppBundle\Entity\Image")
      *
-     * @ORM\JoinColumn(name="avatar", onDelete = "SET NULL", nullable=true)
      */
     private $avatar;
 
@@ -215,6 +215,7 @@ class Member extends User
     {
         $this->slug = $slug;
     }
+
 
 
 

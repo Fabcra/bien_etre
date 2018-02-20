@@ -13,7 +13,9 @@ use AppBundle\Entity\Member;
 use AppBundle\Entity\Provider;
 use AppBundle\Form\MemberType;
 use AppBundle\Form\ProviderType;
-use AppBundle\Services\Message;
+use AppBundle\Service\FileUploader;
+use AppBundle\Service\Message;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
@@ -21,6 +23,7 @@ use AppBundle\Entity\TempUser;
 use AppBundle\Form\TempUserType;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
+use AppBundle\Service\Mailer;
 
 class UserController extends Controller
 {
@@ -29,7 +32,7 @@ class UserController extends Controller
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      * @Route("/preregister", name="preregister")
      */
-    public function preregister(Request $request, EncoderFactoryInterface $encoderFactory)
+    public function preregister(Request $request, EncoderFactoryInterface $encoderFactory, Mailer $mailer)
     {
 
         $tempuser = new TempUser();
@@ -57,21 +60,14 @@ class UserController extends Controller
 
             $this->addFlash('success', 'Veuillez confirmer votre inscription via le mail envoyé');
 
+            //paramètres nécessaires au service Mailer
             $mail = $tempuser->getEMail();
-            $password = $tempuser->getPassword();
-            $usertype = $tempuser->getUserType();
-            $token = $tempuser->getToken();
+            $subject = "Nouvelle inscription";
+            $body = $this->renderView('records/mail.html.twig', array('tempuser' => $tempuser));
 
-            $message = \Swift_Message::newInstance()
-                ->setSubject("Nouvelle inscription")
-                ->setFrom("inscription@bien_etre.com")
-                ->setTo($mail)
-                ->setBody(
-                    $this->renderView('records/mail.html.twig', array('tempuser' => $tempuser)
-                    ), 'text/html'
-                );
+            //appel au service mailer
+            $mailer->sendMail($mail, $subject, $body);
 
-            $this->get('mailer')->send($message);
 
             return $this->redirectToRoute('homepage');
 
@@ -89,7 +85,7 @@ class UserController extends Controller
      * @Route("/register/{token}/{id}/{usertype}", name="register")
      *
      */
-    public function registerAction(Request $request, Message $message, $token, $id, $usertype)
+    public function registerAction(Request $request, Message $message, $token, $id)
     {
 
         $doctrine = $this->getDoctrine();
@@ -97,10 +93,10 @@ class UserController extends Controller
             ->getRepository('AppBundle:TempUser')
             ->findOneBy(['id' => $id]);
 
-        $repo = $doctrine->getRepository('AppBundle:Service');
-        $services = $repo->findAll();
+
 
         $usertype = $request->get('usertype');
+
 
 
         //vérification token
@@ -112,12 +108,14 @@ class UserController extends Controller
 
                 $user = new Provider();
                 $user->setEMail($mail);
+                $user->setUsertype('provider');
                 $form = $this->createForm(ProviderType::class, $user);
 
             } else if ($usertype === 'member') {
 
                 $user = new Member();
                 $user->setEMail($mail);
+                $user->setUsertype('member');
                 $form = $this->createForm(MemberType::class, $user);
             }
 
@@ -128,19 +126,15 @@ class UserController extends Controller
             $form->handleRequest($request);
 
 
+
+
             if ($form->isSubmitted() && $form->isValid()) {
 
 
                 $image = new Image();
 
 
-                $image->setUrl('/bien_etre/web/uploads/images/d2efe41d3b4679de46d8ac93b28e7795.jpg');
-
-                if ($usertype === 'member') {
-                    $user->setRoles(['ROLE_MEMBER']);
-                } else {
-                    $user->setRoles(['ROLE_PROVIDER']);
-                }
+                $image->setUrl('/bien_etre/web/assets/img/default.jpg');
 
                 $em = $this->getDoctrine()->getManager();
 
@@ -151,7 +145,6 @@ class UserController extends Controller
                 } else {
                     $user->setLogo($image);
                 }
-                //
 
                 $user->setBanned(false);
                 $user->setConfirmed(true);
@@ -184,13 +177,11 @@ class UserController extends Controller
 
         if ($usertype === "provider") {
             return $this->render('records/provider.html.twig', [
-                'form' => $form->createView(),
-                'services' => $services
+                'providerForm' => $form->createView()
             ]);
-        } else {
+        } elseif ($usertype === 'member') {
             return $this->render('records/member.html.twig', [
-                'form' => $form->createView(),
-                'services' => $services
+                'memberForm' => $form->createView()
             ]);
         }
 
@@ -200,27 +191,31 @@ class UserController extends Controller
     /**
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
-     * @Route("/profile", name="update_profile"   )
+     * @Route("/profile", name="update_profile")
      */
-    public function updateUser(Request $request)
+    public function updateUser(Request $request, FileUploader $fileUploader)
     {
 
         $user = $this->getUser();
 
+
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
-
-
 
         $id = $user->getId();
 
         $doctrine = $this->getDoctrine();
         $repo = $doctrine->getRepository('AppBundle:Service');
 
-        $services = $repo->findAll();
+        $usertype = $user->getUsertype();
 
-        if ($this->isGranted('ROLE_PROVIDER')) {
+
+        $services = $repo->findValidServices();
+
+        if ($usertype === 'provider') {
+
             $form = $this->createForm(ProviderType::class, $user);
-        } else {
+
+        } elseif ($usertype === 'member') {
             $form = $this->createForm(MemberType::class, $user);
         }
 
@@ -228,21 +223,22 @@ class UserController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
 
+
             $em = $this->getDoctrine()->getManager();
             $em->persist($user);
             $em->flush();
 
+
             $this->addFlash('success', 'update effectué avec succès');
 
-            return $this->redirectToRoute('homepage');
 
         }
 
-        if ($this->isGranted('ROLE_PROVIDER')) {
+        if ($usertype ==='provider') {
             return $this->render('security/update.html.twig', [
                 'providerForm' => $form->createView(), 'id' => $id, 'services' => $services
             ]);
-        } else {
+        } elseif ($usertype ==='member') {
             return $this->render('security/update.html.twig', [
                 'memberForm' => $form->createView(), 'id' => $id, 'services' => $services
             ]);

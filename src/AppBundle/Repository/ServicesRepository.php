@@ -23,5 +23,38 @@ class ServicesRepository extends \Doctrine\ORM\EntityRepository
 
     }
 
+    public function findValidServicesWithImage()
+    {
+
+        $qb = $this->createQueryBuilder('s')
+            ->where('s.valid = true');
+
+        $qb->leftJoin('s.image', 'i')->addSelect('i');
+
+        return $qb->getQuery()
+            ->getResult();
+
+    }
+
+    public function findValidServices()
+    {
+        $qb = $this->createQueryBuilder('s')
+            ->where('s.valid = true');
+
+
+        return $qb->getQuery()
+            ->getResult();
+    }
+
+    public function findValidHighlightedServices()
+    {
+        $qb = $this->createQueryBuilder('s')
+            ->where('s.valid = true')
+            ->where('s.highlight = true');
+
+        return $qb->getQuery()
+            ->getResult();
+    }
+
 
 }

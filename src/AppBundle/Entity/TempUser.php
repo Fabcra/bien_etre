@@ -48,7 +48,7 @@ class TempUser
 
     /**
      * @var string
-     *
+     * @Assert\NotBlank()
      * @ORM\Column(name="userType", type="string", length=255)
      */
     private $userType;

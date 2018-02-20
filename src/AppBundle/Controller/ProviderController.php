@@ -31,13 +31,13 @@ class ProviderController extends Controller
         $provider = $repo->findOneBy(['slug' => $slug]);
 
         $reposervice = $doctrine->getRepository('AppBundle:Service');
-        $services = $reposervice->findAll();
+        $services = $reposervice->findValidServices();
 
         $repopromos = $doctrine->getRepository('AppBundle:Promotion');
         $promotions = $repopromos->findPromoByProvider($slug);
 
         $repostages = $doctrine->getRepository('AppBundle:Stage');
-        $stages = $repostages->findStageByProvider($slug);
+        $stages = $repostages->findStagesByProvider($slug);
 
 
         return $this->render('providers/provider.html.twig', ['provider' => $provider, 'services' => $services, 'promotions'=>$promotions, 'stages'=>$stages]);

@@ -5,6 +5,7 @@ namespace AppBundle\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Symfony\Component\Validator\Constraints as Assert;
 
 
 /**
@@ -62,6 +63,8 @@ class Service
 
     /**
      *
+     * @Assert\Type(type="AppBundle\Entity\Image")
+     *
      * @ORM\OneToOne(targetEntity="AppBundle\Entity\Image", cascade={"persist"})
      *
      * @ORM\JoinColumn(onDelete="SET NULL")
@@ -83,7 +86,7 @@ class Service
 
     public function __construct()
     {
-        $this->providers=new ArrayCollection();
+        $this->providers = new ArrayCollection();
     }
 
     /**
@@ -252,7 +255,12 @@ class Service
 
     public function __toString()
     {
-        return $this->getName();
+        return $this
+            ->getName();
     }
+
+
+
+
 
 }

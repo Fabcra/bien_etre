@@ -6,7 +6,7 @@
  * Time: 11:30
  */
 
-namespace AppBundle\Services;
+namespace AppBundle\Service;
 
 
 class Message

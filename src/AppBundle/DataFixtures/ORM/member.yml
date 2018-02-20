@@ -2,9 +2,9 @@ AppBundle\Entity\Member:
   member-{1..10}:
         lastName: '<lastName()>'
         firstName: '<firstName()>'
-        newsletter: false
+        newsletter: 1
         avatar : '@img-*'
-        eMail: '<email()>'
+        eMail (unique) : '<email()>'
         password: \$2a\$12\$qAWawH8EFd1gN3.Ld1pkVO5IGzQOvmbnV9T6WF6TVlw4BuWbUKUve
         addressNo: '<buildingNumber()>'
         streetName: '<streetName()>'
@@ -15,5 +15,6 @@ AppBundle\Entity\Member:
         postalCode: '@cp-*'
         locality: '@locality-*'
         city: '@city-*'
-        roles : ['ROLE_MEMBER']
+        roles : ['ROLE_USER']
+        usertype : member
 

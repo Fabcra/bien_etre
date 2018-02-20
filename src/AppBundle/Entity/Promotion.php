@@ -4,6 +4,7 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Promotion
@@ -39,40 +40,46 @@ class Promotion
     /**
      * @var string
      *
-     * @ORM\Column(name="pdf_doc", type="string", length=255)
+     * @ORM\Column(name="pdf_doc", type="string", length=255, nullable=true)
      */
     private $pdfDoc;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="from_date", type="datetime")
+     * @ORM\Column(name="from_date", type="date")
+     * @Assert\GreaterThanOrEqual("today", message="Cette date doit être supérieure ou égale à la date du jour")
      */
     private $fromDate;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="to_date", type="datetime")
+     * @ORM\Column(name="to_date", type="date")
+     * @Assert\Expression("value>this.getFromDate()", message="Cette date doit être supérieure à la date de début")
+     *
      */
     private $toDate;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="display_from", type="datetime")
+     * @ORM\Column(name="display_from", type="date")
+     * @Assert\Expression("value<=this.getFromDate()", message="Cette date doit être inférieure ou égale à la date de début")
      */
     private $displayFrom;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="display_to", type="datetime")
+     * @ORM\Column(name="display_to", type="date")
+     * @Assert\Expression("value<=this.getToDate()", message="Cette date doit être inférieure ou égale à la date de fin")
      */
     private $displayTo;
 
     /**
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Service", inversedBy="promotions")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Service", inversedBy="promotions", cascade={"persist"})
+     *
      */
     private $service;
 
@@ -80,7 +87,7 @@ class Promotion
     /**
      * @var string
      *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Provider", inversedBy="promotions")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Provider", inversedBy="promotions", cascade={"persist"})
      *
      * @ORM\JoinColumn(onDelete="SET NULL")
      */

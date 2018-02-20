@@ -9,7 +9,6 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Security\Core\Validator\Constraints as SecurityAssert;
 
 
-
 /**
  * User
  *
@@ -21,7 +20,7 @@ use Symfony\Component\Security\Core\Validator\Constraints as SecurityAssert;
  * @UniqueEntity(fields={"eMail"}, message="Vous avez déjà un compte avec cette adresse")
  *
  */
-class User implements UserInterface
+class User implements UserInterface, \Serializable
 {
     /**
      * @var int
@@ -54,14 +53,14 @@ class User implements UserInterface
 
     /**
      * @var string
-     *
+     * @Assert\NotBlank(groups={"providers"})
      * @ORM\Column(name="addresse_no", type="string", length=5, nullable=true)
      */
     private $addressNo;
 
     /**
      * @var string
-     *
+     * @Assert\NotBlank(groups={"providers"})
      * @ORM\Column(name="street_name", type="string", length=255, nullable=true)
      */
     private $streetName;
@@ -98,8 +97,8 @@ class User implements UserInterface
     /**
      * @var string
      *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\PostalCode")
-     *
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\PostalCode", cascade={"persist"})
+     * @Assert\NotBlank(groups={"providers"})
      * @ORM\JoinColumn(name="postal_code", nullable=true)
      */
     private $postalCode;
@@ -107,8 +106,8 @@ class User implements UserInterface
     /**
      * @var string
      *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Locality")
-     *
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Locality", cascade={"persist"})
+     * @Assert\NotBlank(groups={"providers"})
      * @ORM\JoinColumn(name="locality", nullable=true)
      */
     private $locality;
@@ -116,8 +115,8 @@ class User implements UserInterface
     /**
      * @var string
      *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\City")
-     *
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\City", cascade={"persist"})
+     * @Assert\NotBlank(groups={"providers"})
      * @ORM\JoinColumn(name="city", nullable=true, onDelete="SET NULL")
      *
      */
@@ -134,6 +133,10 @@ class User implements UserInterface
      */
     private $oldPassword;
 
+    /**
+     * @ORM\Column(name="usertype")
+     */
+    private $usertype;
 
 
     public function __construct()
@@ -432,6 +435,7 @@ class User implements UserInterface
         $this->roles = $roles;
     }
 
+
     /**
      * @return mixed
      */
@@ -449,6 +453,48 @@ class User implements UserInterface
     {
         $this->oldPassword = $oldPassword;
     }
+
+
+    /** @see \Serializable::serialize() */
+    public function serialize()
+    {
+        return serialize(array(
+            $this->id,
+            $this->eMail,
+            $this->password,
+            // see section on salt below
+            // $this->salt,
+        ));
+    }
+
+    /** @see \Serializable::unserialize() */
+    public function unserialize($serialized)
+    {
+        list (
+            $this->id,
+            $this->eMail,
+            $this->password,
+            // see section on salt below
+            // $this->salt
+            ) = unserialize($serialized);
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getUsertype()
+    {
+        return $this->usertype;
+    }
+
+    /**
+     * @param mixed $usertype
+     */
+    public function setUsertype($usertype)
+    {
+        $this->usertype = $usertype;
+    }
+
 
 
 

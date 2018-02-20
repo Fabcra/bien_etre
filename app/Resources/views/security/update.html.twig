@@ -1,12 +1,13 @@
-{% extends 'default/layout_admin.html.twig' %}
- {% block leftside %}
-     {% include 'default/nav_update.html.twig' %}
- {% endblock %}
+{% extends 'default/layout_update.html.twig' %}
+    {% block leftside %}
+        {% include 'default/nav_update.html.twig' %}
+    {% endblock %}
 
-{% block rightside %}
-    {% if (is_granted('ROLE_PROVIDER')) %}
+    {% block rightside %}
+
+    {% if (app.user.usertype == 'provider') %}
         {% include 'providers/update.html.twig' %}
-    {% else %}
+    {% elseif (app.user.usertype == 'member') %}
         {% include 'members/update.html.twig' %}
     {% endif %}
 {% endblock %}

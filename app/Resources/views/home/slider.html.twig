@@ -3,33 +3,35 @@
         <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
 
             <div class="carousel-inner" role="listbox">
-                {% for p in providers %}
 
-                    {% if loop.index0 == 0 %}
-                        {% set active='active' %}
-                    {% else %}
-                        {% set active='' %}
-                    {% endif %}
-                    <div class="item {{ active }}" style="height:400px;">
-                        {% if p.gallery is not empty %}
-                        <div class="item-bg" style="background-image: url({{ p.gallery[0].url}})"></div>
-                        <img src={{ p.gallery[0].url }} alt="{{ p.name }}">
+                {% for p in highlight %}
+
+                        {% if loop.index0 == 0 %}
+                            {% set active='active' %}
                         {% else %}
-                        <div class="item-bg" style="background-image: url({{ p.logo.url}})"></div>
-                        <img src={{ p.logo.url }} alt="{{ p.name }}">
+                            {% set active='' %}
                         {% endif %}
-                        <div class="carousel-caption">
-                            <div class="hero-slider-content">
-                                <a href="{{ path('show_provider',{'slug':p.slug}) }}"><h1>{{ p.name }}</h1></a>
+                        <div class="item {{ active }}" style="height:400px;">
+                            {% if p.gallery is not empty %}
+                                <div class="item-bg" style="background-image: url({{ p.gallery[0].url }})"></div>
+                                <img src={{ p.gallery[0].url }} alt="{{ p.name }}">
+                            {% else %}
+                                <div class="item-bg" style="background-image: url({{ p.logo.url }})"></div>
+                                <img src={{ p.logo.url }} alt="{{ p.name }}">
+                            {% endif %}
+                            <div class="carousel-caption">
+                                <div class="hero-slider-content">
+                                    <a href="{{ path('show_provider',{'slug':p.slug}) }}"><h1>{{ p.name }}</h1></a>
 
 
-                            </div><!-- /.hero-slider-content -->
+                                </div><!-- /.hero-slider-content -->
 
-                            <div class="hero-slider-actions">
-                                <a href="{{ path('show_provider',{'slug':p.slug}) }}"><i class="fa fa-search"></i></a>
-                            </div><!-- /.hero-slider-actions -->
-                        </div><!-- /.carousel-caption -->
-                    </div><!-- /.item -->
+                                <div class="hero-slider-actions">
+                                    <a href="{{ path('show_provider',{'slug':p.slug}) }}"><i
+                                                class="fa fa-search"></i></a>
+                                </div><!-- /.hero-slider-actions -->
+                            </div><!-- /.carousel-caption -->
+                        </div><!-- /.item -->
 
                 {% endfor %}
             </div><!-- /.carousel-inner -->

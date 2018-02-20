@@ -24,7 +24,7 @@
                 Tags:
                 {% for s in stage.provider.services %}
                     <ul>
-                        <li class="tag"><a href="{{ path('show_service', {'slug':s.name}) }}">{{ s.name }}</a></li>
+                        <li class="tag"><a href="{{ path('show_service', {'id':s.id}) }}">{{ s.name }}</a></li>
                     </ul>
                 {% endfor %}
             </div><!-- /.post-meta -->
