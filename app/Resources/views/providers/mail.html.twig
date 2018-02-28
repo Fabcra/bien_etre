@@ -1,0 +1,30 @@
+<div class="container">
+    <h3>Contactez-nous ! </h3>
+    <div class="contact-form-wrapper clearfix background-white p30">
+        {{ form_start(mailForm) }}
+            <div class="row">
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        {{ form_row(mailForm.name, {'label' : 'Votre nom','attr':{'class':'form-control'}}) }}
+                    </div><!-- /.form-group -->
+                </div><!-- /.col-* -->
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        {{ form_row(mailForm.eMail, {'label' : 'Votre e-mail','attr':{'class':'form-control'}}) }}
+                    </div><!-- /.form-group -->
+                </div><!-- /.col-* -->
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        {{ form_row(mailForm.subject, {'label': 'Sujet de votre message', 'attr':{'class':'form-control'}}) }}
+                    </div><!-- /.form-group -->
+                </div><!-- /.col-* -->
+            </div><!-- /.row -->
+
+            <div class="form-group">
+                {{ form_row(mailForm.message, {'attr':{'class':'form-control'}}) }}
+            </div><!-- /.form-group -->
+            {{ form_row(mailForm._token) }}
+            <button class="btn btn-primary pull-right">Post Message</button>
+        {{ form_end(mailForm) }}
+    </div><!-- /.contact-form-wrapper -->
+</div>

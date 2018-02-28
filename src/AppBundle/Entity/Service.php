@@ -29,6 +29,8 @@ class Service
      * @var string
      *
      * @ORM\Column(name="name", type="string", length=255)
+     * @Assert\NotBlank()
+     *
      */
     private $name;
 
@@ -36,6 +38,7 @@ class Service
      * @var string
      *
      * @ORM\Column(name="description", type="string", length=255, nullable=true)
+     * @Assert\NotBlank()
      */
     private $description;
 
@@ -64,9 +67,8 @@ class Service
     /**
      *
      * @Assert\Type(type="AppBundle\Entity\Image")
-     *
+     * @Assert\NotBlank()
      * @ORM\OneToOne(targetEntity="AppBundle\Entity\Image", cascade={"persist"})
-     *
      * @ORM\JoinColumn(onDelete="SET NULL")
      *
      */

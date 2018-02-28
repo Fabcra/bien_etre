@@ -31,7 +31,7 @@ class PromotionRepository extends \Doctrine\ORM\EntityRepository
     }
 
 
-    public function findPromoByProvider($slug){
+   /* public function findPromoByProvider($slug){
 
         $qb = $this->createQueryBuilder('promo');
 
@@ -42,7 +42,7 @@ class PromotionRepository extends \Doctrine\ORM\EntityRepository
         return $qb
             ->getQuery()
             ->getResult();
-    }
+    }*/
 
     public function findPromoWithProvidersNotBanned(){
 

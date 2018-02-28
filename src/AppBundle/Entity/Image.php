@@ -4,6 +4,7 @@ namespace AppBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Image
@@ -25,13 +26,12 @@ class Image
     /**
      * @var string
      *
-     *
      * @ORM\Column(name="url", type="string", length=255, nullable=true)
      */
     private $url;
 
     /**
-     * @var
+     * @Assert\NotBlank()
      */
     private $file;
 
@@ -43,9 +43,6 @@ class Image
      *
      */
     private $provider;
-
-
-
 
 
     /**
@@ -120,10 +117,6 @@ class Image
     {
         $this->file = $file;
     }
-
-
-
-
 
 
 

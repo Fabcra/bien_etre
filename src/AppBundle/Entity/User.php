@@ -139,10 +139,6 @@ class User implements UserInterface, \Serializable
     private $usertype;
 
 
-    public function __construct()
-    {
-    }
-
 
 // security
 

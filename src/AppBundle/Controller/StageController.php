@@ -19,27 +19,13 @@ use Symfony\Component\HttpFoundation\Request;
 
 class StageController extends Controller
 {
-    /**
-     * AFFICHE LA PAGE D'UN STAGE
-     *
-     * @Route("stage/{slug}", name="show_stage")
-     */
-    public function showStage($slug)
-    {
 
-        $doctrine = $this->getDoctrine();
-        $repo = $doctrine->getRepository('AppBundle:Stage');
-        $stage = $repo->stageWithProvider($slug);
-
-        return $this->render('stages/stage.html.twig', ['stage' => $stage]);
-
-    }
 
     /**
      *
      * AFFICHE LA LISTE DES STAGES
      *
-     * @Route("stages/list", name="list_stages")
+     * @Route("stages", name="stages")
      */
     public function listStages()
     {
@@ -49,7 +35,6 @@ class StageController extends Controller
         $stages = $repo->findStagesWithProviderNotBanned();
 
 
-
         return $this->render('stages/stages.html.twig', ['stages' => $stages]);
 
     }
@@ -57,7 +42,7 @@ class StageController extends Controller
 
     /**
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
-     * @Route("new_stage", name="new_stage")
+     * @Route("stages/new", name="stage_new")
      */
     public function newStage(Request $request)
     {
@@ -77,9 +62,9 @@ class StageController extends Controller
             $em->persist($stage);
             $em->flush();
 
-            $this->addFlash('success', 'Stage '.$stage->getName() .' créé avec succès');
+            $this->addFlash('success', 'Stage ' . $stage->getName() . ' créé avec succès');
 
-            return $this->redirectToRoute('manage_stages');
+            return $this->redirectToRoute('stages_gestion');
         }
 
         return $this->render('stages/new.html.twig',
@@ -89,7 +74,7 @@ class StageController extends Controller
 
     /**
      * @return \Symfony\Component\HttpFoundation\Response
-     * @Route("/manage_stages", name="manage_stages")
+     * @Route("/stages/gestion", name="stages_gestion")
      *
      */
     public function manageStages()
@@ -112,7 +97,7 @@ class StageController extends Controller
      * @param Request $request
      * @param $id
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
-     * @Route("stage/update/{id}", name="stage_update")
+     * @Route("stages/update/{id}", name="stages_update")
      */
     public function updateStage(Request $request, $id)
     {
@@ -139,7 +124,7 @@ class StageController extends Controller
 
             $this->addFlash('success', 'Stage modifié avec succès');
 
-            return $this->redirectToRoute('manage_stages');
+            return $this->redirectToRoute('stages_gestion');
         }
 
 
@@ -156,9 +141,10 @@ class StageController extends Controller
     /**
      * @param $id
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
-     * @Route("delete_stage/{id}", name = "delete_stage")
+     * @Route("stage/delete/{id}", name = "stage_delete")
      */
-    public function deleteStage($id){
+    public function deleteStage($id)
+    {
 
         $stage = $this->getDoctrine()->getRepository('AppBundle:Stage')->findOneById($id);
 
@@ -167,8 +153,24 @@ class StageController extends Controller
         $em->remove($stage);
         $em->flush();
 
-        $this->addFlash('success', 'Vous avez supprimé le stage '.$stage->getName());
-        return $this->redirectToRoute('manage_stages');
+        $this->addFlash('success', 'Vous avez supprimé le stage ' . $stage->getName());
+        return $this->redirectToRoute('stages_gestion');
+
+    }
+
+    /**
+     * AFFICHE LA PAGE D'UN STAGE
+     *
+     * @Route("stage/{slug}", name="show_stage")
+     */
+    public function showStage($slug)
+    {
+
+        $doctrine = $this->getDoctrine();
+        $repo = $doctrine->getRepository('AppBundle:Stage');
+        $stage = $repo->stageWithProvider($slug);
+
+        return $this->render('stages/stage.html.twig', ['stage' => $stage]);
 
     }
 

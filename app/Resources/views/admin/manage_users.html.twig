@@ -20,12 +20,7 @@
                                 <p class="text-danger">BANNI</p>
                             {% endif %}
                         </td>
-                        <td class="right">
-                            <a href="{{ path('active_user',{'id': p.id}) }}"
-                               class="btn btn-xs btn-primary">Active</a>
-                            <a href="{{ path('ban_user',{'id': p.id}) }}"
-                               class="btn btn-xs btn-danger">Ban</a>
-                        </td>
+
                     </tr>
                     {% endfor %}
 
@@ -50,15 +45,11 @@
                                     <a href="{{ path('admin_user_update',{'id':m.id}) }}"></a>
                                 </div><!-- /.card-system-image -->
                                 <div class="card-system-content">
-                                    <h2><a href="listing-detail.html">{{ m.firstName }} {{ m.lastName }}</a></h2>
+                                    <h2>{{ m.firstName }} {{ m.lastName }}</h2>
                                     <h3 style="padding-bottom : 0;">{{ m.eMail }}</h3>
                                     {% if m.banned == true %}
                                         <p class="text-danger">BANNI</p>
                                     {% endif %}
-                                    <a href="{{ path('ban_user',{'id': m.id}) }}"
-                                       class="btn btn-secondary btn-xs">Ban</a>
-                                    <a href="{{ path('active_user',{'id': m.id}) }}"
-                                       class="btn btn-secondary btn-xs">Active</a>
                                 </div>
 
                             </div>

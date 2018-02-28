@@ -52,87 +52,14 @@ class AdminController extends Controller
 
     }
 
-    /**
-     * @Route("/admin/ban_user/{id}", name="ban_user")
-     */
-    public function banUser($id, Mailer $mailer)
-    {
-
-        $doctrine = $this->getDoctrine();
-        $user = $doctrine->getRepository('AppBundle:User')->findOneById($id);
-
-        $em = $doctrine->getManager();
-        $user->setBanned(true);
-        $usertype = $user->getUsertype();
-
-        $em->persist($user);
-        $em->flush();
-
-        $mail = $user->getEmail();
-
-
-        $body = "Bonjour, vous avez été banni du site annuaire bien être <br>
-                           Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
-                           Morbi vitae sem sit amet neque commodo bibendum nec non felis.<br>
-                            Integer condimentum vel tellus vitae ornare. Vivamus elementum porta lacus in placerat. 
-                            Aenean vitae convallis leo. Nulla facilisi. <br>Quisque ut tincidunt neque, in pretium nisi.";
-        $subject = "Compte banni";
-        $mailer->sendMail($mail, $subject, $body);
-
-
-        if ($usertype === 'provider') {
-            $this->addFlash('success', 'Vous avez banni ' . $user->getName());
-        } else {
-            $this->addFlash('success', 'Vous avez banni ' . $user->getFirstName() . ' ' . $user->getLastName());
-        }
-        return $this->redirectToRoute('admin_users');
-
-    }
-
-    /**
-     * @param $id
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse
-     * @Route("/admin/active_user/{id}", name="active_user")
-     */
-    public function activeUser($id, Mailer $mailer)
-    {
-
-        $doctrine = $this->getDoctrine();
-        $user = $doctrine->getRepository('AppBundle:User')->findOneById($id);
-        $usertype = $user->getUsertype();
-
-        $em = $doctrine->getManager();
-        $user->setBanned(false);
-        $em->persist($user);
-        $em->flush();
-
-        $mail = $user->getEmail();
-
-
-        $body = "Bonjour, votre compte a été réactivé sur le site annuaire bien être <br>
-                           Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
-                           Morbi vitae sem sit amet neque commodo bibendum nec non felis.<br>
-                            Integer condimentum vel tellus vitae ornare. Vivamus elementum porta lacus in placerat. 
-                            Aenean vitae convallis leo. Nulla facilisi. <br>Quisque ut tincidunt neque, in pretium nisi.";
-        $subject = "Compte réactivé";
-        $mailer->sendMail($mail, $subject, $body);
-
-        if ($usertype == 'provider') {
-            $this->addFlash('success', 'Vous avez activé le compte de ' . $user->getName());
-        } else {
-            $this->addFlash('success', 'Vous avez activé le compte de ' . $user->getFirstName() . ' ' . $user->getLastName());
-        }
-        return $this->redirectToRoute('admin_users');
-    }
-
 
     /**
      * @param Request $request
      * @param $id
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
-     * @Route("admin/update_user/{id}", name="admin_user_update")
+     * @Route("admin/users/{id}", name="admin_user_update")
      */
-    public function updateUser(Request $request, $id)
+    public function updateUser(Request $request, Mailer $mailer, $id)
     {
 
         $doctrine = $this->getDoctrine();
@@ -143,6 +70,8 @@ class AdminController extends Controller
 
         $usertype = $user->getUsertype();
 
+        $userwasbanned = $user->getBanned();
+
 
         if ($usertype == 'provider') {
 
@@ -150,11 +79,18 @@ class AdminController extends Controller
                 ->add('roles', ChoiceType::class, [
                     'choices' => [
                         'Admin' => 'ROLE_ADMIN',
-
                     ],
 
                     'multiple' => true,
                     'expanded' => true,
+                ])
+                ->add('banned', ChoiceType::class, [
+                    'choices' => [
+                        'Oui' => true,
+                        'Non' => false
+                    ],
+                    'multiple' => false,
+                    'expanded' => true
                 ]);
 
 
@@ -167,6 +103,14 @@ class AdminController extends Controller
                     ],
                     'multiple' => true,
                     'expanded' => true,
+                ])
+                ->add('banned', ChoiceType::class, [
+                    'choices' => [
+                        'Oui' => true,
+                        'Non' => false
+                    ],
+                    'multiple' => false,
+                    'expanded' => true
                 ]);
         }
 
@@ -178,6 +122,54 @@ class AdminController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->persist($user);
             $em->flush();
+
+            $userbanned = $user->getBanned();
+            $mail = $user->getEmail();
+
+            //si l'état de l'utilisateur a changé
+            if ($userbanned !== $userwasbanned) {
+
+                if ($userbanned == true) {
+                    $body = "Bonjour, vous avez été banni du site annuaire bien être <br>
+                           Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                           Morbi vitae sem sit amet neque commodo bibendum nec non felis.<br>
+                            Integer condimentum vel tellus vitae ornare. Vivamus elementum porta lacus in placerat.
+                            Aenean vitae convallis leo. Nulla facilisi. <br>Quisque ut tincidunt neque, in pretium nisi.";
+                    $subject = "Compte banni";
+                    $mailer->sendMail($mail, $subject, $body);
+
+
+                    if ($usertype === 'provider') {
+                        $this->addFlash('success', 'Vous avez banni ' . $user->getName());
+                    } else {
+                        $this->addFlash('success', 'Vous avez banni ' . $user->getFirstName() . ' ' . $user->getLastName());
+                    }
+                }
+
+
+                if ($userbanned == false) {
+
+                    $mail = $user->getEmail();
+
+
+                    $body = "Bonjour, votre compte a été réactivé sur le site annuaire bien être <br>
+                           Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                           Morbi vitae sem sit amet neque commodo bibendum nec non felis.<br>
+                            Integer condimentum vel tellus vitae ornare. Vivamus elementum porta lacus in placerat.
+                            Aenean vitae convallis leo. Nulla facilisi. <br>Quisque ut tincidunt neque, in pretium nisi.";
+                    $subject = "Compte réactivé";
+                    $mailer->sendMail($mail, $subject, $body);
+
+                    if ($usertype == 'provider') {
+                        $this->addFlash('success', 'Vous avez activé le compte de ' . $user->getName());
+                    } else {
+                        $this->addFlash('success', 'Vous avez activé le compte de ' . $user->getFirstName() . ' ' . $user->getLastName());
+                    }
+
+                }
+
+
+            }
 
             $this->addFlash('success', 'update effectué avec succès');
 
@@ -211,7 +203,7 @@ class AdminController extends Controller
     /**
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
-     * @Route("admin/service/new", name="new_service")
+     * @Route("admin/services/new", name="admin_services_new")
      */
     public function newService(Request $request, FileUploader $fileUploader)
     {
@@ -238,6 +230,7 @@ class AdminController extends Controller
             ))
             ->add('image', ImageType::class, array(
                     'label' => ' ',
+                    'required'=>false
                 )
             );
 
@@ -247,10 +240,11 @@ class AdminController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-            $image = $service->getImage();
-            $file = $image->getFile();
-            $fileName = $fileUploader->upload($file);
-            $image->setUrl('/bien_etre/web/uploads/images/' . $fileName);
+
+                $image = $service->getImage();
+                $file = $image->getFile();
+                $fileName = $fileUploader->upload($file);
+                $image->setUrl('/bien_etre/web/uploads/images/' . $fileName);
 
 
             $em = $this->getDoctrine()->getManager();
@@ -276,9 +270,10 @@ class AdminController extends Controller
      * @param Request $request
      * @param $id
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
-     * @Route("admin/service/{id}", name="service_update")
+     * @Route("admin/services/{id}", name="admin_services_update")
      */
-    public function updateService(Request $request, $id)
+    public
+    function updateService(Request $request, $id)
     {
 
         $doctrine = $this->getDoctrine();
@@ -329,32 +324,12 @@ class AdminController extends Controller
 
     }
 
-    /**
-     * @param $id
-     * @return \Symfony\Component\HttpFoundation\Response
-     * @Route("admin/delete_service/{id}", name="delete_service")
-     */
-    public function deleteService($id)
-    {
-
-        $service = $this->getDoctrine()->getRepository('AppBundle:Service')->findOneById($id);
-
-        $em = $this->getDoctrine()->getManager();
-        $em->remove($service);
-        $em->flush();
-
-        $services = $this->getDoctrine()->getRepository('AppBundle:Service')->findServicesWithImage();
-
-        $this->addFlash('success', 'Vous avez supprimé le service ' . $service->getName());
-
-        return $this->render('admin/manage_services.html.twig', ['services' => $services]);
-    }
 
     /**
      * @param Request $request
      * @param $id
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
-     * @Route("admin/img_service/{id}", name="img_service")
+     * @Route("admin/services/images/{id}", name="admin_services_images")
      */
     public function imgService(Request $request, FileUploader $fileUploader, $id)
     {

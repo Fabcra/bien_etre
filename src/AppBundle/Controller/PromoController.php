@@ -11,6 +11,7 @@ namespace AppBundle\Controller;
 
 use AppBundle\Entity\Promotion;
 use AppBundle\Form\PromotionType;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
@@ -22,7 +23,8 @@ class PromoController extends Controller
     /**
      * AFFICHE LA LISTE DES PROMOTIONS
      *
-     * @Route("promotions/list", name="list_promos")
+     *
+     * @Route("promotions", name="promotions")
      */
     public function listPromo()
     {
@@ -37,24 +39,8 @@ class PromoController extends Controller
 
 
     /**
-     * AFFICHE UNE PAGE PROMOTION TODO: A CONVERTIR EN PDF
-     *
-     * @Route("promotion/{slug}", name="show_promo")
-     */
-    public function showPromo($slug)
-    {
-
-        $doctrine = $this->getDoctrine();
-        $repo = $doctrine->getRepository('AppBundle:Promotion');
-        $promo = $repo->promoWithProvider($slug);
-
-        return $this->render('promotions/promo.html.twig', ['promotion' => $promo]);
-
-    }
-
-    /**
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
-     * @Route("new_promo", name="new_promo")
+     * @Route("promotions/new", name="promo_new")
      */
     public function newPromo(Request $request)
     {
@@ -76,7 +62,7 @@ class PromoController extends Controller
 
             $this->addFlash('success', 'Promotion ' . $promo->getName() . ' créé avec succès');
 
-            return $this->redirectToRoute('manage_promos');
+            return $this->redirectToRoute('promos_gestion');
         }
 
         return $this->render('promotions/new.html.twig',
@@ -86,7 +72,7 @@ class PromoController extends Controller
 
     /**
      * @return \Symfony\Component\HttpFoundation\Response
-     * @Route("/manage_promos", name="manage_promos")
+     * @Route("/promotions/gestion", name="promos_gestion")
      *
      */
     public function managePromo()
@@ -98,7 +84,7 @@ class PromoController extends Controller
         $doctrine = $this->getDoctrine();
 
         $repo = $doctrine->getRepository('AppBundle:Promotion');
-        $promos = $repo->findPromoByProvider($slug);
+        $promos = $user->getPromotions();
 
         return $this->render('promotions/manage_promo.html.twig', ['promotions' => $promos]);
 
@@ -109,7 +95,7 @@ class PromoController extends Controller
      * @param Request $request
      * @param $id
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
-     * @Route("promo/update/{id}", name="promo_update")
+     * @Route("promotions/update/{id}", name="promos_update")
      */
     public function updatePromo(Request $request, $id)
     {
@@ -125,6 +111,8 @@ class PromoController extends Controller
 
 
         $form = $this->createForm(PromotionType::class, $promo);
+
+
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -136,7 +124,7 @@ class PromoController extends Controller
 
             $this->addFlash('success', 'Promo modifiée avec succès');
 
-            return $this->redirectToRoute('manage_promos');
+            return $this->redirectToRoute('promos_gestion');
         }
 
 
@@ -154,18 +142,38 @@ class PromoController extends Controller
      * @param $id
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      * @Route("delete_promo/{id}", name = "delete_promo")
+     * @Method("DELETE")
      */
-    public function deletePromo($id){
+    public function deletePromo($id)
+    {
 
         $promo = $this->getDoctrine()->getRepository('AppBundle:Promotion')->findOneById($id);
+
 
         $em = $this->getDoctrine()->getManager();
 
         $em->remove($promo);
         $em->flush();
 
-        $this->addFlash('success', 'Vous avez supprimé la promotion '.$promo->getName());
-        return $this->redirectToRoute('manage_promos');
+        $this->addFlash('success', 'Vous avez supprimé la promotion ' . $promo->getName());
+        return $this->redirectToRoute('promos_gestion');
+
+    }
+
+
+    /**
+     * AFFICHE UNE PAGE PROMOTION TODO: A CONVERTIR EN PDF
+     *
+     * @Route("promotions/{slug}", name="promotion")
+     */
+    public function showPromo($slug)
+    {
+
+        $doctrine = $this->getDoctrine();
+        $repo = $doctrine->getRepository('AppBundle:Promotion');
+        $promo = $repo->promoWithProvider($slug);
+
+        return $this->render('promotions/promo.html.twig', ['promotion' => $promo]);
 
     }
 

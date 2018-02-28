@@ -65,6 +65,12 @@ class Comment
     private $abuses;
 
 
+    /**
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Provider", inversedBy="comments")
+     */
+    private $provider;
+
+
 
 
     /**
@@ -199,11 +205,29 @@ class Comment
     }
 
     /**
-     * @param mixed $abus
+     * @param
      */
     public function setAbuses($abuses)
     {
         $this->abuses = $abuses;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getProvider()
+    {
+        return $this->provider;
+    }
+
+    /**
+     * @param mixed $provider
+     */
+    public function setProvider($provider)
+    {
+        $this->provider = $provider;
+    }
+
+
 }
 

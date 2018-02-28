@@ -8,11 +8,14 @@
 
 namespace AppBundle\Controller;
 
-use AppBundle\Form\MemberType;
-use AppBundle\Form\ProviderType;
+use AppBundle\Entity\MailtoUser;
+use AppBundle\Form\MailtoUserType;
+use AppBundle\Service\Mailer;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+
+
 
 class ProviderController extends Controller
 {
@@ -20,29 +23,61 @@ class ProviderController extends Controller
 
     /**
      *
-     * @Route("/provider/{slug}", name="show_provider")
+     * @Route("/provider/{slug}", name="provider")
      *
      */
-    public function viewProvider($slug)
+    public function viewProvider($slug, Request $request, Mailer $mailer)
     {
         $doctrine = $this->getDoctrine();
 
         $repo = $doctrine->getRepository('AppBundle:Provider');
         $provider = $repo->findOneBy(['slug' => $slug]);
 
-        $reposervice = $doctrine->getRepository('AppBundle:Service');
-        $services = $reposervice->findValidServices();
-
-        $repopromos = $doctrine->getRepository('AppBundle:Promotion');
-        $promotions = $repopromos->findPromoByProvider($slug);
-
-        $repostages = $doctrine->getRepository('AppBundle:Stage');
-        $stages = $repostages->findStagesByProvider($slug);
 
 
-        return $this->render('providers/provider.html.twig', ['provider' => $provider, 'services' => $services, 'promotions'=>$promotions, 'stages'=>$stages]);
+        $promotions = $provider->getPromotions();
+        $stages = $provider->getStages();
+
+
+        $comments = $provider->getComments();
+
+
+
+
+
+        $newmail = new MailtoUser();
+
+        $form = $this->createForm(MailtoUserType::class, $newmail);
+
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()) {
+
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($newmail);
+            $em->flush();
+
+
+            $mail = $provider->getEmail();
+            $body = $newmail->getMessage();
+            $subject = $newmail->getSubject();
+
+
+            $mailer->sendMail($mail, $subject, $body);
+
+            $this->addFlash('success', 'Message envoyé avec succès');
+        }
+
+        return $this->render('providers/provider.html.twig', [
+            'provider' => $provider, 'promotions'=>$promotions,
+            'stages'=>$stages, 'mailForm' => $form->createView()]);
 
     }
+
+
+
+
+
 
 
 }

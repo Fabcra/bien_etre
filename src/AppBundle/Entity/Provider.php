@@ -73,7 +73,6 @@ class Provider extends User
      * @Assert\NotBlank(groups={"providers"})
      * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Service", inversedBy="providers", cascade={"persist"})
      *
-     * @ORM\JoinColumn(nullable=false)
      */
     private $services;
 
@@ -118,6 +117,12 @@ class Provider extends User
 
 
     /**
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Comment", mappedBy="provider")
+     */
+    private $comments;
+
+
+    /**
      * Provider constructor.
      */
     public function __construct()
@@ -125,6 +130,7 @@ class Provider extends User
         $this->services = new ArrayCollection();
         $this->gallery = new ArrayCollection();
     }
+
 
     /**
      * @return ArrayCollection
@@ -348,6 +354,16 @@ class Provider extends User
     {
         $this->slug = $slug;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getComments()
+    {
+        return $this->comments;
+    }
+
+
 
 
 }

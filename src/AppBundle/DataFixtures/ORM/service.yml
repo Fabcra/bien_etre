@@ -2,7 +2,7 @@ AppBundle\Entity\Service:
   service-1:
        name: bien-être
        description: '<paragraph(5)>'
-       highlight: false
+       highlight: true
        valid: true
        image (unique): '@img-*'
 

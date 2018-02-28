@@ -4,25 +4,25 @@
             <div class="testimonial-image">
                 <img src="assets/img/tmp/agent-1.jpg" alt="">
             </div><!-- /.testimonial-image -->
+            {% for c in provider.comments %}
+                <div class="testimonial-inner">
+                    <div class="testimonial-title">
+                        <h2>{{ c.title }}</h2>
 
-            <div class="testimonial-inner">
-                <div class="testimonial-title">
-                    <h2>Exactly What I Need</h2>
+                        <div class="testimonial-rating">
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                        </div><!-- /.testimonial-rating -->
+                    </div><!-- /.testimonial-title -->
 
-                    <div class="testimonial-rating">
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                    </div><!-- /.testimonial-rating -->
-                </div><!-- /.testimonial-title -->
+                   {{ c.content }}
 
-                Quisque aliquet ornare nunc in viverra. Nullam ornare molestie ligula in luctus.
-                Suspendisse ac cursus elit. Donec vel enim sit amet lorem vulputate condimentum.
-
-                <div class="testimonial-sign">- Fiona Wilson</div><!-- /.testimonial-sign -->
-            </div><!-- /.testimonial-inner -->
+                    <div class="testimonial-sign">- Fiona Wilson</div><!-- /.testimonial-sign -->
+                </div><!-- /.testimonial-inner -->
+            {% endfor %}
         </div><!-- /.testimonial -->
     </div>
 </div>

@@ -19,6 +19,7 @@
                         <div class="form-group col-sm-6">{{ form_row(serviceForm.valid,{'label': 'Valide'}) }}</div>
                         <div class="form-group col-sm-6">{{ form_row(serviceForm.highlight, {'label' : 'Mettre en avant'}) }}</div>
                         <div class="form-group col-sm-6">{{ form_row(serviceForm.image, {'label' : 'Image'}) }}</div>
+                        {{ form_errors(serviceForm)}}
                         <button type="submit" class="btn btn-primary btn-xs pull-right">Valider</button>
                     </div><!-- /.form-group -->
                 </div>

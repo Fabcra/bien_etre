@@ -10,13 +10,13 @@
             {{ form_start(form, {attr:{novalidate : 'novalidate'}}) }}
             <div class="form-group" >
 
-                {{ form_row(form.eMail, {'attr':{'class':'form-control'}}) }}
+                {{ form_row(form.eMail, {'label' : 'E-mail', 'attr':{'class':'form-control'}}) }}
             </div><!-- /.form-group -->
 
             <div class="form-group">
                 {{ form_row(form.password.first,
                 {
-                    'label':'Password',
+                    'label':'Mot de passe',
                     'attr':{'class':'form-control'}
                 }) }}
             </div><!-- /.form-group -->
@@ -24,12 +24,16 @@
             <div class="form-group">
                 {{ form_row(form.password.second,
                 {
-                    'label':'Repeat Password',
+                    'label':'Retapez le mot de passe',
                     'attr':{'class':'form-control'}
                 }
 
                 ) }}
             </div><!-- /.form-group -->
+
+            <div class="form-group">
+                {{ form_row(form.userType, {'label':'Type utilisateur'}) }}
+            </div>
             
 
             <button type="submit" class="btn btn-primary pull-right">Register</button>

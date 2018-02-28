@@ -6,7 +6,7 @@
 
         {% for s in stages %}
             <div class="col-sm-3">
-                <div class="pricing">
+                <div class="pricing js-stage-item">
                     <div class="pricing-title">{{ s.name }}</div><!-- /.pricing-title -->
                     <div class="pricing-subtitle">{{ s.description|slice(0,20) }}</div><!-- /.pricing-subtitle -->
                     <div class="pricing-price"><span class="pricing-currency">€</span>{{ s.price }} <span
@@ -19,10 +19,20 @@
                         <li><span>au</span><strong>{{ s.toDate|date('d-m-Y') }}</strong></li>
                     </ul><!-- /.pricing-list -->
                     <hr>
-                    {% if app.user.usertype == 'provider' %}
-                        {% if s.provider.name == app.user.name %}
-                            <a href="{{ path('stage_update', {'id':s.id}) }}" class="pricing-action">Modifier</a><br>
-                            <a href="{{ path('delete_stage', {'id':s.id}) }}" class="pricing-action" style="color:red">Supprimer</a>
+                    {% if app.user %}
+                        {% if app.user.usertype == 'provider' %}
+                            {% if s.provider.name == app.user.name %}
+                                <a href="{{ path('stages_update', {'id':s.id}) }}" class="pricing-action">Modifier</a>
+                                <br>
+                                <a href="#"
+                                   class="text-danger js-remove-stage"
+                                   data-url="{{ path('stage_delete',{
+                                       id: s.id,
+                                   }) }}"
+                                >
+                                    <span class="fa fa-close">supprimer</span>
+                                </a>
+                            {% endif %}
                         {% endif %}
                     {% endif %}
                 </div><!-- /.pricing -->

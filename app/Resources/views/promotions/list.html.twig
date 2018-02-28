@@ -1,11 +1,11 @@
 {# LISTE DES PROMOTIONS A INCLURE DANS UN TWIG #}
 <div class="pricings">
     {% if promotions is empty %}
-    <div>IL N'Y A PAS DE PROMOTION EN COURS</div>
+        <div>IL N'Y A PAS DE PROMOTION EN COURS</div>
     {% else %}
         {% for p in promotions %}
             <div class="col-sm-6">
-                <div class="event">
+                <div class="event js-promo-item">
                     <div class="event-date">
                         <span class="day">{{ p.fromDate|date('d') }}</span>
                         <span class="month">{{ p.toDate|date('m') }}</span>
@@ -14,18 +14,29 @@
                     <div class="event-content">
                         <h2>{{ p.name }}</h2>
                         <p>{{ p.description }}</p>
-                        <a href="{{ path('show_promo',{'slug':p.slug}) }}">{{ p.pdfDoc }}</a>
+                        <a href="{{ path('promotion',{'slug':p.slug}) }}">{{ p.pdfDoc }}</a>
                         <div class="event-time"><i class="fa fa-clock-o"></i> 8:00PM - 11:00PM</div>
-                        {% if app.user.usertype == "provider" %}
-                            {% if app.user.id == p.provider.id %}
-                                <div class="categories">
-                                    <ul>
-                                        <li><a href="{{ path('promo_update', {'id' : p.id}) }}" class="text-info">modifier </a>
-                                        </li>
-                                        <li><a href="{{ path('delete_promo', {'id' : p.id}) }}" class="text-danger">supprimer</a>
-                                        </li>
-                                    </ul>
-                                </div>
+                        {% if app.user %}
+                            {% if app.user.usertype == "provider" %}
+                                {% if app.user.id == p.provider.id %}
+                                    <div class="categories">
+                                        <ul>
+                                            <li><a href="{{ path('promos_update', {'id' : p.id}) }}" class="text-info">modifier </a>
+                                            </li>
+                                            <li>
+                                                <a href="#"
+                                                   class="text-danger js-remove-promo"
+                                                   data-url="{{ path('delete_promo',{
+                                                       id: p.id,
+                                                   }) }}"
+                                                >
+                                                    <span class="fa fa-close">supprimer</span>
+                                                </a>
+
+                                            </li>
+                                        </ul>
+                                    </div>
+                                {% endif %}
                             {% endif %}
                         {% endif %}
                         <!-- /.event-time -->
@@ -34,5 +45,4 @@
                 <br/>
             </div>
         {% endfor %}
-{% endif %}
-</div>
+    {% endif %}

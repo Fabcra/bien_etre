@@ -9,7 +9,7 @@
 
                         {% for s in provider.services %}
                             {% if s.valid == true %}
-                                <a href="{{ path('show_service',{'id':s.id}) }}">
+                                <a href="{{ path('service',{'id':s.id}) }}">
                                     <div class="detail-label">{{ s.name }}</div>
                                 </a>
                             {% endif %}
@@ -95,4 +95,12 @@
             {% include 'stages/list.html.twig' %}
         </div>
     {% endif %}
+
+
+    {% include 'providers/mail.html.twig' %}
+
+
+    {% include 'comments/list.html.twig' %}
+
+
 {% endblock %}

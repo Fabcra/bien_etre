@@ -37,8 +37,14 @@
 
 
             <div class="form-group col-sm-6">
-                {{ form_row(adminProviderForm.roles, {'label' : 'Role','attr':{'disabled':'true'}}) }}
+                {{ form_row(adminProviderForm.roles, {'label' : 'Role'}) }}
             </div><!-- /.form-group -->
+
+            <div class="form-group col-sm-6">
+                {{ form_row(adminProviderForm.banned, {'label' : 'Banni'}) }}
+            </div><!-- /.form-group -->
+
+
         </div><!-- /.row -->
 
     </div>

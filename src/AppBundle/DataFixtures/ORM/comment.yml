@@ -6,3 +6,4 @@ AppBundle\Entity\Comment:
         insertDate: '<dateTimeBetween("-200 days", "now")>'
         #member: '@member-*'
         abuses: '<numberBetween(1,10)>x @abuse-*'
+        provider : '@provider-*'

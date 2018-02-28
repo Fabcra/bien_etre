@@ -43,7 +43,7 @@
             {%  if 'list_services' in app.request.attributes.get('_route') %}
                 class="active"
             {% endif %}>
-            <a href="{{ path('list_services') }}">Services<i class="fa"></i></a>
+            <a href="{{ path('services') }}">Services<i class="fa"></i></a>
 
         </li>
 
@@ -52,16 +52,16 @@
                 {%  if 'list_stages' in app.request.attributes.get('_route') %}
             class="active"
                 {% endif %}>
-            <a href="{{ path('list_stages') }}">Stages <i class="fa"></i></a>
+            <a href="{{ path('stages') }}">Stages <i class="fa"></i></a>
 
         </li>
 
         {# PROMOTIONS  #}
         <li
-                {%  if 'list_promos' in app.request.attributes.get('_route') %}
+                {%  if 'promotions' in app.request.attributes.get('_route') %}
             class="active"
                 {% endif %}>
-            <a href="{{ path('list_promos') }}">Promotions <i class="fa"></i></a>
+            <a href="{{ path('promotions') }}">Promotions <i class="fa"></i></a>
 
         </li>
 

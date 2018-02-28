@@ -10,4 +10,16 @@ namespace AppBundle\Repository;
  */
 class ImageRepository extends \Doctrine\ORM\EntityRepository
 {
+
+    public function findImagesByProvider($id){
+
+        $qb = $this->createQueryBuilder('i');
+          $qb->leftJoin('i.provider', 'p')
+              ->andWhere('p.id like :id')
+          ->setParameter('id', $id);
+
+        return $qb->getQuery()
+            ->getResult();
+
+    }
 }

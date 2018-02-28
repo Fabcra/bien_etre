@@ -16,47 +16,9 @@ class ServiceController extends Controller
 
     /**
      *
-     * affiche la description d'un service et la liste des providers liés à celui-ci
-     *
-     * @Route("service/{id}", name="show_service")
-     *
-     */
-    public function showService(Request $request, $id)
-    {
-
-        $doctrine = $this->getDoctrine();
-        $repo = $doctrine->getRepository('AppBundle:Service');
-        $repo_provider = $doctrine->getRepository('AppBundle:Provider');
-
-
-        $service = $repo->findOneBy(['id' => $id]);
-        $services = $repo->findAll();
-
-        $id = $service->getId();
-
-
-        //requête pour lister les provider de ce service
-        $providers = $repo_provider->myFindBy($id);
-
-        $paginator = $this->get('knp_paginator');
-
-        $result = $paginator->paginate(
-            $providers,
-            $request->query->getInt('page', 1),
-            $request->query->getInt('limit', 4)
-        );
-
-        return $this->render('services/service.html.twig', ['services' => $services, 'service' => $service, 'providers' => $result, 'id' => $id]);
-
-
-    }
-
-
-    /**
-     *
      * affiche la liste des services
      *
-     * @Route("services/list", name="list_services")
+     * @Route("services", name="services")
      */
     public function listServices()
     {
@@ -71,6 +33,10 @@ class ServiceController extends Controller
     }
 
 
+    /**
+     * @return \Symfony\Component\HttpFoundation\Response
+     * affiche la liste des services dans la barre de recherche
+     */
     public function searchServices()
     {
 
@@ -86,7 +52,7 @@ class ServiceController extends Controller
     /**
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
-     * @Route("new_service", name="ask_new_service")
+     * @Route("services/new", name="services_new")
      */
     public function newService(Request $request, FileUploader $fileUploader, Mailer $mailer)
     {
@@ -132,6 +98,43 @@ class ServiceController extends Controller
         return $this->render('services/new.html.twig',
             ['serviceForm' => $form->createView(), 'service' => $service
             ]);
+
+    }
+
+    /**
+     *
+     * affiche la description d'un service et la liste des providers liés à celui-ci
+     *
+     * @Route("services/{id}", name="service")
+     *
+     */
+    public function showService(Request $request, $id)
+    {
+
+        $doctrine = $this->getDoctrine();
+        $repo = $doctrine->getRepository('AppBundle:Service');
+        $repo_provider = $doctrine->getRepository('AppBundle:Provider');
+
+
+        $service = $repo->findOneBy(['id' => $id]);
+        $services = $repo->findAll();
+
+        $id = $service->getId();
+
+
+        //requête pour lister les provider de ce service
+        $providers = $repo_provider->myFindBy($id);
+
+        $paginator = $this->get('knp_paginator');
+
+        $result = $paginator->paginate(
+            $providers,
+            $request->query->getInt('page', 1),
+            $request->query->getInt('limit', 4)
+        );
+
+        return $this->render('services/service.html.twig', ['services' => $services, 'service' => $service, 'providers' => $result, 'id' => $id]);
+
 
     }
 }

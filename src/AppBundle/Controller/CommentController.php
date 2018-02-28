@@ -9,7 +9,22 @@
 namespace AppBundle\Controller;
 
 
+use Sensio\Bundle\FrameworkExtraBundle\Request;
+
 class CommentController
 {
+
+
+    public function newComment(){
+
+
+
+    }
+
+
+
+
+
+
 
 }
