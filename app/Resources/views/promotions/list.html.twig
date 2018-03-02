@@ -14,7 +14,7 @@
             <div class="event-content">
                 <h2>{{ p.name }}</h2>
                 <p>{{ p.description }}</p>
-                <a href="{{ path('promotion',{'slug':p.slug}) }}">{{ p.pdfDoc }}</a>
+                <a href="../../../web/uploads/pdf/{{ p.pdfDoc }}" target="_blank">Document pdf</a>
                 <div class="event-time"><i class="fa fa-clock-o"></i> 8:00PM - 11:00PM</div>
                 {% if app.user %}
                     {% if app.user.usertype == "provider" %}

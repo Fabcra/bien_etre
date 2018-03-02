@@ -54,13 +54,21 @@ class PromoController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
 
             $promo->setProvider($user);
+            $pdf = sha1(uniqid(mt_rand(), true)) . '.pdf';
+
+            $promo->setPdfDoc("../../../web/uploads/pdf/".$pdf);
+
 
             $em = $this->getDoctrine()->getManager();
 
             $em->persist($promo);
             $em->flush();
 
+            $slug = $promo->getSlug();
             $this->addFlash('success', 'Promotion ' . $promo->getName() . ' créé avec succès');
+
+            $this->get('knp_snappy.pdf')->generate('http://localhost:8888/bien_etre/web/app_dev.php/promotions/' . $slug, 'uploads/pdf/' . $pdf);
+
 
             return $this->redirectToRoute('promos_gestion');
         }
@@ -117,12 +125,21 @@ class PromoController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
 
+            $promo->setProvider($user);
+            $pdf = sha1(uniqid(mt_rand(), true)) . '.pdf';
+
+            $promo->setPdfDoc("../../../web/uploads/pdf/".$pdf);
+
+
+
             $em = $this->getDoctrine()->getManager();
 
             $em->persist($promo);
             $em->flush();
-
+            $slug = $promo->getSlug();
             $this->addFlash('success', 'Promo modifiée avec succès');
+
+            $this->get('knp_snappy.pdf')->generate('http://localhost:8888/bien_etre/web/app_dev.php/promotions/' . $slug, 'uploads/pdf/' . $pdf);
 
             return $this->redirectToRoute('promos_gestion');
         }
