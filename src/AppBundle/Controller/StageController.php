@@ -153,7 +153,6 @@ class StageController extends Controller
         $em->remove($stage);
         $em->flush();
 
-        $this->addFlash('success', 'Vous avez supprimé le stage ' . $stage->getName());
         return $this->redirectToRoute('stages_gestion');
 
     }

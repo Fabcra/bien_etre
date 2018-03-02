@@ -10,4 +10,15 @@ namespace AppBundle\Repository;
  */
 class abuseRepository extends \Doctrine\ORM\EntityRepository
 {
+
+    public function findAbuseswithMember(){
+
+        $qb = $this->createQueryBuilder('a');
+
+        $qb->leftJoin('a.comment', 'c');
+        $qb->leftJoin('a.member', 'm');
+
+        return $qb->getQuery()
+            ->getResult();
+    }
 }

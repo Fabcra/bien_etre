@@ -107,6 +107,7 @@ class UserController extends Controller
             if ($usertype === 'provider') {
 
                 $user = new Provider();
+                $user->setRoles(['ROLE_PROVIDER']);
                 $user->setEMail($mail);
                 $user->setUsertype('provider');
                 $form = $this->createForm(ProviderType::class, $user);
@@ -114,6 +115,7 @@ class UserController extends Controller
             } else if ($usertype === 'member') {
 
                 $user = new Member();
+                $user->setRoles(['ROLE_MEMBER']);
                 $user->setEMail($mail);
                 $user->setUsertype('member');
                 $form = $this->createForm(MemberType::class, $user);
@@ -203,13 +205,10 @@ class UserController extends Controller
 
         $id = $user->getId();
 
-        $doctrine = $this->getDoctrine();
-        $repo = $doctrine->getRepository('AppBundle:Service');
 
         $usertype = $user->getUsertype();
 
 
-        $services = $repo->findValidServices();
 
         if ($usertype === 'provider') {
 
@@ -236,11 +235,11 @@ class UserController extends Controller
 
         if ($usertype ==='provider') {
             return $this->render('security/update.html.twig', [
-                'providerForm' => $form->createView(), 'id' => $id, 'services' => $services
+                'providerForm' => $form->createView(), 'id' => $id,
             ]);
         } elseif ($usertype ==='member') {
             return $this->render('security/update.html.twig', [
-                'memberForm' => $form->createView(), 'id' => $id, 'services' => $services
+                'memberForm' => $form->createView(), 'id' => $id,
             ]);
         }
 

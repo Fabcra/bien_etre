@@ -58,7 +58,7 @@ class Comment
 
     /**
      *
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Abuse", mappedBy="comment")
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Abuse", mappedBy="comment", cascade={"remove"})
      *
      *
      */

@@ -19,6 +19,15 @@
                 <span class="title">Services</span>
                 <span class="subtitle">Gestions des services</span>
             </a>
+        </li><li
+                {%  if 'admin_abuses' in app.request.attributes.get('_route') %}
+            class="active"
+                {% endif %}>
+            <a href="{{ path('admin_abuses') }}">
+                <span class="icon"><i class="fa fa-i-cursor"></i></span>
+                <span class="title">Abus</span>
+                <span class="subtitle">Gestions des abus</span>
+            </a>
         </li>
     </ul>
 </div><!-- /.sidebar-secondary-admin -->

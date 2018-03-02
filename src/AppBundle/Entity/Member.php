@@ -63,6 +63,8 @@ class Member extends User
      */
     private $abuses;
 
+
+
     /**
      * @Gedmo\Slug(fields={"lastName"})
      * @ORM\column(length=128)
@@ -168,20 +170,21 @@ class Member extends User
         $this->avatar = $avatar;
     }
 
+
     /**
      * @return mixed
      */
-    public function getComments()
+    public function getSlug()
     {
-        return $this->comments;
+        return $this->slug;
     }
 
     /**
-     * @param mixed $comments
+     * @param mixed $slug
      */
-    public function setComments($comments)
+    public function setSlug($slug)
     {
-        $this->comments = $comments;
+        $this->slug = $slug;
     }
 
     /**
@@ -198,22 +201,6 @@ class Member extends User
     public function setAbuses($abuses)
     {
         $this->abuses = $abuses;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getSlug()
-    {
-        return $this->slug;
-    }
-
-    /**
-     * @param mixed $slug
-     */
-    public function setSlug($slug)
-    {
-        $this->slug = $slug;
     }
 
 

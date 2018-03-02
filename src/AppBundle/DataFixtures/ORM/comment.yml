@@ -1,9 +1,9 @@
 AppBundle\Entity\Comment:
   com-{1..20}:
-        cote: 0
+        cote: '<numberBetween(1,5)>'
         title: '<word()>'
         content: '<sentence()>'
         insertDate: '<dateTimeBetween("-200 days", "now")>'
-        #member: '@member-*'
+        member: '@member-*'
         abuses: '<numberBetween(1,10)>x @abuse-*'
         provider : '@provider-*'

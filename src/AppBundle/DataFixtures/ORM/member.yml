@@ -15,6 +15,6 @@ AppBundle\Entity\Member:
         postalCode: '@cp-*'
         locality: '@locality-*'
         city: '@city-*'
-        roles : ['ROLE_USER']
+        roles : ['ROLE_USER', 'ROLE_MEMBER']
         usertype : member
 

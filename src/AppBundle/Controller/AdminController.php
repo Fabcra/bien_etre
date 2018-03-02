@@ -20,7 +20,6 @@ use AppBundle\Service\Mailer;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
@@ -370,5 +369,81 @@ class AdminController extends Controller
 
     }
 
+    /**
+     * @return \Symfony\Component\HttpFoundation\Response
+     * @Route("admin/abuses", name="admin_abuses")
+     */
+    public function abuseAction(){
+
+        $doctrine = $this->getDoctrine();
+
+     //   $repo = $doctrine->getRepository('AppBundle:Abuse');
+
+//        $abuses = $repo->findAbuseswithMember();
+
+        $repo = $doctrine->getRepository('AppBundle:Comment');
+
+        $comments = $repo->findCommentsWithAbuses();
+
+        return $this->render('admin/abuses_list.html.twig', ['comments'=>$comments]);
+
+    }
+
+
+    /**
+     * @param $id
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     * @Route("/admin/comments/delete/{id}", name="admin_comments_delete")
+     */
+    public function removeComment(Mailer $mailer, $id)
+    {
+        $comment = $this->getDoctrine()->getRepository('AppBundle:Comment')->findOneById($id);
+
+        $em = $this->getDoctrine()->getManager();
+
+        $user = $comment->getMember();
+
+        $user->setBanned(true);
+
+
+        $mail = $user->getEmail();
+        $body = "Suite à votre récent commentaire sur Bien-être.com, vous avez été banni des utilisateurs 
+        du site.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec laoreet
+         sed velit euismod pretium. Mauris eget ipsum magna. Vestibulum aliquam ultrices turpis,
+          ut suscipit nisl feugiat sed. Nam non metus vel lorem viverra mattis. Duis consequat ligula
+           orci, at accumsan mi ullamcorper in. Duis a turpis eget elit pretium posuere. Quisque 
+           facilisis, sem sed tincidunt dapibus, nulla velit suscipit dolor, a volutpat risus er
+           at id felis. Fusce imper ";
+
+        $subject = "Suppression de votre commentaire et bannissement";
+
+        $mailer->sendMail($mail, $subject, $body);
+
+        $em->persist($user);
+        $em->remove($comment);
+        $em->flush();
+
+        return $this->redirectToRoute('admin_abuses');
+    }
+
+
+    /**
+     * @param $id
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     * @Route("/admin/abuses/delete/{id}", name="admin_abuses_delete")
+     */
+    public function removeAbuse($id){
+
+        $abuse = $this->getDoctrine()->getRepository('AppBundle:Abuse')->findOneById($id);
+
+        $em = $this->getDoctrine()->getManager();
+
+        $em->remove($abuse);
+        $em->flush();
+
+        return $this->redirectToRoute('admin_abuses');
+
+
+    }
 
 }

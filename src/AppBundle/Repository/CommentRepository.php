@@ -10,4 +10,19 @@ namespace AppBundle\Repository;
  */
 class CommentRepository extends \Doctrine\ORM\EntityRepository
 {
+
+    public function findCommentsWithAbuses()
+    {
+
+        $qb = $this->createQueryBuilder('c');
+
+        $qb->join('c.abuses', 'a');
+        $qb->expr()->isNotNull('a');
+        $qb->join('c.member', 'm');
+
+        return $qb->getQuery()
+            ->getResult();
+    }
+
+
 }

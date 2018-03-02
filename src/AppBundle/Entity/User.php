@@ -140,6 +140,7 @@ class User implements UserInterface, \Serializable
 
 
 
+
 // security
 
     public function getUsername()
@@ -490,9 +491,6 @@ class User implements UserInterface, \Serializable
     {
         $this->usertype = $usertype;
     }
-
-
-
 
 
 }

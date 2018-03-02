@@ -46,7 +46,7 @@ class Abuse
 
     /**
      *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Comment", inversedBy="abuses")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Comment", inversedBy="abuses", cascade={"persist"})
      *
      *
      */
@@ -143,5 +143,8 @@ class Abuse
     {
         $this->member = $member;
     }
+
+
+
 }
 

@@ -1,35 +1,35 @@
-<h3>Nouveau commentaire</h3>
+{% extends 'default/layout.html.twig' %}
 
-<div class="contact-form-wrapper clearfix background-white p30">
-    <form class="contact-form" method="post" action="?">
-        <div class="row">
-            <div class="col-sm-4">
-                <div class="form-group">
-                    <label for="contact-form-name">Titre</label>
-                    <input type="text" name="titre" id="contact-form-name" class="form-control">
-                </div><!-- /.form-group -->
-            </div><!-- /.col-* -->
+{% block content %}
+    <div class="container">
+        <h3>Nouveau commentaire</h3>
 
-            <div class="col-sm-4">
-                <div class="form-group">
-                    <label for="contact-form-subject">Date</label>
-                    <input type="date" name="contenu" id="contact-form-subject" class="form-control">
-                </div><!-- /.form-group -->
-            </div><!-- /.col-* -->
 
-            <div class="col-sm-4">
-                <div class="form-group">
-                    <label for="contact-form-email">cote</label>
-                    <input type="number" name="cote" id="contact-form-email" class="form-control">
-                </div><!-- /.form-group -->
-            </div><!-- /.col-* -->
-        </div><!-- /.row -->
 
-        <div class="form-group">
-            <label for="contact-form-message">Message</label>
-            <textarea class="form-control" id="contact-form-message" rows="6"></textarea>
-        </div><!-- /.form-group -->
+        <div class="contact-form-wrapper clearfix background-white p30">
+            {{ form_start(commentForm) }}
+            <div class="row">
+                <div class="col-sm-1">
+                    <div class="form-group">
+                        {{ form_row(commentForm.cote, {'label':'Evaluation', 'attr': {'class':'form-control'}}) }}
+                    </div><!-- /.form-group -->
+                </div><!-- /.col-* -->
+                <div class="form-group col-sm-2">
+                        {{ form_row(commentForm.title, {'label' : 'Titre', 'attr': {'class':'form-control'}}) }}
+                </div><!-- /.col-* -->
 
-        <button class="btn btn-primary pull-right">Post Message</button>
-    </form><!-- /.contact-form -->
-</div><!-- /.contact-form-wrapper -->
+                <div class="col-sm-11">
+                    <div class="form-group">
+                        {{ form_row(commentForm.content, {'label':'Votre Commentaire', 'attr': {'class':'form-control'}}) }}
+                    </div><!-- /.form-group -->
+                </div><!-- /.col-* -->
+
+
+            </div><!-- /.row -->
+
+
+            <button class="btn btn-primary pull-right">Post Message</button>
+            {{ form_end(commentForm) }}
+        </div><!-- /.contact-form-wrapper -->
+    </div>
+{% endblock %}

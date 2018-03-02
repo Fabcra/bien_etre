@@ -32,16 +32,14 @@ class ProviderController extends Controller
 
         $repo = $doctrine->getRepository('AppBundle:Provider');
         $provider = $repo->findOneBy(['slug' => $slug]);
+        $provId = $provider->getId();
 
 
 
         $promotions = $provider->getPromotions();
         $stages = $provider->getStages();
 
-
         $comments = $provider->getComments();
-
-
 
 
 
@@ -69,7 +67,7 @@ class ProviderController extends Controller
         }
 
         return $this->render('providers/provider.html.twig', [
-            'provider' => $provider, 'promotions'=>$promotions,
+            'provider' => $provider, 'promotions'=>$promotions, 'comments'=>$comments,
             'stages'=>$stages, 'mailForm' => $form->createView()]);
 
     }

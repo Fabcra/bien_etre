@@ -1,0 +1,115 @@
+{% extends 'admin/admin.html.twig' %}
+{% block rightside %}
+    <div class="row">
+
+        <div class="col-sm-10">
+
+            <div class="testimonial">
+                <h3 style="margin-left:100px;"> LISTE DES ABUS SIGNALES</h3>
+
+
+                {% if comments is not empty %}
+                {% for c in comments %}
+                    <div class="testimonial-inner js-comment-item js-abuse-item">
+                        <h4>Commentaire signalé : </h4>
+                        <div class="testimonial-title">
+                            <div class="post-label">{{ c.title }}</div>
+                            <div class="post-date">{{ c.insertDate|date('d-m-Y') }}</div>
+
+                            <div class="testimonial-rating">
+                                {% for i in 1..c.cote %}
+                                    <i class="fa fa-star"></i>
+                                {% endfor %}
+
+                            </div><!-- /.testimonial-rating -->
+                        </div><!-- /.testimonial-title -->
+
+                        {{ c.content }}
+
+                        <div class="testimonial-sign">{{ c.member.firstname }} {{ c.member.lastname }}</div>
+                        <!-- /.testimonial-sign -->
+                        <div>
+                            <div>
+                                {% for a in c.abuses %}
+                                    <p>signalé par {{ a.member.firstName }} {{ a.member.lastName }}
+                                        le {{ a.insertDate|date('d-m-Y') }}</p>
+                                    <p><i> {{ a.description }}</i></p>
+
+
+                                    <a href="#"
+                                       class="text-danger js-remove-comment"
+                                       data-url="{{ path('admin_comments_delete',{
+                                           id: c.id,
+                                       }) }}"
+                                    >
+                                        <span class="fa fa-close">supprimer</span>(supprimer le commentaire)
+                                    </a>
+                                    <br>
+                                    <a href="#"
+                                       class="text-success js-remove-abuse"
+                                       data-url="{{ path('admin_abuses_delete',{
+                                           id: a.id
+                                       }) }}"><span class="fa fa-check">accepter</span>(refuser le signalement et conserver le commentaire)
+
+                                    </a>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div><!-- /.testimonial-inner -->
+
+
+                {% endfor %}
+
+            </div><!-- /.testimonial -->
+            {% else %}
+            <p>PAS DE COMMENTAIRE SIGNALE</p>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}
+{% block javascripts %}
+
+    {{ parent() }}
+
+    <script>
+        jQuery(document).ready(function () {
+            $('.js-remove-comment').on('click', function (e) {
+                e.preventDefault();
+
+                var $el = $(this).closest('.js-comment-item');
+
+                $(this).find('.fa-close')
+                    .removeClass('fa-close')
+
+                $.ajax({
+                    url: $(this).data('url'),
+                    method: 'DELETE'
+                }).done(function () {
+                    $el.fadeOut();
+                })
+            });
+
+        });
+    </script>
+
+    <script>
+        jQuery(document).ready(function () {
+            $('.js-remove-abuse').on('click', function (e) {
+                e.preventDefault();
+
+                var $el = $(this).closest('.js-abuse-item');
+
+                $(this).find('.fa-close')
+                    .removeClass('fa-close')
+
+                $.ajax({
+                    url: $(this).data('url'),
+                    method: 'DELETE'
+                }).done(function () {
+                    $el.fadeOut();
+                })
+            });
+
+        });
+    </script>
+{% endblock %}
