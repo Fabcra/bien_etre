@@ -5,6 +5,7 @@
     {% else %}
     {% for p in promotions %}
     <div class="col-sm-6" style="margin-bottom: 20px;">
+
         <div class="event js-promo-item">
             <div class="event-date">
                 <span class="day">{{ p.fromDate|date('d') }}</span>
@@ -14,7 +15,7 @@
             <div class="event-content">
                 <h2>{{ p.name }}</h2>
                 <p>{{ p.description }}</p>
-                <a href="../../../web/uploads/pdf/{{ p.pdfDoc }}" target="_blank">Document pdf</a>
+                <a href="{{ p.pdfDoc }}" target="_blank">Document pdf</a>
                 <div class="event-time"><i class="fa fa-clock-o"></i> 8:00PM - 11:00PM</div>
                 {% if app.user %}
                     {% if app.user.usertype == "provider" %}
@@ -43,9 +44,9 @@
                 <!-- /.event-time -->
             </div><!-- /.event-content -->
         </div><!-- /.event -->
+
     </div>
     {% endfor %}
 </div>
-
 
     {% endif %}

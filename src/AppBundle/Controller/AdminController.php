@@ -17,6 +17,7 @@ use AppBundle\Form\ProviderType;
 use AppBundle\Form\ServiceType;
 use AppBundle\Service\FileUploader;
 use AppBundle\Service\Mailer;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -24,6 +25,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 /**
+ * CONTROLLER ADMINISTRATION
+ *
  * Class AdminController
  * @package AppBundle\Controller
  * @Security("is_granted('ROLE_ADMIN')")
@@ -31,7 +34,9 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 class AdminController extends Controller
 {
     /**
+     * page admin
      * @Route("/admin/users", name="admin_users")
+     *
      */
     public function adminAction()
     {
@@ -53,10 +58,12 @@ class AdminController extends Controller
 
 
     /**
+     * modification des utilisateurs
      * @param Request $request
      * @param $id
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      * @Route("admin/users/{id}", name="admin_user_update")
+     * @Method({"GET", "POST"})
      */
     public function updateUser(Request $request, Mailer $mailer, $id)
     {
@@ -74,7 +81,7 @@ class AdminController extends Controller
 
         if ($usertype == 'provider') {
 
-            $form = $this->createForm(ProviderType::class, $user)
+            $form = $this->createForm(ProviderType::class, $user, ['method'=>'POST'])
                 ->add('roles', ChoiceType::class, [
                     'choices' => [
                         'Admin' => 'ROLE_ADMIN',
@@ -95,7 +102,7 @@ class AdminController extends Controller
 
         } else {
 
-            $form = $this->createForm(MemberType::class, $user)
+            $form = $this->createForm(MemberType::class, $user, ['method'=>'POST'])
                 ->add('roles', ChoiceType::class, [
                     'choices' => [
                         'Admin' => 'ROLE_ADMIN',
@@ -184,6 +191,7 @@ class AdminController extends Controller
     }
 
     /**
+     * liste des services
      * @return \Symfony\Component\HttpFoundation\Response
      * @Route("admin/services", name="admin_services")
      */
@@ -200,9 +208,11 @@ class AdminController extends Controller
 
 
     /**
+     * création d'un nouveau service
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      * @Route("admin/services/new", name="admin_services_new")
+     * @Method({"GET", "POST"})
      */
     public function newService(Request $request, FileUploader $fileUploader)
     {
@@ -210,7 +220,7 @@ class AdminController extends Controller
         $service = new Service();
 
 
-        $form = $this->createForm(ServiceType::class, $service)
+        $form = $this->createForm(ServiceType::class, $service, ['method'=>'POST'])
             ->add('highlight', ChoiceType::class, array(
                 'choices' => array(
                     'oui' => true,
@@ -266,10 +276,13 @@ class AdminController extends Controller
 
 
     /**
+     * modification de service
+     *
      * @param Request $request
      * @param $id
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      * @Route("admin/services/{id}", name="admin_services_update")
+     * @Method({"GET", "POST"})
      */
     public
     function updateService(Request $request, $id)
@@ -282,7 +295,7 @@ class AdminController extends Controller
         $service = $repo->findOneById($id);
 
 
-        $form = $this->createForm(ServiceType::class, $service)
+        $form = $this->createForm(ServiceType::class, $service, ['method'=>'POST'])
             ->add('highlight', ChoiceType::class, array(
                 'choices' => array(
                     'oui' => true,
@@ -325,10 +338,12 @@ class AdminController extends Controller
 
 
     /**
+     * création d'image dans les services
      * @param Request $request
      * @param $id
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      * @Route("admin/services/images/{id}", name="admin_services_images")
+     * @Method({"GET", "POST"})
      */
     public function imgService(Request $request, FileUploader $fileUploader, $id)
     {
@@ -338,7 +353,7 @@ class AdminController extends Controller
 
         $id = $service->getId();
 
-        $form = $this->createForm(ImageType::class, $image);
+        $form = $this->createForm(ImageType::class, $image, ['method'=>'POST']);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -370,16 +385,13 @@ class AdminController extends Controller
     }
 
     /**
+     * liste des abus signalés
      * @return \Symfony\Component\HttpFoundation\Response
      * @Route("admin/abuses", name="admin_abuses")
      */
     public function abuseAction(){
 
         $doctrine = $this->getDoctrine();
-
-     //   $repo = $doctrine->getRepository('AppBundle:Abuse');
-
-//        $abuses = $repo->findAbuseswithMember();
 
         $repo = $doctrine->getRepository('AppBundle:Comment');
 
@@ -391,9 +403,11 @@ class AdminController extends Controller
 
 
     /**
+     * suppression d'un commentaire et bannissement du rédacteur
      * @param $id
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      * @Route("/admin/comments/delete/{id}", name="admin_comments_delete")
+     * @Method("DELETE")
      */
     public function removeComment(Mailer $mailer, $id)
     {
@@ -417,6 +431,8 @@ class AdminController extends Controller
 
         $subject = "Suppression de votre commentaire et bannissement";
 
+
+
         $mailer->sendMail($mail, $subject, $body);
 
         $em->persist($user);
@@ -428,9 +444,11 @@ class AdminController extends Controller
 
 
     /**
+     * suppression d'un signalement d'abus
      * @param $id
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      * @Route("/admin/abuses/delete/{id}", name="admin_abuses_delete")
+     * @Method("DELETE")
      */
     public function removeAbuse($id){
 

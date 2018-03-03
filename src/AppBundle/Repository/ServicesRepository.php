@@ -29,7 +29,9 @@ class ServicesRepository extends \Doctrine\ORM\EntityRepository
         $qb = $this->createQueryBuilder('s')
             ->where('s.valid = true');
 
-        $qb->leftJoin('s.image', 'i')->addSelect('i');
+        $qb
+            ->leftJoin('s.image', 'i')
+            ->addSelect('i');
 
         return $qb->getQuery()
             ->getResult();

@@ -22,4 +22,16 @@ class MemberRepository extends \Doctrine\ORM\EntityRepository
         return $qb->getQuery()
             ->getResult();
     }
+
+
+    public function findNewsletterSubscribers()
+    {
+        $qb = $this->createQueryBuilder('m')
+            ->where('m.newsletter = true')
+            ->where('m.banned = false')
+            ->where('m.confirmed = true');
+
+        return $qb->getQuery()
+            ->getResult();
+    }
 }

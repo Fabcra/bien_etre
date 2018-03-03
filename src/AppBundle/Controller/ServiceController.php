@@ -6,6 +6,7 @@ use AppBundle\Entity\Service;
 use AppBundle\Form\ServiceType;
 use AppBundle\Service\FileUploader;
 use AppBundle\Service\Mailer;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
@@ -50,9 +51,11 @@ class ServiceController extends Controller
 
 
     /**
+     * demande de création d'un service
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      * @Route("services/new", name="services_new")
+     * @Method({"GET", "POST"})
      */
     public function newService(Request $request, FileUploader $fileUploader, Mailer $mailer)
     {
@@ -60,7 +63,7 @@ class ServiceController extends Controller
         $service = new Service();
 
 
-        $form = $this->createForm(ServiceType::class, $service)
+        $form = $this->createForm(ServiceType::class, $service, ['method'=>'POST'])
             ->add('image', ImageType::class, array(
                     'label' => ' ',
                 )
@@ -73,7 +76,7 @@ class ServiceController extends Controller
             $image = $service->getImage();
             $file = $image->getFile();
             $fileName = $fileUploader->upload($file);
-            $image->setUrl('/bien_etre/web/uploads/images/' . $fileName);
+            $image->setUrl('/bien_etre/web/uploads/files/' . $fileName);
 
             $em = $this->getDoctrine()->getManager();
 

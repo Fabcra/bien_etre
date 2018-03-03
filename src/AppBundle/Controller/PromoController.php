@@ -39,8 +39,10 @@ class PromoController extends Controller
 
 
     /**
+     * création d'une promotion avec génération pdf knp snappy
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      * @Route("promotions/new", name="promo_new")
+     * @Method({"GET", "POST"})
      */
     public function newPromo(Request $request)
     {
@@ -48,7 +50,7 @@ class PromoController extends Controller
         $user = $this->getUser();
 
 
-        $form = $this->createForm(PromotionType::class, $promo);
+        $form = $this->createForm(PromotionType::class, $promo, ['method'=>'POST']);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -56,7 +58,7 @@ class PromoController extends Controller
             $promo->setProvider($user);
             $pdf = sha1(uniqid(mt_rand(), true)) . '.pdf';
 
-            $promo->setPdfDoc("../../../web/uploads/pdf/".$pdf);
+            $promo->setPdfDoc("/bien_etre/web/uploads/files/".$pdf);
 
 
             $em = $this->getDoctrine()->getManager();
@@ -67,7 +69,7 @@ class PromoController extends Controller
             $slug = $promo->getSlug();
             $this->addFlash('success', 'Promotion ' . $promo->getName() . ' créé avec succès');
 
-            $this->get('knp_snappy.pdf')->generate('http://localhost:8888/bien_etre/web/app_dev.php/promotions/' . $slug, 'uploads/pdf/' . $pdf);
+            $this->get('knp_snappy.pdf')->generate('http://localhost:8888/bien_etre/web/app_dev.php/promotions/' . $slug, 'uploads/files/' . $pdf);
 
 
             return $this->redirectToRoute('promos_gestion');
@@ -79,6 +81,8 @@ class PromoController extends Controller
 
 
     /**
+     * affiche la liste des promotions pour la gestion
+     *
      * @return \Symfony\Component\HttpFoundation\Response
      * @Route("/promotions/gestion", name="promos_gestion")
      *
@@ -100,10 +104,12 @@ class PromoController extends Controller
     }
 
     /**
+     * modification d'une promotion
      * @param Request $request
      * @param $id
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      * @Route("promotions/update/{id}", name="promos_update")
+     * @Method({"GET", "POST"})
      */
     public function updatePromo(Request $request, $id)
     {
@@ -118,7 +124,7 @@ class PromoController extends Controller
         $user_id = $promo->getProvider()->getId();
 
 
-        $form = $this->createForm(PromotionType::class, $promo);
+        $form = $this->createForm(PromotionType::class, $promo, ['method'=>'POST']);
 
 
         $form->handleRequest($request);
@@ -128,7 +134,7 @@ class PromoController extends Controller
             $promo->setProvider($user);
             $pdf = sha1(uniqid(mt_rand(), true)) . '.pdf';
 
-            $promo->setPdfDoc("../../../web/uploads/pdf/".$pdf);
+            $promo->setPdfDoc("/bien_etre/web/uploads/files/".$pdf);
 
 
 
@@ -156,6 +162,7 @@ class PromoController extends Controller
     }
 
     /**
+     * suppression d'une promotion
      * @param $id
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      * @Route("delete_promo/{id}", name = "delete_promo")
@@ -179,7 +186,7 @@ class PromoController extends Controller
 
 
     /**
-     * AFFICHE UNE PAGE PROMOTION TODO: A CONVERTIR EN PDF
+     * AFFICHE UNE PAGE PROMOTION
      *
      * @Route("promotions/{slug}", name="promotion")
      */

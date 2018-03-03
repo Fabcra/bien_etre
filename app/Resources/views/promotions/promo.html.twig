@@ -1,32 +1,33 @@
-    <div class="container" style="text-align: center; font-size: 20px;">
+{# PDF des promotions #}
+<div class="container" style="text-align: center; font-size: 20px;">
 
-        <div class="posts post-detail">
+    <div class="posts post-detail">
 
-            <div class="post-meta clearfix">
-                <img src="/bien_etre/web/assets/img/logo.png"/>
-                <h2>PROMOTIONS</h2>
-                <div class="post-meta-author"> offertes par <h3>{{ promotion.provider.slug }}</h3></div>
-                <!-- /.post-meta-author -->
-                <div class="post-meta-date">du {{ promotion.fromDate|date('d-m-Y') }}</div><!-- /.post-meta-date -->
-                <div class="post-meta-date">au {{ promotion.toDate|date('d-m-Y') }}</div><!-- /.post-meta-date -->
-                <!-- /.post-meta-categories -->
-            </div><!-- /.post-meta-categories -->
-
-
-            <div class="post-content" style="margin: 200px 20px 200px 20px;">
-                <p class='drop-cap'><i>{{ promotion.description }}</i></p>
-            </div><!-- /.post-content -->
-<hr>
-            <div class="post-meta-tags clearfix">
-                Type(s) de service(s) offert(s) :
-                {% for p in promotion.provider.services %}
-                    <ul style="list-style-type: none;">
-                        <li class="tag">{{ p.name }}</li>
-                    </ul>
-                {% endfor %}
-            </div><!-- /.post-meta -->
+        <div class="post-meta clearfix">
+            <img src="/bien_etre/web/assets/img/logo.png"/>
+            <h2>PROMOTIONS</h2>
+            <div class="post-meta-author"> offertes par <h3>{{ promotion.provider.slug }}</h3></div>
+            <!-- /.post-meta-author -->
+            <div class="post-meta-date">du {{ promotion.fromDate|date('d-m-Y') }}</div><!-- /.post-meta-date -->
+            <div class="post-meta-date">au {{ promotion.toDate|date('d-m-Y') }}</div><!-- /.post-meta-date -->
+            <!-- /.post-meta-categories -->
+        </div><!-- /.post-meta-categories -->
 
 
-        </div>
+        <div class="post-content" style="margin: 200px 20px 200px 20px;">
+            <p class='drop-cap'><i>{{ promotion.description }}</i></p>
+        </div><!-- /.post-content -->
+        <hr>
+        <div class="post-meta-tags clearfix">
+            Type(s) de service(s) offert(s) :
+            {% for p in promotion.provider.services %}
+                <ul style="list-style-type: none;">
+                    <li class="tag">{{ p.name }}</li>
+                </ul>
+            {% endfor %}
+        </div><!-- /.post-meta -->
+
 
     </div>
+
+</div>

@@ -1,0 +1,26 @@
+{# formulaire de création de newsletter (mise en page à mettre au point) #}
+{% extends"admin/admin.html.twig" %}
+{% block rightside %}
+<div class="container">
+    <h3>Newsletter </h3>
+    <div class="">
+        {{ form_start(newsletterForm) }}
+        <div class="row">
+            <div class="col-sm-4">
+                <div class="form-group">
+                    {{ form_row(newsletterForm.title, {'label' : 'Titre de la newsletter','attr':{'class':'form-control'}}) }}
+                    {{ form_row(newsletterForm.pdffile, {'label' : 'fichier pdf'}) }}
+                </div><!-- /.form-group -->
+            </div><!-- /.col-* -->
+
+        </div><!-- /.row -->
+
+        <div class="form-group col-sm-5">
+            {{ form_row(newsletterForm.message, {'attr':{'class':'form-control'}}) }}
+        </div><!-- /.form-group -->
+        {{ form_row(newsletterForm._token) }}
+        <button class="btn btn-primary">Post Message</button>
+        {{ form_end(newsletterForm) }}
+    </div><!-- /.contact-form-wrapper -->
+</div>
+{% endblock %}

@@ -11,7 +11,7 @@ namespace AppBundle\Controller;
 
 use AppBundle\Entity\Stage;
 use AppBundle\Form\StageType;
-use function Sodium\add;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
@@ -41,8 +41,10 @@ class StageController extends Controller
 
 
     /**
+     * création d'un stage
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      * @Route("stages/new", name="stage_new")
+     * @Method({"GET", "POST"})
      */
     public function newStage(Request $request)
     {
@@ -50,7 +52,7 @@ class StageController extends Controller
         $user = $this->getUser();
 
 
-        $form = $this->createForm(StageType::class, $stage);
+        $form = $this->createForm(StageType::class, $stage, ['method'=>'POST']);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -73,6 +75,7 @@ class StageController extends Controller
 
 
     /**
+     * affichage des stages pour la gestion
      * @return \Symfony\Component\HttpFoundation\Response
      * @Route("/stages/gestion", name="stages_gestion")
      *
@@ -94,10 +97,12 @@ class StageController extends Controller
     }
 
     /**
+     * modification de stage
      * @param Request $request
      * @param $id
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      * @Route("stages/update/{id}", name="stages_update")
+     * @Method({"GET", "POST"})
      */
     public function updateStage(Request $request, $id)
     {
@@ -112,7 +117,7 @@ class StageController extends Controller
         $user_id = $stage->getProvider()->getId();
 
 
-        $form = $this->createForm(StageType::class, $stage);
+        $form = $this->createForm(StageType::class, $stage, ['method'=>'POST']);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -139,9 +144,11 @@ class StageController extends Controller
     }
 
     /**
+     * suppression d'un stage
      * @param $id
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      * @Route("stage/delete/{id}", name = "stage_delete")
+     * @Method("DELETE")
      */
     public function deleteStage($id)
     {

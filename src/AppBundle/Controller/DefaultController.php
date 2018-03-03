@@ -9,6 +9,8 @@ use AppBundle\Service\Mailer;
 class DefaultController extends Controller
 {
     /**
+     * affichage de la page d'accueil
+     *
      * @Route("/", name="homepage")
      */
     public function indexAction(Mailer $mailer)

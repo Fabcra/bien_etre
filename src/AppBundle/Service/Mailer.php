@@ -9,7 +9,6 @@
 namespace AppBundle\Service;
 
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 class Mailer
 {
@@ -31,7 +30,8 @@ class Mailer
             ->setFrom("administration@bien_etre.com")
             ->setTo($mail)
             ->setBody($body)
-            ->setContentType("text/html");
+            ->setContentType("text/html")
+           ;
 
 
         return $this->mailer->send($message);

@@ -12,6 +12,7 @@ namespace AppBundle\Controller;
 use AppBundle\Entity\Abuse;
 use AppBundle\Form\AbuseType;
 use AppBundle\Service\Mailer;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -20,10 +21,13 @@ class AbuseController extends Controller
 {
 
     /**
+     * CONTROLLER ABUS
+     *
      * @param Request $request
      * @param $id
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      * @Route("/abuse/new/{id}", name="abuse_new")
+     * @Method({"GET", "POST"})
      */
     public function newAbuse(Request $request, Mailer $mailer, $id){
 
@@ -38,7 +42,7 @@ class AbuseController extends Controller
         $nameeditor = $editor->getFirstName();
 
 
-        $form = $this->createForm(AbuseType::class, $newabuse);
+        $form = $this->createForm(AbuseType::class, $newabuse, ['method'=>'POST']);
 
         $form->handleRequest($request);
 

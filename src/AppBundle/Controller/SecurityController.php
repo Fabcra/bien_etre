@@ -11,6 +11,7 @@ namespace AppBundle\Controller;
 
 use AppBundle\Form\UserType;
 use AppBundle\Service\Mailer;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -20,6 +21,8 @@ use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
 class SecurityController extends Controller
 {
     /**
+     * page login
+     *
      * @Route("/login", name="login")
      */
     public function loginAction()
@@ -40,9 +43,12 @@ class SecurityController extends Controller
     }
 
     /**
+     * modification du mot de passe
+     *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      * @Route("/password", name="update_password")
      * @Security("is_granted('ROLE_USER')")
+     * @Method({"GET", "POST"})
      */
     public function modifPwd(Request $request, EncoderFactoryInterface $encoderFactory, Mailer $mailer)
     {
@@ -53,7 +59,7 @@ class SecurityController extends Controller
         $pwd = $user->getPassword();
 
 
-        $form = $this->createForm(UserType::class, $user);
+        $form = $this->createForm(UserType::class, $user, ['method'=>'POST']);
 
         $form->handleRequest($request);
 

@@ -11,6 +11,7 @@ namespace AppBundle\Controller;
 
 use AppBundle\Entity\Comment;
 use AppBundle\Form\CommentType;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -21,11 +22,13 @@ class CommentController extends Controller
 
 
     /**
+     * redaction d'un commentaire
      * @param Request $request
      * @param $id
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      * @Route("/comments/new/{id}", name="comments_new")
      * @Security("is_granted('ROLE_MEMBER')")
+     * @Method({"GET", "POST"})
      */
     public function newComment(Request $request, $id){
 
@@ -39,7 +42,7 @@ class CommentController extends Controller
         $member = $this->getUser();
 
 
-        $form = $this->createForm(CommentType::class, $newcomment);
+        $form = $this->createForm(CommentType::class, $newcomment, ['method'=>'POST']);
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()){

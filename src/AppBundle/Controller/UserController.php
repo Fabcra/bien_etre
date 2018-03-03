@@ -15,6 +15,7 @@ use AppBundle\Form\MemberType;
 use AppBundle\Form\ProviderType;
 use AppBundle\Service\FileUploader;
 use AppBundle\Service\Message;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -28,16 +29,18 @@ use AppBundle\Service\Mailer;
 class UserController extends Controller
 {
     /**
+     * création d'un utilisateur temporaire et envoi du message de préinscription
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      * @Route("/preregister", name="preregister")
+     * @Method({"GET", "POST"})
      */
     public function preregister(Request $request, EncoderFactoryInterface $encoderFactory, Mailer $mailer)
     {
 
         $tempuser = new TempUser();
 
-        $form = $this->createForm(TempUserType::class, $tempuser);
+        $form = $this->createForm(TempUserType::class, $tempuser, ['method'=>'POST']);
 
         $form->handleRequest($request);
 
@@ -81,9 +84,10 @@ class UserController extends Controller
 
 
     /**
+     * Confirmation de création d'un utilisateur
      *
      * @Route("/register/{token}/{id}/{usertype}", name="register")
-     *
+     * @Method({"GET", "POST"})
      */
     public function registerAction(Request $request, Message $message, $token, $id)
     {
@@ -110,7 +114,7 @@ class UserController extends Controller
                 $user->setRoles(['ROLE_PROVIDER']);
                 $user->setEMail($mail);
                 $user->setUsertype('provider');
-                $form = $this->createForm(ProviderType::class, $user);
+                $form = $this->createForm(ProviderType::class, $user, ['method'=>'POST']);
 
             } else if ($usertype === 'member') {
 
@@ -118,7 +122,7 @@ class UserController extends Controller
                 $user->setRoles(['ROLE_MEMBER']);
                 $user->setEMail($mail);
                 $user->setUsertype('member');
-                $form = $this->createForm(MemberType::class, $user);
+                $form = $this->createForm(MemberType::class, $user, ['method'=>'POST']);
             }
 
             $password = $tempuser->getPassword();
@@ -191,9 +195,11 @@ class UserController extends Controller
     }
 
     /**
+     * modification profile
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      * @Route("/profile", name="update_profile")
+     * @Method({"GET", "POST"})
      */
     public function updateUser(Request $request, FileUploader $fileUploader)
     {
@@ -212,10 +218,10 @@ class UserController extends Controller
 
         if ($usertype === 'provider') {
 
-            $form = $this->createForm(ProviderType::class, $user);
+            $form = $this->createForm(ProviderType::class, $user, ['method'=>'POST']);
 
         } elseif ($usertype === 'member') {
-            $form = $this->createForm(MemberType::class, $user);
+            $form = $this->createForm(MemberType::class, $user, ['method'=>'POST']);
         }
 
         $form->handleRequest($request);
@@ -244,6 +250,5 @@ class UserController extends Controller
         }
 
     }
-
 
 }

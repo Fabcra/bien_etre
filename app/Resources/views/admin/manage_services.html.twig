@@ -1,4 +1,34 @@
+{# affichage liste des services pour gestions dans l'admin #}
 {% extends 'admin/admin.html.twig' %}
 {% block rightside %}
-    {% include 'admin/service_list.html.twig' %}
+    <div class="fa addmorespace">
+        <a href="{{ path('admin_services_new') }}"
+           class="btn btn-primary pull-right">Nouveau service</a>
+    </div>
+
+
+    <div class="posts">
+
+        {% for s in services %}
+            <div class="post">
+                <div class="post-image">
+                    <img src="{{ s.image.url }}" alt="{{ s.name }}">
+                    <a class="read-more" href="{{ path('admin_services_images', {'id':s.id}) }}">Modifier l'image</a>
+                </div><!-- /.post-image -->
+
+                <div class="post-content">
+                    <h2><a href="{{ path('admin_services_update',{'id':s.id}) }}">{{ s.name }}</a></h2>
+                    <p>{{ s.description }}</p>
+                </div><!-- /.post-content -->
+
+                <div class="clearfix">
+                    <p><u>Modifications</u></p>
+                    <a href="{{ path('admin_services_update',{'id':s.id}) }}"
+                       class="btn btn-secondary btn-xs">SERVICE</a>
+                    <a href="{{ path('admin_services_images',{'id':s.id}) }}"
+                       class="btn btn-secondary btn-xs">IMAGE</a>
+                </div><!-- /.post-meta -->
+            </div><!-- /.post -->
+        {% endfor %}
+    </div>
 {% endblock %}

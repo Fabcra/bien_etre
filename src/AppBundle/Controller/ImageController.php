@@ -21,7 +21,9 @@ class ImageController extends Controller
 {
 
     /**
+     * insertion d'un logo ou un avatar
      * @Route("/image/new", name="image_new")
+     * @Method({"GET", "POST"})
      */
     public function insertImage(Request $request, FileUploader $fileUploader)
     {
@@ -42,7 +44,7 @@ class ImageController extends Controller
 
             $file = $image->getFile();
             $filename = $fileUploader->upload($file);
-            $image->setUrl('/bien_etre/web/uploads/images/' . $filename);
+            $image->setUrl('/bien_etre/web/uploads/files/' . $filename);
 
             $em = $this->getDoctrine()->getManager();
             $em->persist($image);
@@ -69,9 +71,11 @@ class ImageController extends Controller
     }
 
     /**
+     * insertion d'images dans la galerie d'image des prestataires
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      * @Route("/gallery/image/new", name="gallery_image_new")
+     * @Method({"GET", "POST"})
      */
     public function addImageGallery(Request $request, FileUploader $fileUploader)
     {
@@ -85,7 +89,7 @@ class ImageController extends Controller
         $image = new Image();
 
 
-        $form = $this->createForm(ImageType::class, $image);
+        $form = $this->createForm(ImageType::class, $image, ['method'=>'POST']);
 
         $form->handleRequest($request);
 
@@ -97,7 +101,7 @@ class ImageController extends Controller
             $fileName = $fileUploader->upload($file);
 
             $image->setProvider($user);
-            $image->setUrl('/bien_etre/web/uploads/images/' . $fileName);
+            $image->setUrl('/bien_etre/web/uploads/files/' . $fileName);
 
             $em = $this->getDoctrine()->getManager();
             $em->persist($image);
@@ -114,6 +118,7 @@ class ImageController extends Controller
     }
 
     /**
+     * suppression d'une image de la gallerie
      * @Route("/gallery/image/delete/{imgId}", name="gallery_image_delete")
      * @Method("DELETE")
      */

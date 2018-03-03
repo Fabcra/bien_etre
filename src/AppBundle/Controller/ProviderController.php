@@ -22,6 +22,7 @@ class ProviderController extends Controller
 
 
     /**
+     * affiche la page d'un provider
      *
      * @Route("/provider/{slug}", name="provider")
      *
