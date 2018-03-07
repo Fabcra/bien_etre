@@ -6,6 +6,10 @@
  * Time: 20:39
  */
 
+/**
+ * CONTROLLER ABUS
+ */
+
 namespace AppBundle\Controller;
 
 
@@ -21,7 +25,7 @@ class AbuseController extends Controller
 {
 
     /**
-     * CONTROLLER ABUS
+     * Signalement d'un abus
      *
      * @param Request $request
      * @param $id
@@ -55,6 +59,8 @@ class AbuseController extends Controller
             $em =$this->getDoctrine()->getManager();
             $em->persist($newabuse);
             $em->flush();
+
+            //données pour le service mailer
 
             $mail = "abuse@bien-etre.com";
             $body = $newabuse->getDescription();

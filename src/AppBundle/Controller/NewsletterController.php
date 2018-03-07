@@ -36,7 +36,7 @@ class NewsletterController extends Controller
         $doctrine = $this->getDoctrine();
 
 
-        $form = $this->createForm(NewsletterType::class, $newsletter, ['method'=>'POST'])
+        $form = $this->createForm(NewsletterType::class, $newsletter, ['method' => 'POST'])
             ->add('pdffile', PdfType::class, array());
 
         $form->handleRequest($request);
@@ -50,7 +50,7 @@ class NewsletterController extends Controller
             $fileName = $fileUploader->upload($file);
 
 
-            $pdf->setName('../web/uploads/files/' . $fileName);
+            $pdf->setName('/bien_etre/web/uploads/files/' . $fileName);
 
             $repo = $doctrine->getRepository('AppBundle:Member');
 
@@ -70,7 +70,8 @@ class NewsletterController extends Controller
 
                 $subject = $newsletter->getTitle();
                 $body = $newsletter->getMessage();
-              //  $filepathUrl = $pdf->getName();
+                $filepathUrl = $pdf->getName();
+
 
 
                 $message = \Swift_Message::newInstance()
@@ -78,8 +79,10 @@ class NewsletterController extends Controller
                     ->setFrom("administration@bien_etre.com")
                     ->setTo($mails)
                     ->setBody($body)
-                    //->attach(\Swift_Attachment::fromPath($filepathUrl))
-                    ->setContentType("text/html");
+                    ->setContentType("text/html")
+                   // ->attach(\Swift_Attachment::fromPath($filepathUrl))
+
+                ;
 
 
                 $this->get('mailer')->send($message);

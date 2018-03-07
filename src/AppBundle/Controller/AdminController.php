@@ -253,7 +253,7 @@ class AdminController extends Controller
                 $image = $service->getImage();
                 $file = $image->getFile();
                 $fileName = $fileUploader->upload($file);
-                $image->setUrl('/bien_etre/web/uploads/images/' . $fileName);
+                $image->setUrl('/bien_etre/web/uploads/files/' . $fileName);
 
 
             $em = $this->getDoctrine()->getManager();
@@ -284,8 +284,7 @@ class AdminController extends Controller
      * @Route("admin/services/{id}", name="admin_services_update")
      * @Method({"GET", "POST"})
      */
-    public
-    function updateService(Request $request, $id)
+    public function updateService(Request $request, $id)
     {
 
         $doctrine = $this->getDoctrine();
@@ -361,7 +360,7 @@ class AdminController extends Controller
 
             $file = $image->getFile();
             $fileName = $fileUploader->upload($file);
-            $image->setUrl('/bien_etre/web/uploads/images/' . $fileName);
+            $image->setUrl('/bien_etre/web/uploads/files/' . $fileName);
 
             $em = $this->getDoctrine()->getManager();
             $em->persist($image);
@@ -369,7 +368,6 @@ class AdminController extends Controller
 
             $service->setImage($image);
 
-            $em = $this->getDoctrine()->getManager();
             $em->persist($service);
 
             $em->flush();

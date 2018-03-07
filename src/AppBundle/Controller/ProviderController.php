@@ -33,7 +33,6 @@ class ProviderController extends Controller
 
         $repo = $doctrine->getRepository('AppBundle:Provider');
         $provider = $repo->findOneBy(['slug' => $slug]);
-        $provId = $provider->getId();
 
 
 
@@ -41,8 +40,6 @@ class ProviderController extends Controller
         $stages = $provider->getStages();
 
         $comments = $provider->getComments();
-
-
 
         $newmail = new MailtoUser();
 
@@ -55,7 +52,6 @@ class ProviderController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->persist($newmail);
             $em->flush();
-
 
             $mail = $provider->getEmail();
             $body = $newmail->getMessage();
@@ -72,11 +68,6 @@ class ProviderController extends Controller
             'stages'=>$stages, 'mailForm' => $form->createView()]);
 
     }
-
-
-
-
-
 
 
 }

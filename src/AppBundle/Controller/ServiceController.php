@@ -14,7 +14,6 @@ use AppBundle\Form\ImageType;
 
 class ServiceController extends Controller
 {
-
     /**
      *
      * affiche la liste des services
@@ -23,16 +22,11 @@ class ServiceController extends Controller
      */
     public function listServices()
     {
-
         $doctrine = $this->getDoctrine();
         $repo = $doctrine->getRepository('AppBundle:Service');
         $services = $repo->findValidServicesWithImage();
-
         return $this->render('services/services.html.twig', ['services' => $services]);
-
-
     }
-
 
     /**
      * @return \Symfony\Component\HttpFoundation\Response
@@ -40,15 +34,11 @@ class ServiceController extends Controller
      */
     public function searchServices()
     {
-
         $doctrine = $this->getDoctrine();
         $repo = $doctrine->getRepository('AppBundle:Service');
-
         $services = $repo->findValidServices();
-
         return $this->render('default/minisearchbar.html.twig', ['services' => $services]);
     }
-
 
     /**
      * demande de création d'un service
@@ -59,23 +49,20 @@ class ServiceController extends Controller
      */
     public function newService(Request $request, FileUploader $fileUploader, Mailer $mailer)
     {
-
         $service = new Service();
-
-
-        $form = $this->createForm(ServiceType::class, $service, ['method'=>'POST'])
+        $form = $this->createForm(ServiceType::class, $service, ['method' => 'POST'])
             ->add('image', ImageType::class, array(
                     'label' => ' ',
                 )
-            )
-        ;
-
+            );
         $form->handleRequest($request);
-
         if ($form->isSubmitted() && $form->isValid()) {
+
             $image = $service->getImage();
             $file = $image->getFile();
             $fileName = $fileUploader->upload($file);
+
+
             $image->setUrl('/bien_etre/web/uploads/files/' . $fileName);
 
             $em = $this->getDoctrine()->getManager();
@@ -95,13 +82,12 @@ class ServiceController extends Controller
             $this->addFlash('success', 'La demande de création de service a été envoyé à un administrateur, 
             celle-ci sera traitée dans les plus brefs délais');
 
+
             return $this->redirectToRoute('update_profile');
         }
-
         return $this->render('services/new.html.twig',
             ['serviceForm' => $form->createView(), 'service' => $service
             ]);
-
     }
 
     /**
@@ -113,31 +99,20 @@ class ServiceController extends Controller
      */
     public function showService(Request $request, $id)
     {
-
         $doctrine = $this->getDoctrine();
         $repo = $doctrine->getRepository('AppBundle:Service');
         $repo_provider = $doctrine->getRepository('AppBundle:Provider');
-
-
         $service = $repo->findOneBy(['id' => $id]);
         $services = $repo->findAll();
-
         $id = $service->getId();
-
-
         //requête pour lister les provider de ce service
         $providers = $repo_provider->myFindBy($id);
-
         $paginator = $this->get('knp_paginator');
-
         $result = $paginator->paginate(
             $providers,
             $request->query->getInt('page', 1),
             $request->query->getInt('limit', 4)
         );
-
         return $this->render('services/service.html.twig', ['services' => $services, 'service' => $service, 'providers' => $result, 'id' => $id]);
-
-
     }
 }

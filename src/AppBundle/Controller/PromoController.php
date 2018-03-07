@@ -23,7 +23,6 @@ class PromoController extends Controller
     /**
      * AFFICHE LA LISTE DES PROMOTIONS
      *
-     *
      * @Route("promotions", name="promotions")
      */
     public function listPromo()
@@ -145,7 +144,7 @@ class PromoController extends Controller
             $slug = $promo->getSlug();
             $this->addFlash('success', 'Promo modifiée avec succès');
 
-            $this->get('knp_snappy.pdf')->generate('http://localhost:8888/bien_etre/web/app_dev.php/promotions/' . $slug, 'uploads/pdf/' . $pdf);
+            $this->get('knp_snappy.pdf')->generate('http://localhost:8888/bien_etre/web/app_dev.php/promotions/' . $slug, 'uploads/files/' . $pdf);
 
             return $this->redirectToRoute('promos_gestion');
         }
